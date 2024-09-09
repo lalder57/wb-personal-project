@@ -1,0 +1,1 @@
+// Logs the user out and sends them back to LandingPage
