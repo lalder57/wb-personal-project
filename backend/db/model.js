@@ -5,6 +5,7 @@ import connectToDB from "./db.js";
 
 export const db = await connectToDB('postgresql:///task_tracker');
 
+// Model Definitions
 export class User extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -177,6 +178,8 @@ PdTracker.init (
   },
 );
 
+// Define Model Relationships
+
 User.hasMany(PdTracker, { foreignKey: 'userId' });
 PdTracker.belongsTo(User, { foreignKey: 'userId' });
 Pd.hasMany(PdTracker, { foreignKey: 'pdId' });
@@ -186,6 +189,8 @@ User.hasMany(CourseTracker, { foreignKey: 'userId' });
 CourseTracker.belongsTo(User, { foreignKey: 'userId' });
 Course.hasMany(CourseTracker, { foreignKey: 'courseId' });
 CourseTracker.belongsTo(Course, { foreignKey: 'courseId' });
+
+
 
 if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
   console.log('syncing to database...');
