@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "initdb": "dropdb --if-exists task_tracker && createdb task_tracker",
+    "seed": "node scripts/seed.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",

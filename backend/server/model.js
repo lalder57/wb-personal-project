@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import util from 'util';
-import connectToDB from "./db";
+import url from 'url';
+import connectToDB from "./db.js";
 
 export const db = await connectToDB('postgresql:///task_tracker');
 
@@ -185,6 +186,13 @@ User.hasMany(CourseTracker, { foreignKey: 'userId' });
 CourseTracker.belongsTo(User, { foreignKey: 'userId' });
 Course.hasMany(CourseTracker, { foreignKey: 'courseId' });
 CourseTracker.belongsTo(Course, { foreignKey: 'courseId' });
+
+if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
+  console.log('syncing to database...');
+  await db.sync();
+  //  await db.sync({force: true})
+  console.log('Finished syncing database');
+};
 
 
 
