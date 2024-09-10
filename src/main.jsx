@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       <Route 
         path='/userDashboard/:id'
         element={<UserDashboard />}
-        loader
+        // loader=
       />
       <Route
         path='/addPd'

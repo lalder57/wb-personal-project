@@ -1,7 +1,6 @@
 import express from 'express';
 import session from 'express-session';
 import ViteExpress from 'vite-express';
-import { User, Pd, Course, PdTracker, CourseTracker } from '../db/model.js';
 import { handlerFunctions } from './controller.js';
 // set up middleward
 const app = express();
@@ -24,9 +23,11 @@ app.use(session({ secret: 'ssshhhhh', saveUninitialized: true, resave: false }))
 
 // ROUTES
 
-/* #1 - Auth
+/* #1 - Login
 Need a body with a username and password
+Will return { success: true } or { success: false }
 */
+app.post('/api/login', handlerFunctions.login);
 
 // #2 - Add Pd
 

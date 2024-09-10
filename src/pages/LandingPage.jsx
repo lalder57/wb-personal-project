@@ -3,7 +3,9 @@
 const LandingPage = () => {
   return (
     <div>
-      LandingPage
+      Website summary
+      Login form
+      Register form 
     </div>
   )
 }
