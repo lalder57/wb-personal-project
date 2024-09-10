@@ -20,7 +20,7 @@ const router = createBrowserRouter(
       
       <Route index element ={<LandingPage />} />
       <Route 
-        path='/userDashboard/:id'
+        path='/userDashboard'
         element={<UserDashboard />}
         // loader=
       />

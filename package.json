@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "initdb": "dropdb --if-exists task_tracker && createdb task_tracker",
-    "dev": "nodemon backend/server/app.js -w app.js -w src",
+    "dev": "nodemon backend/server/app.js -w backend -w src",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -22,5 +22,36 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
         success: false,
       })
     }
+  }, 
+
+  /* #2 - Add Pd - 
+Add newly created PD to the database
+Will need the userId from session
+Need a body with the newly added info (Pd and PdTracker models)
+Will return { message: 'PD saved!'}
+*/
+
+  addPd: async (req, res) => {
+    const { userId } = req.session;
+    const { pdName, pdProvider, pdHours, pdDateCompleted, pdDescription, pdReflection, pdRecommend } = req.body;
+    // console.log(`pdId: ${pdId}`);
+    const newPd = await Pd.create({
+      pdName,
+      pdProvider,
+      pdHours,
+    })
+    const newPdTracker = await PdTracker.create({
+      pdId: newPd.pdId,
+      userId: userId,
+      pdDateCompleted: new Date(),
+      pdDescription,
+      pdReflection,
+      pdRecommend,
+    })
+    res.json({
+      message: 'New PD saved!',
+      newPd: newPd,
+      newPdTracker: newPdTracker,
+    })
   }
 }

@@ -29,9 +29,22 @@ Will return { success: true } or { success: false }
 */
 app.post('/api/login', handlerFunctions.login);
 
-// #2 - Add Pd
+/* #2 - Add Pd - 
+Add newly created PD to the database
+Need a body with the newly added info (Pd and PdTracker models)
+Will return { message: 'PD saved!'}
 
-// #3 - Add Course
+Maybe have a create Pd endpoint and an add Pd endpoint 
+*/
+
+app.post('/api/addPd', handlerFunctions.addPd);
+
+/* #3 - Add Course
+Add newly created course to the database
+Need a body with the newly added info (Course and courseTracker models)
+Will return { message: 'Course saved!'}
+*/
+
 
 // #4 - Logout
 
