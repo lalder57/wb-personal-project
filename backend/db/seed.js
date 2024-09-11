@@ -1,15 +1,18 @@
 import { User, db } from "./model.js";
+import bcryptjs from 'bcryptjs'
 
 await db.sync( {force: true} );
 
+const hashedPassword = bcryptjs.hashSync('test', bcryptjs.genSaltSync(10));
+
 const user1 = await User.create({
   username: 'user1',
-  password: 'test'
+  password: hashedPassword
 });
 
 const user2 = await User.create({
   username: 'user2',
-  password: 'test'
+  password: hashedPassword
 });
 
 console.log(user1, user2)
