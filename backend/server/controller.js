@@ -51,6 +51,68 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
     
   }, 
 
+  logout: async (req, res) => {
+    req.session.destroy();
+
+    res.send({
+      message: 'user logged out',
+      success: true,
+    })
+    return
+  },
+
+  register: async (req, res) => {
+    // Get values of username and password from req.body
+    const { username, password } = req.body;
+    console.log(`REG username: ${username}, REG password: ${password}`)
+    // Check to see if there are any users with the same username, if so, send an error message
+    if (await User.findOne({ where: { username: username } })) {
+      res.send({
+        message: 'Username already exists',
+        success: false
+      })
+      return
+    }
+
+    // If we get to this point, the username is available
+
+    const hashedPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(10));
+
+    // Create new user with the information
+    const user = await User.create({
+      username,
+      password: hashedPassword
+    })
+
+    // set req.session.userId to user.userId after creating the user
+    req.session.userId = user.userId;
+
+    // Send message
+    res.send({
+      message: 'New user created!',
+      success: true,
+      userId: user.userId
+    })
+  },
+
+  checkSession: async (req, res) => {
+    // when this function is called, we simply want to check if there is a userId on the req.session object, and send it back if so
+    if (req.session.userId) {
+      res.send({
+        message: 'user is still logged in',
+        success: true,
+        userId: req.session.userId
+      })
+      return
+    } else {
+      res.send({
+        message: 'no user logged in',
+        success: false
+      })
+      return
+    }
+  },
+
   /* #2 - Add Pd - 
 Add newly created PD to the database
 Will need the userId from session
