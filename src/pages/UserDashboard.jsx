@@ -30,12 +30,11 @@ const UserDashboard = () => {
   return (
     <div>
       <Header />
-      <h1>User Dashboard</h1>
-      <h2>My PD progress:</h2>
-      <button>Add New PD</button> {/* Route to AddPd */}
-      <h2>Next Lane Change</h2>
-      <button>Add New Course</button> {/* Route to AddCourse */}
-      {/* <button onClick={handleLogout}>Logout</button> */}
+      <h1 className="text-3xl font-semibold">User Dashboard</h1>
+      <h2 className="text-xl font-semibold">My PD progress:</h2>
+      <button className="bg-blue-300 rounded-md w-32">Add New PD</button> {/* Route to AddPd */}
+      <h2 className="text-xl font-semibold">Next Lane Change</h2>
+      <button className="bg-blue-300 rounded-md w-40">Add New Course</button> {/* Route to AddCourse */}
     </div>
   );
 };

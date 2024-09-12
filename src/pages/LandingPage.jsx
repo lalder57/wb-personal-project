@@ -50,7 +50,7 @@ const LandingPage = () => {
         <>
           <LoginForm />
           <p>Not a member? Regiter below</p>
-          <button onClick={() => setShowRegister(true)}>Register</button>
+          <button className="bg-blue-300 rounded-md w-24" onClick={() => setShowRegister(true)}>Register</button>
         </>
         }
     </>

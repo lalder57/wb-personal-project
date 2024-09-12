@@ -46,9 +46,11 @@ function App() {
 
   return (
     <>
-    <nav className="h-10 bg-black">
-      Logo
-    </nav>
+    {!userId &&
+      <nav className="h-16 bg-blue-400">
+        Logo
+      </nav>
+    }
 
     <main>
       <Outlet />

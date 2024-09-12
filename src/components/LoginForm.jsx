@@ -69,7 +69,7 @@ const LoginForm = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button className="bg-blue-300 rounded-md w-24" type="submit">Login</button>
       </form>
       { invalidLogin && <p>Incorrect username or password. Please try again.</p> }
     </>

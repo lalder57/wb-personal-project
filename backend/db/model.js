@@ -54,14 +54,6 @@ Pd.init (
       type: DataTypes.STRING,
       allowNull: false,
     },
-    pdProvider: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    pdHours: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     modelName: 'pd',
@@ -87,14 +79,6 @@ Course.init (
       type: DataTypes.STRING,
       allowNull: false,
     },
-    courseProvider: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    courseCredits: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
 
   },
   {
@@ -115,6 +99,14 @@ CourseTracker.init (
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
+    },
+    courseProvider: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    courseCredits: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     courseDateCompleted: {
@@ -152,6 +144,14 @@ PdTracker.init (
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
+    },
+    pdProvider: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pdHours: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     pdDateCompleted: {

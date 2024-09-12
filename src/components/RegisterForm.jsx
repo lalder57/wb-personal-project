@@ -109,7 +109,7 @@ const RegisterForm = ({ setShowRegister }) => {
           placeholder="Phone"
           onChange={(e) => setPhone(e.target.value)}
         />
-        <button type="submit">Register</button>
+        <button className="bg-blue-300 rounded-md w-24" type="submit">Register</button>
       </form>
 
       {/* { invalidLogin && <p>Incorrect username or password. Please try again.</p> } */}

@@ -1,4 +1,4 @@
-import { User, db } from "./model.js";
+import { User, db, Pd } from "./model.js";
 import bcryptjs from 'bcryptjs'
 
 await db.sync( {force: true} );
@@ -15,7 +15,17 @@ const user2 = await User.create({
   password: hashedPassword
 });
 
-console.log(user1, user2)
+console.log(user1, user2);
+
+const pd1 = await Pd.create({
+  pdName: 'first pd',
+})
+
+const pd2 = await Pd.create({
+  pdName: 'second pd',
+})
+
+console.log(pd1, pd2);
 
 
 

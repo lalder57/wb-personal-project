@@ -46,9 +46,9 @@ userId: req.session.userId
 }
 */ 
 app.post('/api/register', handlerFunctions.register)
+
 /* #4 - Logout
 destroy session data
-
 */ 
 app.get('/api/logout', handlerFunctions.logout)
 

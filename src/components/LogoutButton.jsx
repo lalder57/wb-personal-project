@@ -23,7 +23,7 @@ const LogoutButton = () => {
 
   return (
     <>
-    <button onClick={handleLogout}>Logout</button>
+    <button className="bg-blue-300 rounded-md w-24" onClick={handleLogout}>Logout</button>
     </>
 
   )
