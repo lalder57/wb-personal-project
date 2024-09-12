@@ -68,6 +68,8 @@ Need a body with the newly added info (Course and courseTracker models)
 Will return { message: 'Course saved!'}
 */
 
+app.post('/api/addCourse', handlerFunctions.addCourse);
+
 
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

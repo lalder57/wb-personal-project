@@ -137,20 +137,20 @@ Will return { message: 'PD saved!'}
       pdReflection,
       pdRecommend,
     } = req.body;
-    
+
     console.log(`pdName: ${pdName}`);
 
     // if Pd exists in DB: then just create a new PdTracker with the userId and the pdId of that one
-    const pd = await Pd.findOne({ where: { pdName: pdName } })
+    const pd = await Pd.findOne({ where: { pdName: pdName } });
     if (pd) {
-      console.log('pdName already exists')
+      console.log("pdName already exists");
 
       const newPdTracker = await PdTracker.create({
         pdId: pd.pdId,
         userId: userId,
         pdProvider,
         pdHours,
-        pdDateCompleted: new Date(),
+        pdDateCompleted,
         pdDescription,
         pdReflection,
         pdRecommend,
@@ -158,12 +158,13 @@ Will return { message: 'PD saved!'}
       // send success message
       res.json({
         message: "PD successfully added",
+        success: true,
         PdName: pdName,
         newPdTracker: newPdTracker,
       });
     } else {
       // create a new Pd if pdName doesn't exist
-      console.log('pdName does not exist, create a new pd')
+      console.log("pdName does not exist, create a new pd");
       const newPd = await Pd.create({
         pdName,
       });
@@ -174,7 +175,7 @@ Will return { message: 'PD saved!'}
         userId: userId,
         pdProvider,
         pdHours,
-        pdDateCompleted: new Date(),
+        pdDateCompleted,
         pdDescription,
         pdReflection,
         pdRecommend,
@@ -183,10 +184,85 @@ Will return { message: 'PD saved!'}
       // send success message
       res.json({
         message: "New PD saved!",
+        sucess: true,
         newPd: newPd,
         newPdTracker: newPdTracker,
       });
     }
-    
+  },
+
+  /* #6 -- addCourse
+  Add newly created courses to the database
+  Will need the userId from session
+  Need a body with the newly added info (course and CourseTracker models)
+  Will return { message: 'course saved!'}
+  */
+  addCourse: async (req, res) => {
+    // grab userId from req.session
+    const { userId } = req.session;
+    // grab values of Course model and CourseTracker model from req.body
+    const {
+      // maybe have the courseId connected to the selector
+      courseId,
+      courseName,
+      courseProvider,
+      courseCredits,
+      courseDateCompleted,
+      courseDescription,
+      courseReflection,
+      courseRecommend,
+    } = req.body;
+
+    console.log(`courseName: ${courseName}`);
+
+    // if course exists in DB: then just create a new courseTracker with the userId and the courseId of that one
+    const course = await Course.findOne({ where: { courseName: courseName } });
+    if (course) {
+      console.log("courseName already exists");
+
+      const newCourseTracker = await CourseTracker.create({
+        courseId: course.courseId,
+        userId: userId,
+        courseProvider,
+        courseCredits,
+        courseDateCompleted,
+        courseDescription,
+        courseReflection,
+        courseRecommend,
+      });
+      // send success message
+      res.json({
+        message: "course successfully added",
+        success: true,
+        courseName: courseName,
+        newCourseTracker: newCourseTracker,
+      });
+    } else {
+      // create a new course if courseName doesn't exist
+      console.log("courseName does not exist, create a new course");
+      const newCourse = await Course.create({
+        courseName,
+      });
+
+      // create a new courseTracker with the userId and the newcourse.courseId
+      const newCourseTracker = await CourseTracker.create({
+        courseId: newCourse.courseId,
+        userId: userId,
+        courseProvider,
+        courseCredits,
+        courseDateCompleted,
+        courseDescription,
+        courseReflection,
+        courseRecommend,
+      });
+
+      // send success message
+      res.json({
+        message: "New course saved!",
+        sucess: true,
+        newCourse: newCourse,
+        newCourseTracker: newCourseTracker,
+      });
+    }
   },
 };

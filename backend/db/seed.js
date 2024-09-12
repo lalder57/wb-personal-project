@@ -1,4 +1,4 @@
-import { User, db, Pd } from "./model.js";
+import { User, db, Pd, Course } from "./model.js";
 import bcryptjs from 'bcryptjs'
 
 await db.sync( {force: true} );
@@ -27,6 +27,15 @@ const pd2 = await Pd.create({
 
 console.log(pd1, pd2);
 
+const course1 = await Course.create({
+  courseName: 'first course',
+})
+
+const course2 = await Course.create({
+  courseName: 'second course',
+})
+
+console.log(course1, course2);
 
 
 
