@@ -33,17 +33,26 @@ function App() {
   // // if the dependencyArray is not provided, useEffect will run on EVERY render
   // // if the dependencyArray is empty ([]), then this tells useEffect to ONLY run on the INITIAL render
   // // if the dependencyArray contains values, useEffect will run each time one of those values is changed/used
-  // useEffect(() => {
-  //   checkSession()
-  // }, [])
+  const checkSession = async () => {
+    const res = await axios.get("/api/check-session");
+    if (res.data.success) {
+      // setUserId(res.data.userId)
+      dispatch({
+        type: "USER_AUTH",
+        payload: res.data.userId,
+      });
+    }
+  };
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     navigate('/userDashboard')
-  //   }
-
-  // }, [userId])
+  useEffect(() => {
+    checkSession();
+  }, []);
   
+  useEffect(() => {
+    if (userId) {
+      navigate("/userDashboard");
+    }
+  }, [userId]);
 
   return (
     <>

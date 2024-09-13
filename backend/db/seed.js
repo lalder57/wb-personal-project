@@ -7,12 +7,22 @@ const hashedPassword = bcryptjs.hashSync('test', bcryptjs.genSaltSync(10));
 
 const user1 = await User.create({
   username: 'user1',
-  password: hashedPassword
+  password: hashedPassword,
+  fname: 'sam',
+  lname: 'smith',
+  email: '1234@gmail.com',
+  district: 'Alpine',
+  degree: '1'
 });
 
 const user2 = await User.create({
   username: 'user2',
-  password: hashedPassword
+  password: hashedPassword,
+  fname: 'alex',
+  lname: 'smith',
+  email: '5678@gmail.com',
+  district: 'Alpine',
+  degree: '2'
 });
 
 console.log(user1, user2);

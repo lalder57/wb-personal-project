@@ -1,14 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate, Link, useLoaderData, NavLink } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import { Doughnut } from 'react-chartjs-2';
 
 const UserDashboard = () => {
-  // const dispatch = useDispatch();
-  const { userPds, userCourses } = useLoaderData();
+  const dispatch = useDispatch();
+  const { userPds, userCourses, userId } = useLoaderData();
+  // const [userPds, setUserPds] = useState([])
+  // const [userCourses, setUserCourses] = useState([])
+
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.userId);
+  // const userId = useSelector((state) => state.userId); // from redux
   console.log(userId);
 
   // Make pd list that displays each pdName that the user has completed with a link to that pd's detail page.
@@ -25,9 +29,20 @@ const UserDashboard = () => {
     </li>
   })
 
+  // useEffect(() => {
+  //   if (userId) {
+  //     axios.get('/api/userInfo')
+  //     .then((res) => {
+  //       setUserPds(res.data.userPds)
+  //       setUserCourses(res.data.userCourses)
+  //     })
+  //   } else {
+  //     navigate("/")
+  //   }
+  //   // return { userPds: res.data.userPds, userCourses: res.data.userCourses }
+  // }, [userId])
   
-  
-  //can't view userDashboard if you aren't logged in
+  // can't view userDashboard if you aren't logged in
   useEffect(() => {
     if (!userId) {
       alert("You can't visit this page without being logged in");
@@ -44,6 +59,7 @@ const UserDashboard = () => {
       <ul>
         {pdItems}
       </ul>
+      {/* <Doughnut /> */}
       <Link to='/addPd'>
         <button className="bg-blue-300 rounded-md w-32">Add New PD</button> {/* Route to AddPd */}
       </Link>

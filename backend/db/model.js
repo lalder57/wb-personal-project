@@ -29,6 +29,26 @@ User.init (
       type: DataTypes.STRING,
       allowNull: false,
     }, 
+    fname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    district: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    degree: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     modelName: 'user',
@@ -194,8 +214,8 @@ CourseTracker.belongsTo(Course, { foreignKey: 'courseId' });
 
 if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
   console.log('syncing to database...');
-  await db.sync();
-  //  await db.sync({force: true})
+  // await db.sync();
+   await db.sync({force: true})
   console.log('Finished syncing database');
 };
 

@@ -18,10 +18,11 @@ import AddCourse from './pages/AddCourse.jsx'
 import axios from 'axios'
 import PdDetailPage from './pages/PdDetailPage.jsx'
 import CourseDetailPage from './pages/CourseDetailPage.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
+    <Route path='/' element={<App />} errorElement={<ErrorPage />}>
       
       <Route index element ={<LandingPage />} />
       <Route 
@@ -29,7 +30,7 @@ const router = createBrowserRouter(
         element={<UserDashboard />}
         loader={async () => {
           const res = await axios.get('/api/userInfo');
-          return { userPds: res.data.userPds, userCourses: res.data.userCourses }
+            return { userPds: res.data.userPds, userCourses: res.data.userCourses, userId: res.data.userId }
         }}
       />
       <Route

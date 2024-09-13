@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const RegisterForm = ({ setShowRegister }) => {
@@ -12,8 +13,8 @@ const RegisterForm = ({ setShowRegister }) => {
   const [email, setEmail] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
+  const [district, setDistrict] = useState("");
+  const [degree, setDegree] = useState("");
 
   const dispatch = useDispatch();
 
@@ -27,6 +28,11 @@ const RegisterForm = ({ setShowRegister }) => {
     const formData = {
       username,
       password,
+      fname,
+      lname,
+      email,
+      district,
+      degree
     };
 
     // now send this data to our /login endpoint to validate:
@@ -42,6 +48,11 @@ const RegisterForm = ({ setShowRegister }) => {
       // reset username and password fields
       setUsername("");
       setPassword("");
+      setEmail("");
+      setFname("");
+      setLname("");
+      setDistrict("");
+      setDegree("");
       setShowRegister(false);
       //navigate to the user's dashboard
       // navigate("/userDashboard"); Do I need this? Seems to be working without it
@@ -93,24 +104,25 @@ const RegisterForm = ({ setShowRegister }) => {
           placeholder="Last name"
           onChange={(e) => setLname(e.target.value)}
         />
-        <label htmlFor="address">Address:</label>
+        <label htmlFor="district">district:</label>
         <input
-          value={address}
+          value={district}
           type="text"
           required
-          placeholder="Address"
-          onChange={(e) => setAddress(e.target.value)}
+          placeholder="district"
+          onChange={(e) => setDistrict(e.target.value)}
         />
-        <label htmlFor="phone">Phone:</label>
-        <input
-          value={phone}
-          type="text"
-          required
-          placeholder="Phone"
-          onChange={(e) => setPhone(e.target.value)}
-        />
+        <label htmlFor="degree">degree:</label>
+        <select value={degree} required onChange={(e) => setDegree(e.target.value)}>
+          <option value="">Please choose a degree</option>
+          <option value="1">Bachelors</option>
+          <option value="2">Master</option>
+          <option value="3">Ph.D.</option>          
+        </select>
         <button className="bg-blue-300 rounded-md w-24" type="submit">Register</button>
       </form>
+
+        {/* <button>Return to Landing Page</button> // find a way to "take user back" to landing page */}
 
       {/* { invalidLogin && <p>Incorrect username or password. Please try again.</p> } */}
     </>

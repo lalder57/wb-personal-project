@@ -62,7 +62,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
 
   register: async (req, res) => {
     // Get values of username and password from req.body
-    const { username, password } = req.body;
+    const { username, password, fname, lname,email, district, degree } = req.body;
     console.log(`REG username: ${username}, REG password: ${password}`);
     // Check to see if there are any users with the same username, if so, send an error message
     if (await User.findOne({ where: { username: username } })) {
@@ -84,6 +84,11 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
     const user = await User.create({
       username,
       password: hashedPassword,
+      fname,
+      lname,
+      email,
+      district,
+      degree
     });
 
     // set req.session.userId to user.userId after creating the user
@@ -275,34 +280,42 @@ Will return { message: 'PD saved!'}
   getUserInfo: async (req, res) => {
     // grab the userId from the session
     const { userId } = req.session;
+    if (userId) {
+      // do a sequelize query for any pd_trackers with the userId
+      const userPds = await PdTracker.findAll({
+        where: {
+          userId: userId
+        },
+        include: {
+          model: Pd,
+        } 
+  
+      })
+  
+      const userCourses = await CourseTracker.findAll({
+        where: {
+          userId: userId
+        },
+        include: {
+          model: Course,
+        }
+      })
+  
+      // console.log(userId)
+  
+      // send success message
+      res.send({
+        message: "Here's your info!",
+        succes: true,
+        userPds: userPds,
+        userCourses: userCourses,
+        userId: userId 
+      })
 
-    // do a sequelize query for any pd_trackers with the userId
-    const userPds = await PdTracker.findAll({
-      where: {
-        userId: userId
-      },
-      include: {
-        model: Pd,
-      } 
+    } else {
+      res.sendStatus(401);
+    }
 
-    })
-
-    const userCourses = await CourseTracker.findAll({
-      where: {
-        userId: userId
-      },
-      include: {
-        model: Course,
-      }
-    })
-
-    // send success message
-    res.send({
-      message: "Here's your pds!",
-      succes: true,
-      userPds: userPds,
-      userCourses: userCourses
-    })
   },
 
   // will send back all the existing pds in the DB
