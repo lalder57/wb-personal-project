@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 
 const AddCourse = () => {
   // set state values for the input fields
@@ -16,6 +16,8 @@ const AddCourse = () => {
   const [showCreateCourseForm, setShowCreateCourseForm] = useState(false);
 
   const navigate = useNavigate();
+  // grab value from loader function in main.jsx to get display allCourses
+  const { allCourses } = useLoaderData();
 
   // These functions are inline on the buttons -
   // function to know when to display the addcourseForm:
@@ -64,9 +66,7 @@ const AddCourse = () => {
           <select value={courseName} onChange={(e) => setCourseName(e.target.value)}>
             <option value="default value">Please choose an option</option>
             {/* do a map of the database courseNames to populate the options of this select */}
-            <option value="first course">first course</option>
-            <option value="second course">second course</option>
-            <option value="third course">third course</option>
+            {allCourses.map((course) => <option key={course.courseId} value={course.courseName}>{course.courseName}</option>)}
           </select>
 
           <button type="submit" onClick={(e) => setShowAddCourseForm(true)}>

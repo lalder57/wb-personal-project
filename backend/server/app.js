@@ -70,6 +70,26 @@ Will return { message: 'Course saved!'}
 
 app.post('/api/addCourse', handlerFunctions.addCourse);
 
+/* #7 -- Show user their completed pds and courses
+Get request to find all pds and courses that have the userId
+will need the userId 
+will return {message: 'Here's your info', success: true, info: info }
+*/
+
+app.get('/api/userInfo', handlerFunctions.getUserInfo);
+
+// gets all the existing pds from the DB
+app.get('/api/pds', handlerFunctions.getPds);
+
+// get all existing courses from the DB
+app.get('/api/courses', handlerFunctions.getCourses)
+
+// get specific pdTracker details
+app.get('/api/pdTrackers/:pdTrackerId', handlerFunctions.getPdDetails)
+
+// get specific courseTracker detials
+app.get('/api/courseTrackers/:courseTrackerId', handlerFunctions.getCourseDetails)
+
 
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

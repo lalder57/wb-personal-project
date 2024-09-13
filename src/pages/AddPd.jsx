@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 
 const AddPd = () => {
   // set state values for the input fields
@@ -16,6 +16,8 @@ const AddPd = () => {
   const [showCreatePdForm, setShowCreatePdForm] = useState(false);
 
   const navigate = useNavigate();
+  // grab value from the loader function in main.jsx to get all of the existing pds
+  const { allPds } = useLoaderData();
 
   // These functions are inline on the buttons -
   // function to know when to display the addPdForm:
@@ -44,7 +46,9 @@ const AddPd = () => {
     // send back to userDashboard (has a loader to get new info from DB)
     navigate('/userDashboard')
   };
+  
 
+  
   return (
     <>
       <Header />
@@ -63,10 +67,10 @@ const AddPd = () => {
           PD Name:
           <select value={pdName} onChange={(e) => setPdName(e.target.value)}>
             <option value="default value">Please choose an option</option>
-            {/* do a map of the database pdNames to populate the options of this select */}
-            <option value="first pd">first pd</option>
-            <option value="second pd">second pd</option>
-            <option value="third pd">third pd</option>
+            {/* do a map to populate the options as the existing pds */}
+            {allPds.map((pd) => {
+               return <option key={pd.pdId} value={pd.pdName}>{pd.pdName}</option>
+             })}
           </select>
 
           <button type="submit" onClick={(e) => setShowAddPdForm(true)}>

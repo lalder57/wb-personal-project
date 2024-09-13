@@ -156,7 +156,7 @@ Will return { message: 'PD saved!'}
         pdRecommend,
       });
       // send success message
-      res.json({
+      res.send({
         message: "PD successfully added",
         success: true,
         PdName: pdName,
@@ -182,7 +182,7 @@ Will return { message: 'PD saved!'}
       });
 
       // send success message
-      res.json({
+      res.send({
         message: "New PD saved!",
         sucess: true,
         newPd: newPd,
@@ -231,7 +231,7 @@ Will return { message: 'PD saved!'}
         courseRecommend,
       });
       // send success message
-      res.json({
+      res.send({
         message: "course successfully added",
         success: true,
         courseName: courseName,
@@ -257,12 +257,114 @@ Will return { message: 'PD saved!'}
       });
 
       // send success message
-      res.json({
+      res.send({
         message: "New course saved!",
         sucess: true,
         newCourse: newCourse,
         newCourseTracker: newCourseTracker,
       });
     }
+  },
+
+  /* #7 -- Show user their completed pds and courses
+  Get request to find all pds and courses that have the userId
+  will need the userId 
+  will return {message: 'Here's your info', success: true, info: info }
+  */
+
+  getUserInfo: async (req, res) => {
+    // grab the userId from the session
+    const { userId } = req.session;
+
+    // do a sequelize query for any pd_trackers with the userId
+    const userPds = await PdTracker.findAll({
+      where: {
+        userId: userId
+      },
+      include: {
+        model: Pd,
+      } 
+
+    })
+
+    const userCourses = await CourseTracker.findAll({
+      where: {
+        userId: userId
+      },
+      include: {
+        model: Course,
+      }
+    })
+
+    // send success message
+    res.send({
+      message: "Here's your pds!",
+      succes: true,
+      userPds: userPds,
+      userCourses: userCourses
+    })
+  },
+
+  // will send back all the existing pds in the DB
+  getPds: async (req, res) => {
+    const allPds = await Pd.findAll();
+
+    res.send({
+      message: 'Here are all the existing PDs',
+      succes: true,
+      allPds: allPds
+    })
+  },
+
+  // will send back all the existing courses in the DB
+  getCourses: async (req, res) => {
+    const allCourses = await Course.findAll();
+
+    res.send({
+      message: 'Here are all the existing courses',
+      success: true,
+      allCourses: allCourses
+    })
+  },
+
+  // will send back a specific pdTracker with it's details
+  getPdDetails: async (req, res) => {
+    const { pdTrackerId } = req.params;
+
+    const pdDetails = await PdTracker.findOne({
+      where: {
+        pdTrackerId: pdTrackerId
+      },
+      include: {
+        model: Pd
+      }
+    })
+
+    // send success message:
+    res.send({
+      message: `Here are the details for your requested PD`,
+      succes: true,
+      pdDetails: pdDetails
+    })
+  },
+  // will send back a specific courseTracker with it's details
+  getCourseDetails: async (req, res) => {
+    const { courseTrackerId } = req.params;
+
+    const courseDetails = await CourseTracker.findOne({
+      where: {
+        courseTrackerId: courseTrackerId
+      },
+      include: {
+        model: Course
+      }
+    })
+
+    // send success message:
+    res.send({
+      message: `Here are the details for your requested course`,
+      succes: true,
+      courseDetails: courseDetails
+    })
   },
 };
