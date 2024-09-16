@@ -214,8 +214,8 @@ CourseTracker.belongsTo(Course, { foreignKey: 'courseId' });
 
 if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
   console.log('syncing to database...');
-  // await db.sync();
-   await db.sync({force: true})
+  await db.sync();
+  //  await db.sync({force: true})
   console.log('Finished syncing database');
 };
 

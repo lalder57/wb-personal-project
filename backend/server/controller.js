@@ -61,8 +61,8 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
   },
 
   register: async (req, res) => {
-    // Get values of username and password from req.body
-    const { username, password, fname, lname,email, district, degree } = req.body;
+    // Get values of username and password from req.body  --- change to degreeId
+    const { username, password, fname, lname, email, district, degree } = req.body;
     console.log(`REG username: ${username}, REG password: ${password}`);
     // Check to see if there are any users with the same username, if so, send an error message
     if (await User.findOne({ where: { username: username } })) {
@@ -90,6 +90,8 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       district,
       degree
     });
+
+    // if degreeId === 1, 2, 3 create the appropriate userLane to determine their degree and their lane when they first sign up
 
     // set req.session.userId to user.userId after creating the user
     req.session.userId = user.userId;
@@ -205,6 +207,13 @@ Will return { message: 'PD saved!'}
   addCourse: async (req, res) => {
     // grab userId from req.session
     const { userId } = req.session;
+    // do a query into userlanes to check their current progress to see if 
+    // it exceeds the needed value of their current lane to know to move them to the next lane or not
+    // if it doesn't excceed, just update current progress
+    // if it does exceed the needed value, then update their lane, reset their current progress to be 0 + any excess
+
+
+
     // grab values of Course model and CourseTracker model from req.body
     const {
       // maybe have the courseId connected to the selector
