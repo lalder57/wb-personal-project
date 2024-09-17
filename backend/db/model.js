@@ -45,10 +45,10 @@ User.init (
       type: DataTypes.STRING,
       allowNull: false,
     },
-    degree: {
-      type: DataTypes.STRING,
+    currentProgress: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-    }
+    },
   },
   {
     modelName: 'user',
@@ -198,6 +198,65 @@ PdTracker.init (
   },
 );
 
+export class Lane extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+};
+
+Lane.init(
+  {
+    laneId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
+    laneName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    needed: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    total: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    modelName: 'lane',
+    sequelize: db,
+  },
+);
+
+export class Degree extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+};
+
+Degree.init(
+  {
+    degreeId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
+    degreeName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    modelName: 'degree',
+    sequelize: db,
+  },
+);
+
+
 // Define Model Relationships
 
 User.hasMany(PdTracker, { foreignKey: 'userId' });
@@ -209,6 +268,14 @@ User.hasMany(CourseTracker, { foreignKey: 'userId' });
 CourseTracker.belongsTo(User, { foreignKey: 'userId' });
 Course.hasMany(CourseTracker, { foreignKey: 'courseId' });
 CourseTracker.belongsTo(Course, { foreignKey: 'courseId' });
+
+Degree.hasMany(User, { foreignKey: 'degreeId' });
+User.belongsTo(Degree, { foreignKey: 'degreeId' });
+
+Lane.hasMany(User, { foreignKey: 'laneId' });
+User.belongsTo(Lane, { foreignKey: 'laneId' });
+
+
 
 
 

@@ -19,6 +19,7 @@ import axios from 'axios'
 import PdDetailPage from './pages/PdDetailPage.jsx'
 import CourseDetailPage from './pages/CourseDetailPage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
+import UpdateDegreeForm from './components/UpdateDegreeForm.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +31,7 @@ const router = createBrowserRouter(
         element={<UserDashboard />}
         loader={async () => {
           const res = await axios.get('/api/userInfo');
-            return { userPds: res.data.userPds, userCourses: res.data.userCourses, userId: res.data.userId }
+            return { userPds: res.data.userPds, userCourses: res.data.userCourses, userId: res.data.userId, userLane: res.data.userLane, userDegree: res.data.userDegree }
         }}
       />
       <Route
@@ -71,7 +72,14 @@ const router = createBrowserRouter(
           const res = await axios.get(`/api/courseTrackers/${id}`);
           return { courseDetails: res.data.courseDetails }
         }}
-
+      />
+      <Route
+        path='/updateDegree'
+        element={<UpdateDegreeForm />} 
+        // loader={async () => {
+        //   const res = await axios.get('/api/courses');
+        //   return { allCourses: res.data.allCourses }
+        // }}
       />
 
   

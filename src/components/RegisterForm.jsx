@@ -14,7 +14,8 @@ const RegisterForm = ({ setShowRegister }) => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [district, setDistrict] = useState("");
-  const [degree, setDegree] = useState("");
+  const [degreeId, setDegreeId] = useState("");
+  const [laneId, setLaneId] = useState("");
 
   const dispatch = useDispatch();
 
@@ -32,7 +33,9 @@ const RegisterForm = ({ setShowRegister }) => {
       lname,
       email,
       district,
-      degree
+      degreeId,
+      laneId,
+      currentProgress: 0
     };
 
     // now send this data to our /login endpoint to validate:
@@ -52,7 +55,8 @@ const RegisterForm = ({ setShowRegister }) => {
       setFname("");
       setLname("");
       setDistrict("");
-      setDegree("");
+      setDegreeId("");
+      setLaneId("");
       setShowRegister(false);
       //navigate to the user's dashboard
       // navigate("/userDashboard"); Do I need this? Seems to be working without it
@@ -112,12 +116,25 @@ const RegisterForm = ({ setShowRegister }) => {
           placeholder="district"
           onChange={(e) => setDistrict(e.target.value)}
         />
-        <label htmlFor="degree">degree:</label>
-        <select value={degree} required onChange={(e) => setDegree(e.target.value)}>
+        <label htmlFor="degreeId">degree:</label>
+        <select value={degreeId} required onChange={(e) => setDegreeId(e.target.value)}>
           <option value="">Please choose a degree</option>
-          <option value="1">Bachelors</option>
-          <option value="2">Master</option>
+          <option value="1">bachelor's</option>
+          <option value="2">master's</option>
           <option value="3">Ph.D.</option>          
+        </select>
+        <label htmlFor="laneId">lane:</label>
+        <select value={laneId} required onChange={(e) => setLaneId(e.target.value)}>
+          <option value="">Please choose a lane</option>
+          <option value="1">Lane 1</option>
+          <option value="2">Lane 2</option>
+          <option value="3">Lane 3</option>
+          <option value="4">Lane 4</option>          
+          <option value="5">Lane 5</option>          
+          <option value="6">Lane 6</option>          
+          <option value="7">Lane 7</option>         
+          <option value="8">Lane 8</option>         
+          <option value="9">Lane 9</option>         
         </select>
         <button className="bg-blue-300 rounded-md w-24" type="submit">Register</button>
       </form>

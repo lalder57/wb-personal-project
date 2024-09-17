@@ -1,31 +1,10 @@
-import { User, db, Pd, Course } from "./model.js";
+import { User, db, Pd, Course, Lane, Degree } from "./model.js";
 import bcryptjs from 'bcryptjs'
 
 await db.sync( {force: true} );
 
 const hashedPassword = bcryptjs.hashSync('test', bcryptjs.genSaltSync(10));
 
-const user1 = await User.create({
-  username: 'user1',
-  password: hashedPassword,
-  fname: 'sam',
-  lname: 'smith',
-  email: '1234@gmail.com',
-  district: 'Alpine',
-  degree: '1'
-});
-
-const user2 = await User.create({
-  username: 'user2',
-  password: hashedPassword,
-  fname: 'alex',
-  lname: 'smith',
-  email: '5678@gmail.com',
-  district: 'Alpine',
-  degree: '2'
-});
-
-console.log(user1, user2);
 
 const pd1 = await Pd.create({
   pdName: 'first pd',
@@ -46,6 +25,102 @@ const course2 = await Course.create({
 })
 
 console.log(course1, course2);
+
+const lane1 = await Lane.create({
+  laneName: 'Lane 1',
+  needed: 20,
+  total: 20
+});
+
+const lane2 = await Lane.create({
+  laneName: 'Lane 2',
+  needed: 17,
+  total: 37
+});
+
+const lane3 = await Lane.create({
+  laneName: 'Lane 3',
+  needed: 13,
+  total: 50
+});
+
+const lane4 = await Lane.create({
+  laneName: 'Lane 4',
+  needed: 20,
+  total: 70
+});
+
+const lane5 = await Lane.create({
+  laneName: 'Lane 5',
+  needed: 1000,
+  total: 90
+})
+
+const lane6 = await Lane.create({
+  laneName: 'Lane 6',
+  needed: 20,
+  total: 20
+});
+
+const lane7 = await Lane.create({
+  laneName: 'Lane 7',
+  needed: 17,
+  total: 37
+});
+
+const lane8 = await Lane.create({
+  laneName: 'Lane 8',
+  needed: 1000,
+  total: 50
+});
+
+const lane9 = await Lane.create({
+  laneName: 'Lane 9',
+  needed: 1000,
+  total: 20
+});
+
+const bachelors = await Degree.create({
+  degreeName: "bachelor's"
+})
+
+const master = await Degree.create({
+  degreeName: "master's"
+})
+
+const phD = await Degree.create({
+  degreeName: "Ph.D"
+})
+
+const user1 = await User.create({
+  username: 'user1',
+  password: hashedPassword,
+  fname: 'sam',
+  lname: 'smith',
+  email: '1234@gmail.com',
+  district: 'Alpine',
+  currentProgress: 1,
+  laneId: 2,
+  degreeId: 1,
+});
+
+const user2 = await User.create({
+  username: 'user2',
+  password: hashedPassword,
+  fname: 'alex',
+  lname: 'smith',
+  email: '5678@gmail.com',
+  district: 'Alpine',
+  currentProgress: 2,
+  laneId: 7,
+  degreeId: 2,
+});
+
+console.log(user1, user2);
+
+
+
+
 
 
 

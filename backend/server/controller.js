@@ -1,5 +1,13 @@
 // store handlerFunctions to be used in app.js
-import { User, Pd, Course, PdTracker, CourseTracker } from "../db/model.js";
+import {
+  User,
+  Pd,
+  Course,
+  PdTracker,
+  CourseTracker,
+  Degree,
+  Lane,
+} from "../db/model.js";
 import bcryptjs from "bcryptjs";
 
 export const handlerFunctions = {
@@ -62,7 +70,17 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
 
   register: async (req, res) => {
     // Get values of username and password from req.body  --- change to degreeId
-    const { username, password, fname, lname, email, district, degree } = req.body;
+    const {
+      username,
+      password,
+      fname,
+      lname,
+      email,
+      district,
+      degreeId,
+      laneId,
+      currentProgress,
+    } = req.body;
     console.log(`REG username: ${username}, REG password: ${password}`);
     // Check to see if there are any users with the same username, if so, send an error message
     if (await User.findOne({ where: { username: username } })) {
@@ -88,7 +106,9 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       lname,
       email,
       district,
-      degree
+      laneId,
+      degreeId,
+      currentProgress,
     });
 
     // if degreeId === 1, 2, 3 create the appropriate userLane to determine their degree and their lane when they first sign up
@@ -207,12 +227,6 @@ Will return { message: 'PD saved!'}
   addCourse: async (req, res) => {
     // grab userId from req.session
     const { userId } = req.session;
-    // do a query into userlanes to check their current progress to see if 
-    // it exceeds the needed value of their current lane to know to move them to the next lane or not
-    // if it doesn't excceed, just update current progress
-    // if it does exceed the needed value, then update their lane, reset their current progress to be 0 + any excess
-
-
 
     // grab values of Course model and CourseTracker model from req.body
     const {
@@ -244,6 +258,39 @@ Will return { message: 'PD saved!'}
         courseReflection,
         courseRecommend,
       });
+
+      // FIGURE OUT HOW TO NOT DUPLICATE: do sequelize query to find the user (to get their lane and their degree)
+      const user = await User.findOne({
+        where: {
+          userId: userId,
+        },
+        include: [
+          {
+            model: Lane,
+          },
+          {
+            model: Degree,
+          },
+        ],
+      });
+
+      // update the user's current progress
+      user.currentProgress =
+        user.currentProgress + newCourseTracker.courseCredits;
+      user.save();
+      // console.log(user.currentProgress);
+
+      // check to see if their current progress exceeds the needed amount for that lane.
+      // If so, update their lane and reset their current progress to 0
+      // console.log(user.lane.laneId);
+
+      if (user.currentProgress >= user.lane.needed) {
+        const newLane = +user.laneId + 1;
+        user.laneId = newLane;
+        user.currentProgress = 0;
+        user.save();
+      }
+
       // send success message
       res.send({
         message: "course successfully added",
@@ -270,6 +317,38 @@ Will return { message: 'PD saved!'}
         courseRecommend,
       });
 
+      // do sequelize query to find the user (to get their lane and their degree)
+      const user = await User.findOne({
+        where: {
+          userId: userId,
+        },
+        include: [
+          {
+            model: Lane,
+          },
+          {
+            model: Degree,
+          },
+        ],
+      });
+
+      // update the user's current progress
+      user.currentProgress =
+        user.currentProgress + newCourseTracker.courseCredits;
+      user.save();
+      // console.log(user.currentProgress);
+
+      // check to see if their current progress exceeds the needed amount for that lane.
+      // If so, update their lane and reset their current progress to 0
+      // console.log(user.lane.laneId);
+
+      if (user.currentProgress >= user.lane.needed) {
+        const newLane = +user.laneId + 1;
+        user.laneId = newLane;
+        user.currentProgress = 0;
+        user.save();
+      }
+
       // send success message
       res.send({
         message: "New course saved!",
@@ -290,41 +369,56 @@ Will return { message: 'PD saved!'}
     // grab the userId from the session
     const { userId } = req.session;
     if (userId) {
+      const user = await User.findOne({
+        where: {
+          userId: userId,
+        },
+        include: [
+          {
+            model: Lane,
+          },
+          {
+            model: Degree,
+          },
+        ],
+      });
+
       // do a sequelize query for any pd_trackers with the userId
       const userPds = await PdTracker.findAll({
         where: {
-          userId: userId
+          userId: userId,
         },
         include: {
           model: Pd,
-        } 
-  
-      })
-  
+        },
+      });
+
       const userCourses = await CourseTracker.findAll({
         where: {
-          userId: userId
+          userId: userId,
         },
         include: {
           model: Course,
-        }
-      })
-  
+        },
+      });
+
+      console.log(user);
+
       // console.log(userId)
-  
+
       // send success message
       res.send({
         message: "Here's your info!",
         succes: true,
         userPds: userPds,
         userCourses: userCourses,
-        userId: userId 
-      })
-
+        userId: userId,
+        userLane: user.lane,
+        userDegree: user.degree,
+      });
     } else {
       res.sendStatus(401);
     }
-
   },
 
   // will send back all the existing pds in the DB
@@ -332,10 +426,10 @@ Will return { message: 'PD saved!'}
     const allPds = await Pd.findAll();
 
     res.send({
-      message: 'Here are all the existing PDs',
+      message: "Here are all the existing PDs",
       succes: true,
-      allPds: allPds
-    })
+      allPds: allPds,
+    });
   },
 
   // will send back all the existing courses in the DB
@@ -343,10 +437,10 @@ Will return { message: 'PD saved!'}
     const allCourses = await Course.findAll();
 
     res.send({
-      message: 'Here are all the existing courses',
+      message: "Here are all the existing courses",
       success: true,
-      allCourses: allCourses
-    })
+      allCourses: allCourses,
+    });
   },
 
   // will send back a specific pdTracker with it's details
@@ -355,19 +449,19 @@ Will return { message: 'PD saved!'}
 
     const pdDetails = await PdTracker.findOne({
       where: {
-        pdTrackerId: pdTrackerId
+        pdTrackerId: pdTrackerId,
       },
       include: {
-        model: Pd
-      }
-    })
+        model: Pd,
+      },
+    });
 
     // send success message:
     res.send({
       message: `Here are the details for your requested PD`,
       succes: true,
-      pdDetails: pdDetails
-    })
+      pdDetails: pdDetails,
+    });
   },
   // will send back a specific courseTracker with it's details
   getCourseDetails: async (req, res) => {
@@ -375,18 +469,18 @@ Will return { message: 'PD saved!'}
 
     const courseDetails = await CourseTracker.findOne({
       where: {
-        courseTrackerId: courseTrackerId
+        courseTrackerId: courseTrackerId,
       },
       include: {
-        model: Course
-      }
-    })
+        model: Course,
+      },
+    });
 
     // send success message:
     res.send({
       message: `Here are the details for your requested course`,
       succes: true,
-      courseDetails: courseDetails
-    })
+      courseDetails: courseDetails,
+    });
   },
 };

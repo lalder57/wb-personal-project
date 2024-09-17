@@ -4,19 +4,22 @@ import { useNavigate, Link, useLoaderData, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import React from "react";
+import UpdateDegreeForm from "../components/UpdateDegreeForm";
 // import { Doughnut } from 'react-chartjs-2';
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import Chart from "react-apexcharts";
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
-  const { userPds, userCourses, userId } = useLoaderData();
+  const { userPds, userCourses, userId, userLane, userDegree } = useLoaderData();
+  const [showUpdateDegree, setShowUpdateDegree] = useState(false);
   // const [userPds, setUserPds] = useState([])
   // const [userCourses, setUserCourses] = useState([])
 
+  //check to see if userLane is 5 or 8, if so, setShowUpdateDegree(true)
+  
 
 
-  // create a function to loop over the laneArray to determine the user's current lane
 
   // something for the chart to work
   // ChartJS.register(ArcElement, Tooltip, Legend);
@@ -187,7 +190,13 @@ const UserDashboard = () => {
     }
   }, [userId]);
 
-  return (
+  useEffect(() => {
+    if (userLane.laneId === 5 || userLane.laneId === 8) {
+      setShowUpdateDegree(true);
+    };
+  }, [])
+
+  return ( 
     <div>
       <Header />
       <h1 className="text-3xl font-semibold">User Dashboard</h1>
@@ -201,8 +210,10 @@ const UserDashboard = () => {
         <button className="bg-blue-300 rounded-md w-32">Add New PD</button>{" "}
         {/* Route to AddPd */}
       </Link>
-      <h2 className="text-xl font-semibold">Next Lane Change</h2>
-      show list of completed Courses here
+      <h2 className="text-xl font-semibold">Next Lane Change:</h2>
+      <h2>Degree: {userDegree.degreeName}</h2>
+      <h2>{userLane.laneName}</h2>
+      <h3>All completed courses:</h3>
       <ul>{courseItems}</ul>
       <Chart
         options={gaugeOptions}
@@ -214,6 +225,11 @@ const UserDashboard = () => {
         <button className="bg-blue-300 rounded-md w-40">Add New Course</button>{" "}
         {/* Route to AddCourse */}
       </Link>
+      {showUpdateDegree && 
+        <Link to='/updateDegree'>
+          <button>Update Degree</button>
+        </Link>
+      }
     </div>
   );
 };
