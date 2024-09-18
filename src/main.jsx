@@ -31,7 +31,7 @@ const router = createBrowserRouter(
         element={<UserDashboard />}
         loader={async () => {
           const res = await axios.get('/api/userInfo');
-            return { userPds: res.data.userPds, userCourses: res.data.userCourses, userId: res.data.userId, userLane: res.data.userLane, userDegree: res.data.userDegree }
+            return { userPds: res.data.userPds, userCourses: res.data.userCourses, userId: res.data.userId, userCurrentProgress: res.data.userCurrentProgress, userLane: res.data.userLane, userDegree: res.data.userDegree }
         }}
       />
       <Route

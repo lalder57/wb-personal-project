@@ -90,6 +90,9 @@ app.get('/api/pdTrackers/:pdTrackerId', handlerFunctions.getPdDetails)
 // get specific courseTracker detials
 app.get('/api/courseTrackers/:courseTrackerId', handlerFunctions.getCourseDetails)
 
+// post request to update a user's degreeId if they are in lane 5 or 8
+app.post('/api/updateDegree', handlerFunctions.updateDegree)
+
 
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

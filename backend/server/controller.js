@@ -404,7 +404,7 @@ Will return { message: 'PD saved!'}
 
       console.log(user);
 
-      // console.log(userId)
+      // console.log(user.currentProgress)
 
       // send success message
       res.send({
@@ -415,6 +415,7 @@ Will return { message: 'PD saved!'}
         userId: userId,
         userLane: user.lane,
         userDegree: user.degree,
+        userCurrentProgress: user.currentProgress
       });
     } else {
       res.sendStatus(401);
@@ -482,5 +483,44 @@ Will return { message: 'PD saved!'}
       succes: true,
       courseDetails: courseDetails,
     });
+  },
+  updateDegree: async (req, res) => {
+    // get userId from the session
+    const { userId } = req.session;
+
+    // get degreeId from req.body
+    const { degreeId } = req.body
+
+    // do a sequelize query to find the user
+    const user = await User.findOne({
+      where: {
+        userId: userId
+      }
+    })
+
+    // update user degreeId and update their lane if they change 
+
+    user.degreeId = degreeId;
+    await user.save();
+    console.log(user.degreeId)
+    
+    if (+user.degreeId === 2) {
+      console.log("HIT DEGREE 2")
+      user.laneId = 6;
+    } else if (+user.degreeId === 3) {
+      console.log("HIT DEGREE 3")
+      user.laneId = 9;
+    }
+    await user.save();
+
+    // send success message
+
+    res.send({
+      message: 'Degree updated successfully!',
+      success: true,
+      degreeId: degreeId,
+      laneId: user.laneId
+    });
+
   },
 };

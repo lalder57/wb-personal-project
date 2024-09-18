@@ -11,12 +11,13 @@ import Chart from "react-apexcharts";
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
-  const { userPds, userCourses, userId, userLane, userDegree } = useLoaderData();
+  const { userPds, userCourses, userId, userLane, userDegree, userCurrentProgress } = useLoaderData();
   const [showUpdateDegree, setShowUpdateDegree] = useState(false);
   // const [userPds, setUserPds] = useState([])
   // const [userCourses, setUserCourses] = useState([])
 
   //check to see if userLane is 5 or 8, if so, setShowUpdateDegree(true)
+
   
 
 
@@ -111,6 +112,9 @@ const UserDashboard = () => {
   // }
 
   // course gauge stuff
+  //calculate percentage for gauge (to keep it working visually)
+  const percentage = (userCurrentProgress / userLane.needed) * 100;
+
   const gaugeOptions = {
     chart: {
       type: "radialBar",
@@ -136,8 +140,8 @@ const UserDashboard = () => {
             fontSize: "17px",
           },
           value: {
-            formatter: function (val) {
-              return `${val}%`;
+            formatter: function () {
+              return `${userCurrentProgress}/${userLane.needed}`;
             },
             color: "#111",
             fontSize: "36px",
@@ -153,7 +157,7 @@ const UserDashboard = () => {
     // stroke: {
     //   lineCap: 'round', // Rounded end cap for the stroke
     // },
-    labels: [`Next Salaray Lane Change`], // Label in the center
+    labels: ["Current Progress"], // Label in the center
   };
 
   // const yaxis = {
@@ -166,8 +170,9 @@ const UserDashboard = () => {
     return acc + course.courseCredits;
   }, 0);
   // Chart data (Progress percentage)
-  const chartData = [totalCourseCredits];
-  console.log(totalCourseCredits);
+  const chartData = [percentage];
+  // const chartData = [((userCurrentProgress / + userLane.needed) * 100).toFixed(2)];
+  // console.log(totalCourseCredits);
 
   // useEffect(() => {
   //   if (userId) {
@@ -221,6 +226,10 @@ const UserDashboard = () => {
         type="radialBar"
         height={350}
       />
+      <div>
+        <h3>{userCurrentProgress}</h3>
+        <h3>{userLane.needed}</h3>
+      </div>
       <Link to="/addCourse">
         <button className="bg-blue-300 rounded-md w-40">Add New Course</button>{" "}
         {/* Route to AddCourse */}

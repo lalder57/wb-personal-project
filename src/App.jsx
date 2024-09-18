@@ -12,7 +12,7 @@ import axios from "axios"
 
 function App() {
   const userId = useSelector((state) => state.userId)
-  console.log(userId)
+  // console.log(userId)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // On initial render, I want this component to determine if there is a userId saved in the server's req.session object
