@@ -1,0 +1,20 @@
+Some Notes about things I have encountered in the project: 
+Database model -
+  the database model has proven to be difficult, and I have had to restructure it three times now to include a lane table and a degree table 
+  and just knowing what information I was going to need to display what I wanted was difficult from the beginning.
+  I now have a working database model that I am able to grab all of the data I wanted to display in my charts and on the userDashboard.
+  The data in weird in general because it mixes degrees and lanes to see if you can move up a lane, so lanes 5 & 8 have caused me problems 
+  here and there where it was necessary to implement something special for those lanes.
+
+Finding charts -
+  It has been hard to find a library that has the two types charts that I want with the customizability that I want. 
+  At least for right now, I have found a way that I am pleased with using two charts from the same library. Trying to learn a new library 
+  and how to style the charts the way I am wanting is difficult. I have used chatgpt to explain to me how to set up a new library and get 
+  a random chart showing up, because some of the documentation on installation and getting started is not great. 
+
+Debugging -
+  I have gotten more practice with where to place console.logs so that I can see what is happening when I run into problems.
+  I have also gotten better at reading and understanding the error messages that are given in the console/terminal
+
+
+

@@ -18,6 +18,8 @@ const UpdateDegreeForm = () => {
     // axios call to the update degree endpoint
     const res = await axios.post('/api/updateDegree', degreeFormData)
 
+    console.log(res.data);
+
     if (res.data.success) {
       alert('Congratulations! Your degree has been updated.')
       navigate('/userDashboard');

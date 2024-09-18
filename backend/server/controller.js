@@ -281,14 +281,34 @@ Will return { message: 'PD saved!'}
       // console.log(user.currentProgress);
 
       // check to see if their current progress exceeds the needed amount for that lane.
-      // If so, update their lane and reset their current progress to 0
+      // If so, update their lane and reset their current progress to 0, or leftover value if necessary
       // console.log(user.lane.laneId);
 
       if (user.currentProgress >= user.lane.needed) {
-        const newLane = +user.laneId + 1;
-        user.laneId = newLane;
-        user.currentProgress = 0;
-        user.save();
+        if (+user.laneId === 5 || +user.laneId === 8 || +user.laneId === 9) {
+          const newLane = await Lane.findOne({
+            where: {
+              laneId: +user.laneId + 1,
+            },
+          });
+          console.log(newLane);
+          if (user.degreeId === newLane.degreeId) {
+            user.laneId = newLane.laneId;
+          }
+          user.save();
+        } else {
+          user.currentProgress = user.currentProgress - user.lane.needed;
+          const newLane = await Lane.findOne({
+            where: {
+              laneId: +user.laneId + 1,
+            },
+          });
+          console.log(newLane);
+          if (user.degreeId === newLane.degreeId) {
+            user.laneId = newLane.laneId;
+          }
+          user.save();
+        }
       }
 
       // send success message
@@ -343,11 +363,31 @@ Will return { message: 'PD saved!'}
       // console.log(user.lane.laneId);
 
       if (user.currentProgress >= user.lane.needed) {
-        user.currentProgress = user.currentProgress - user.lane.needed;
-        const newLane = +user.laneId + 1;
-        user.laneId = newLane;
-        user.save();
-      } 
+        if (+user.laneId === 5 || +user.laneId === 8 || +user.laneId === 9) {
+          const newLane = await Lane.findOne({
+            where: {
+              laneId: +user.laneId + 1,
+            },
+          });
+          console.log(newLane);
+          if (user.degreeId === newLane.degreeId) {
+            user.laneId = newLane.laneId;
+          }
+          user.save();
+        } else {
+          user.currentProgress = user.currentProgress - user.lane.needed;
+          const newLane = await Lane.findOne({
+            where: {
+              laneId: +user.laneId + 1,
+            },
+          });
+          console.log(newLane);
+          if (user.degreeId === newLane.degreeId) {
+            user.laneId = newLane.laneId;
+          }
+          user.save();
+        }
+      }
 
       // send success message
       res.send({
@@ -415,7 +455,7 @@ Will return { message: 'PD saved!'}
         userId: userId,
         userLane: user.lane,
         userDegree: user.degree,
-        userCurrentProgress: user.currentProgress
+        userCurrentProgress: user.currentProgress,
       });
     } else {
       res.sendStatus(401);
@@ -489,38 +529,39 @@ Will return { message: 'PD saved!'}
     const { userId } = req.session;
 
     // get degreeId from req.body
-    const { degreeId } = req.body
+    const { degreeId } = req.body;
 
     // do a sequelize query to find the user
     const user = await User.findOne({
       where: {
-        userId: userId
-      }
-    })
+        userId: userId,
+      },
+    });
 
-    // update user degreeId and update their lane if they change 
+    // update user degreeId and update their lane if they change
 
     user.degreeId = degreeId;
     await user.save();
-    console.log(user.degreeId)
-    
+    console.log(user.degreeId);
+
     if (+user.degreeId === 2) {
-      console.log("HIT DEGREE 2")
+      console.log("HIT DEGREE 2");
       user.laneId = 6;
+      user.currentProgress = 0;
     } else if (+user.degreeId === 3) {
-      console.log("HIT DEGREE 3")
+      console.log("HIT DEGREE 3");
       user.laneId = 9;
+      user.currentProgress = 0;
     }
     await user.save();
 
     // send success message
 
     res.send({
-      message: 'Degree updated successfully!',
+      message: "Degree updated successfully!",
       success: true,
       degreeId: degreeId,
-      laneId: user.laneId
+      laneId: user.laneId,
     });
-
   },
 };

@@ -275,6 +275,9 @@ User.belongsTo(Degree, { foreignKey: 'degreeId' });
 Lane.hasMany(User, { foreignKey: 'laneId' });
 User.belongsTo(Lane, { foreignKey: 'laneId' });
 
+Degree.hasMany(Lane, { foreignKey: 'degreeId' });
+Lane.belongsTo(Degree, {foreignKey: 'degreeId' });
+
 
 
 

@@ -31,6 +31,7 @@ const UserDashboard = () => {
   const navigate = useNavigate();
   // const userId = useSelector((state) => state.userId); // from redux
   console.log(userId);
+  // console.log(userDegree);
 
   // Make pd list that displays each pdName that the user has completed with a link to that pd's detail page.
   const pdItems = userPds.map((pd) => {
@@ -274,8 +275,37 @@ const UserDashboard = () => {
       />
       <Link to="/addCourse">
         <button className="bg-blue-300 rounded-md w-40">Add New Course</button>{" "}
-        {/* Route to AddCourse */}
       </Link>
+      {userLane.laneId <= 4 && (
+        <div>
+          <h2>Degree needed for the next lane: bachelor's</h2>
+          <h2>Your current degree:{userDegree.degreeName}</h2>  
+        </div>
+      )
+      }
+      {userLane.laneId === 5 || userLane.laneId === 6 || userLane.laneId === 7 ? (
+        <div>
+          <h2>Degree needed for the next lane: master's</h2>
+          <h2>Your current degree:{userDegree.degreeName}</h2>  
+        </div>
+      ) : (
+        <></>
+      )
+      }
+      {userLane.laneId === 8 && (
+        <div>
+          <h2>Degree needed for the next lane: Ph.D</h2>
+          <h2>Your current degree:{userDegree.degreeName}</h2>  
+        </div>
+      )
+      }
+      {userLane.laneId === 9 && (
+        <div>
+          <h2>You are currently in the highest lane!</h2>
+          <h2>Your current degree:{userDegree.degreeName}</h2>  
+        </div>
+      )
+      }
       {showUpdateDegree && (
         <Link to="/updateDegree">
           <button>Update Degree</button>

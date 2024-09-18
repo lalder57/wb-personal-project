@@ -26,60 +26,6 @@ const course2 = await Course.create({
 
 console.log(course1, course2);
 
-const lane1 = await Lane.create({
-  laneName: 'Lane 1',
-  needed: 20,
-  total: 20
-});
-
-const lane2 = await Lane.create({
-  laneName: 'Lane 2',
-  needed: 17,
-  total: 37
-});
-
-const lane3 = await Lane.create({
-  laneName: 'Lane 3',
-  needed: 13,
-  total: 50
-});
-
-const lane4 = await Lane.create({
-  laneName: 'Lane 4',
-  needed: 20,
-  total: 70
-});
-
-const lane5 = await Lane.create({
-  laneName: 'Lane 5',
-  needed: 1000,
-  total: 90
-})
-
-const lane6 = await Lane.create({
-  laneName: 'Lane 6',
-  needed: 20,
-  total: 20
-});
-
-const lane7 = await Lane.create({
-  laneName: 'Lane 7',
-  needed: 17,
-  total: 37
-});
-
-const lane8 = await Lane.create({
-  laneName: 'Lane 8',
-  needed: 1000,
-  total: 50
-});
-
-const lane9 = await Lane.create({
-  laneName: 'Lane 9',
-  needed: 1000,
-  total: 20
-});
-
 const bachelors = await Degree.create({
   degreeName: "bachelor's"
 })
@@ -91,6 +37,71 @@ const master = await Degree.create({
 const phD = await Degree.create({
   degreeName: "Ph.D"
 })
+
+const lane1 = await Lane.create({
+  laneName: 'Lane 1',
+  needed: 20,
+  total: 20,
+  degreeId: 1
+});
+
+const lane2 = await Lane.create({
+  laneName: 'Lane 2',
+  needed: 17,
+  total: 37,
+  degreeId: 1
+});
+
+const lane3 = await Lane.create({
+  laneName: 'Lane 3',
+  needed: 13,
+  total: 50,
+  degreeId: 1
+});
+
+const lane4 = await Lane.create({
+  laneName: 'Lane 4',
+  needed: 20,
+  total: 70,
+  degreeId: 1
+});
+
+const lane5 = await Lane.create({
+  laneName: 'Lane 5',
+  needed: 20,
+  total: 90,
+  degreeId: 1
+})
+
+const lane6 = await Lane.create({
+  laneName: 'Lane 6',
+  needed: 20,
+  total: 20,
+  degreeId: 2
+});
+
+const lane7 = await Lane.create({
+  laneName: 'Lane 7',
+  needed: 17,
+  total: 37,
+  degreeId: 2
+});
+
+const lane8 = await Lane.create({
+  laneName: 'Lane 8',
+  needed: 20,
+  total: 50,
+  degreeId: 2
+});
+
+const lane9 = await Lane.create({
+  laneName: 'Lane 9',
+  needed: 20,
+  total: 20,
+  degreeId: 3
+});
+
+
 
 const user1 = await User.create({
   username: 'user1',
