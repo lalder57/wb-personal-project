@@ -343,11 +343,11 @@ Will return { message: 'PD saved!'}
       // console.log(user.lane.laneId);
 
       if (user.currentProgress >= user.lane.needed) {
+        user.currentProgress = user.currentProgress - user.lane.needed;
         const newLane = +user.laneId + 1;
         user.laneId = newLane;
-        user.currentProgress = 0;
         user.save();
-      }
+      } 
 
       // send success message
       res.send({

@@ -11,16 +11,19 @@ import Chart from "react-apexcharts";
 
 const UserDashboard = () => {
   const dispatch = useDispatch();
-  const { userPds, userCourses, userId, userLane, userDegree, userCurrentProgress } = useLoaderData();
+  const {
+    userPds,
+    userCourses,
+    userId,
+    userLane,
+    userDegree,
+    userCurrentProgress,
+  } = useLoaderData();
   const [showUpdateDegree, setShowUpdateDegree] = useState(false);
   // const [userPds, setUserPds] = useState([])
   // const [userCourses, setUserCourses] = useState([])
 
   //check to see if userLane is 5 or 8, if so, setShowUpdateDegree(true)
-
-  
-
-
 
   // something for the chart to work
   // ChartJS.register(ArcElement, Tooltip, Legend);
@@ -90,11 +93,6 @@ const UserDashboard = () => {
   //   },
   // };
 
-  // // totalPdHours to be displayed in the chart title
-  // const totalPdHours = userPds.reduce((acc, pd) => {
-  //  return acc + pd.pdHours;
-  // }, 0)
-
   // const centerTextPlugin = {
   //   id: 'textCenter',
   //   beforeDatasetsDraw(chart, args, pluginOptions) {
@@ -110,6 +108,49 @@ const UserDashboard = () => {
   //     ctx.restore();
   //   }
   // }
+
+  // pd donut chart stuff
+  console.log(userPds.map((pd) => pd.pdHours));
+  // totalPdHours to be displayed in the chart title
+  const totalPdHours = userPds.reduce((acc, pd) => {
+    return acc + pd.pdHours;
+  }, 0);
+
+  const chartOptions = {
+    chart: {
+      type: "donut",
+    },
+    series: userPds.map((pd) => pd.pdHours),
+    labels: userPds.map((pd) => pd.pd.pdName),
+    dataLabels: {
+      enabled: true,
+      formatter: function (val) {
+        return val;
+      },
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          labels: {
+            show: true,
+            total: {
+              show: true,
+              label: "Total PD Hours:",
+              formatter: function () {
+                return totalPdHours;
+              },
+            },
+          },
+        },
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function (val, opts) {
+        return `${opts.w.globals.labels[opts.seriesIndex]}: ${opts.w.globals.series[opts.seriesIndex]} hours`;
+      }
+    }
+  };
 
   // course gauge stuff
   //calculate percentage for gauge (to keep it working visually)
@@ -198,10 +239,10 @@ const UserDashboard = () => {
   useEffect(() => {
     if (userLane.laneId === 5 || userLane.laneId === 8) {
       setShowUpdateDegree(true);
-    };
-  }, [])
+    }
+  }, []);
 
-  return ( 
+  return (
     <div>
       <Header />
       <h1 className="text-3xl font-semibold">User Dashboard</h1>
@@ -213,8 +254,13 @@ const UserDashboard = () => {
       </div> */}
       <Link to="/addPd">
         <button className="bg-blue-300 rounded-md w-32">Add New PD</button>{" "}
-        {/* Route to AddPd */}
       </Link>
+      <Chart
+        options={chartOptions}
+        series={chartOptions.series}
+        type="donut"
+        height={350}
+      />
       <h2 className="text-xl font-semibold">Next Lane Change:</h2>
       <h2>Degree: {userDegree.degreeName}</h2>
       <h2>{userLane.laneName}</h2>
@@ -226,19 +272,15 @@ const UserDashboard = () => {
         type="radialBar"
         height={350}
       />
-      <div>
-        <h3>{userCurrentProgress}</h3>
-        <h3>{userLane.needed}</h3>
-      </div>
       <Link to="/addCourse">
         <button className="bg-blue-300 rounded-md w-40">Add New Course</button>{" "}
         {/* Route to AddCourse */}
       </Link>
-      {showUpdateDegree && 
-        <Link to='/updateDegree'>
+      {showUpdateDegree && (
+        <Link to="/updateDegree">
           <button>Update Degree</button>
         </Link>
-      }
+      )}
     </div>
   );
 };
