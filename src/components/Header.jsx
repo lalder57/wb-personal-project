@@ -9,6 +9,7 @@ const Header = () => {
       <NavLink to="/userDashboard">My Dashboard</NavLink>
       <NavLink to="/addPd">Add Professional Development</NavLink>
       <NavLink to="/addCourse">Add New Course</NavLink>
+      <NavLink to="/myProfile">My Profile</NavLink>
       <LogoutButton />
   </nav>
   )

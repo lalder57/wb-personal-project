@@ -705,4 +705,24 @@ Will return { message: 'PD saved!'}
       success: true,
     })
   },
+  // get a user's profile info
+  // will need to get the pdTrackerId from req.params  
+  getProfileInfo: async (req, res) => {
+    // grab userId from req.session
+    const { userId } = req.session;
+
+    const user = await User.findOne({
+      where: {
+        userId: userId
+      }
+    });
+
+
+    // send message
+    res.send({
+      message: "Here's your profile information",
+      success: true,
+      user: user
+    })
+  },
 };

@@ -20,6 +20,7 @@ import PdDetailPage from './pages/PdDetailPage.jsx'
 import CourseDetailPage from './pages/CourseDetailPage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import UpdateDegreeForm from './components/UpdateDegreeForm.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,11 +77,18 @@ const router = createBrowserRouter(
       <Route
         path='updateDegree'
         element={<UpdateDegreeForm />} 
-        // loader={async () => {
-        //   const res = await axios.get('/api/courses');
-        //   return { allCourses: res.data.allCourses }
-        // }}
       />
+      <Route
+        path='myProfile'
+        element={<ProfilePage />} 
+        loader={async () => {
+          const res = await axios.get('/api/getProfileInfo')
+          return { user: res.data.user }
+        }
+
+        }
+      />
+
 
   
     </Route>
