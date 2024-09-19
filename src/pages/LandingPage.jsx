@@ -24,7 +24,11 @@ const LandingPage = () => {
   // if the dependencyArray is empty ([]), then this tells useEffect to ONLY run on the INITIAL render
   // if the dependencyArray contains values, useEffect will run each time one of those values is changed/used
  
-
+  useEffect(() => {
+      if (userId) {
+        navigate("/userDashboard");
+      }
+    }, [userId]);
   
 
   return showRegister ? (
@@ -34,7 +38,7 @@ const LandingPage = () => {
     {!userId &&
         <>
           <LoginForm />
-          <p>Not a member? Regiter below</p>
+          <p>Not a member? Register below</p>
           <button className="bg-blue-300 rounded-md w-24" onClick={() => setShowRegister(true)}>Register</button>
         </>
         }

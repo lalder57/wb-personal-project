@@ -600,5 +600,109 @@ Will return { message: 'PD saved!'}
       success: true,
       pdTracker: pdTracker
     });
-  },  
+  }, 
+  // put request to edit a course's information
+  // will need a body obj and the courseId or the courseTrackerId (maybe from req.params if not in the body obj)
+  editCourse: async (req, res) => {
+    console.log('HIT EDIT COURSE')
+    // get pdTrakcerId from req.params
+    const { courseTrackerId } = req.params;
+    console.log(courseTrackerId)
+   
+    // do a sequelize query to find the right courseTracker
+    const courseTracker = await CourseTracker.findOne({
+      where: {
+        courseTrackerId: courseTrackerId
+      }
+    })
+    // get courseTracker info from req.body;
+    const { courseProvider, courseCredits, courseDateCompleted, courseDescription, courseReflection, courseRecommend } = req.body;
+
+    // ucourseate courseTracker info with the user's new input 
+
+    courseTracker.courseProvider = courseProvider,
+    courseTracker.courseCredits = courseCredits,
+    courseTracker.courseDateCompleted = courseDateCompleted;
+    courseTracker.courseDescription = courseDescription;
+    courseTracker.courseReflection = courseReflection;
+    courseTracker.courseRecommend = courseRecommend;
+    courseTracker.save();   
+
+    // send success message
+
+    res.send({
+      message: 'Your course has been successfully updated!',
+      success: true,
+      courseTracker: courseTracker
+    });
+  }, 
+  // delete pd
+  // will need to get the pdTrackerId from req.params  
+  deletePd: async (req, res) => {
+    // grab the pdTrackerId from req.params
+    const { pdTrackerId } = req.params;
+
+    const pdTracker = await PdTracker.findOne({
+      where: {
+        pdTrackerId: pdTrackerId
+      }
+    });
+
+    await pdTracker.destroy();
+
+    // send message
+    res.send({
+      message: 'PD successfully deleted',
+      success: true,
+    })
+  },
+  // delete course
+  // will need to get the courseTrackerId from req.params  
+  deleteCourse: async (req, res) => {
+    console.log("HIT DELETE COURSE")
+    // grab the pdTrackerId from req.params
+    const { courseTrackerId } = req.params;
+
+    const courseTracker = await CourseTracker.findOne({
+      where: {
+        courseTrackerId: courseTrackerId
+      }
+    });
+    console.log(courseTracker)
+    
+    const user = await User.findOne({ 
+      where: {
+        userId: courseTracker.userId
+      }
+    })
+
+   
+
+    // math to calculate the user's current progress now 
+    // when subtracting the amount of credits their deleted course was worth
+
+    console.log(courseTracker)
+
+    user.currentProgress = user.currentProgress - courseTracker.courseCredits;
+    await user.save();
+
+    if (user.currentProgress < 0) {
+      const newLane = await Lane.findOne({
+        where: {
+          laneId: +user.laneId - 1,
+        },
+      })
+      user.laneId = newLane.laneId;
+      user.currentProgress = user.currentProgress + newLane.needed
+      await user.save();
+    }
+
+    await courseTracker.destroy();
+
+    // send message
+    res.send({
+      message: 'Course successfully deleted',
+      success: true,
+    })
+  },
 };

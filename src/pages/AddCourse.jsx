@@ -97,6 +97,8 @@ const AddCourse = () => {
               <input
                 value={courseCredits}
                 type="number"
+                // min={0}
+                // max={5}
                 required
                 onChange={(e) => setCourseCredits(e.target.value)}
               />

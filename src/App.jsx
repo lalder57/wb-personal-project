@@ -48,11 +48,11 @@ function App() {
     checkSession();
   }, []);
   
-  useEffect(() => {
-    if (userId) {
-      navigate("/userDashboard");
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (userId) {
+  //     navigate("/userDashboard");
+  //   }
+  // }, [userId]);
 
   return (
     <>

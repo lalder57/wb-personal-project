@@ -96,6 +96,14 @@ app.post('/api/updateDegree', handlerFunctions.updateDegree)
 // put request to edit a pd's information
 app.put('/api/editPd/:pdTrackerId', handlerFunctions.editPd)
 
+// put request to edit a course's information
+app.put('/api/editCourse/:courseTrackerId', handlerFunctions.editCourse)
+
+// delete request to delete a pdTracker
+app.delete('/api/deletePd/:pdTrackerId', handlerFunctions.deletePd)
+
+// delete request to delete a course
+app.delete('/api/deleteCourse/:courseTrackerId', handlerFunctions.deleteCourse)
 
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));
