@@ -486,7 +486,9 @@ Will return { message: 'PD saved!'}
 
   // will send back a specific pdTracker with it's details
   getPdDetails: async (req, res) => {
+    console.log('HIT PD DETAILS')
     const { pdTrackerId } = req.params;
+    console.log(+pdTrackerId)
 
     const pdDetails = await PdTracker.findOne({
       where: {
@@ -563,5 +565,40 @@ Will return { message: 'PD saved!'}
       degreeId: degreeId,
       laneId: user.laneId,
     });
-  },
+  },  
+  // put request to edit a pd's information
+  // will need a body obj and the pdId or the pdTrackerId (maybe from req.params if not in the body obj)
+  editPd: async (req, res) => {
+    console.log('HIT EDIT PD')
+    // get pdTrakcerId from req.params
+    const { pdTrackerId } = req.params;
+    console.log(pdTrackerId)
+   
+    // do a sequelize query to find the right pdTracker
+    const pdTracker = await PdTracker.findOne({
+      where: {
+        pdTrackerId: pdTrackerId
+      }
+    })
+    // get pdTracker info from req.body;
+    const { pdProvider, pdHours, pdDateCompleted, pdDescription, pdReflection, pdRecommend } = req.body;
+
+    // update pdTracker info with the user's new input 
+
+    pdTracker.pdProvider = pdProvider,
+    pdTracker.pdHours = pdHours,
+    pdTracker.pdDateCompleted = pdDateCompleted;
+    pdTracker.pdDescription = pdDescription;
+    pdTracker.pdReflection = pdReflection;
+    pdTracker.pdRecommend = pdRecommend;
+    pdTracker.save();   
+
+    // send success message
+
+    res.send({
+      message: 'Your PD has been successfully updated!',
+      success: true,
+      pdTracker: pdTracker
+    });
+  },  
 };

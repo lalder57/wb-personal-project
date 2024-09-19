@@ -27,7 +27,7 @@ const router = createBrowserRouter(
       
       <Route index element ={<LandingPage />} />
       <Route 
-        path='/userDashboard'
+        path='userDashboard'
         element={<UserDashboard />}
         loader={async () => {
           const res = await axios.get('/api/userInfo');
@@ -35,7 +35,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route
-        path='/addPd'
+        path='addPd'
         element={<AddPd />} 
         loader={async () => {
           const res = await axios.get('/api/pds');
@@ -43,7 +43,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route
-        path='/addCourse'
+        path='addCourse'
         element={<AddCourse />} 
         loader={async () => {
           const res = await axios.get('/api/courses');
@@ -51,7 +51,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route 
-        path='/pdTrackers/:id'
+        path='pdTrackers/:id'
         element={<PdDetailPage />}
         // loader to get a specific pdTracker's details
         loader={async ({params}) => {
@@ -74,7 +74,7 @@ const router = createBrowserRouter(
         }}
       />
       <Route
-        path='/updateDegree'
+        path='updateDegree'
         element={<UpdateDegreeForm />} 
         // loader={async () => {
         //   const res = await axios.get('/api/courses');

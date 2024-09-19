@@ -279,14 +279,14 @@ const UserDashboard = () => {
       {userLane.laneId <= 4 && (
         <div>
           <h2>Degree needed for the next lane: bachelor's</h2>
-          <h2>Your current degree:{userDegree.degreeName}</h2>  
+          <h2>Your current degree: {userDegree.degreeName}</h2>  
         </div>
       )
       }
       {userLane.laneId === 5 || userLane.laneId === 6 || userLane.laneId === 7 ? (
         <div>
           <h2>Degree needed for the next lane: master's</h2>
-          <h2>Your current degree:{userDegree.degreeName}</h2>  
+          <h2>Your current degree: {userDegree.degreeName}</h2>  
         </div>
       ) : (
         <></>
@@ -295,7 +295,7 @@ const UserDashboard = () => {
       {userLane.laneId === 8 && (
         <div>
           <h2>Degree needed for the next lane: Ph.D</h2>
-          <h2>Your current degree:{userDegree.degreeName}</h2>  
+          <h2>Your current degree: {userDegree.degreeName}</h2>  
         </div>
       )
       }
