@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Header from "./Header";
 
 const UpdateDegreeForm = () => {
-
   const [degreeId, setDegreeId] = useState("");
   const navigate = useNavigate();
 
@@ -13,34 +13,42 @@ const UpdateDegreeForm = () => {
     // create req.body object
     const degreeFormData = {
       degreeId,
-    }
-    
+    };
+
     // axios call to the update degree endpoint
-    const res = await axios.post('/api/updateDegree', degreeFormData)
+    const res = await axios.post("/api/updateDegree", degreeFormData);
 
     console.log(res.data);
 
     if (res.data.success) {
-      alert('Congratulations! Your degree has been updated.')
-      navigate('/userDashboard');
+      alert("Congratulations! Your degree has been updated.");
+      navigate("/userDashboard");
     }
-  }
+  };
 
-
-  
   return (
-    <form onSubmit={handleUpdateDegree}>
-      Update Degree Form
-      <label htmlFor="degreeId">degree:</label>
-        <select value={degreeId} required onChange={(e) => setDegreeId(e.target.value)}>
+    <div>
+      <Header />
+      <form onSubmit={handleUpdateDegree}>
+        Update Degree Form
+        <label htmlFor="degreeId">degree:</label>
+        <select
+          value={degreeId}
+          required
+          onChange={(e) => setDegreeId(e.target.value)}
+        >
           <option value="">Please choose a degree</option>
           <option value="1">bachelor's</option>
           <option value="2">master's</option>
-          <option value="3">Ph.D.</option>          
+          <option value="3">Ph.D.</option>
         </select>
         <button type="submit">Save Degree</button>
-    </form>
-  )
-}
+      </form>
+      <Link to='/userDashboard'>
+        <button>Cancel</button>
+      </Link>
+    </div>
+  );
+};
 
-export default UpdateDegreeForm
+export default UpdateDegreeForm;

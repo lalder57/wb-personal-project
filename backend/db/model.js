@@ -41,12 +41,16 @@ User.init (
       type: DataTypes.STRING,
       allowNull: false,
     },
-    district: {
+    school: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     currentProgress: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

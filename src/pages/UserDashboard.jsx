@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import React from "react";
 import UpdateDegreeForm from "../components/UpdateDegreeForm";
-// import { Doughnut } from 'react-chartjs-2';
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import Chart from "react-apexcharts";
 
 const UserDashboard = () => {
+  const admin = useSelector((state) => state.admin);
+  console.log(`DASHBOARD ADMIN: ${admin}`)
+
+  // redux value for admin, if true, conditionally render the adminDashboard
   const dispatch = useDispatch();
   const {
     fname,
@@ -19,40 +21,25 @@ const UserDashboard = () => {
     userLane,
     userDegree,
     userCurrentProgress,
+    userAdmin
   } = useLoaderData();
   const [showUpdateDegree, setShowUpdateDegree] = useState(false);
-  // const [userPds, setUserPds] = useState([])
-  // const [userCourses, setUserCourses] = useState([])
-
-  //check to see if userLane is 5 or 8, if so, setShowUpdateDegree(true)
-
-  // something for the chart to work
-  // ChartJS.register(ArcElement, Tooltip, Legend);
 
   const navigate = useNavigate();
   // const userId = useSelector((state) => state.userId); // from redux
   console.log(userId);
   // console.log(userDegree);
+  console.log(`LOADER ADMIN: ${userAdmin}`)
 
-  // Make pd list that displays each pdName that the user has completed with a link to that pd's detail page.
-  // const pdItems = userPds.map((pd) => {
-  //   return (
-  //     <li key={pd.pdTrackerId}>
-  //       <NavLink to={`/pdTrackers/${pd.pdTrackerId}`}>{pd.pd.pdName}</NavLink>
-  //     </li>
-  //   );
-  // });
+  // dispatch the Redux store to update the value of admin
+  // if (userAdmin) {
+  //   console.log("FOUND ADMIN")
+  //   dispatch({
+  //     type: "ADMIN_AUTH",
+  //     payload: {userId: userId, admin: userAdmin}
+  //   })
+  // }
 
-  // // Make course list that displays each courseName that the user has completed with a link to that course's detail page.
-  // const courseItems = userCourses.map((course) => {
-  //   return (
-  //     <li key={course.courseTrackerId}>
-  //       <NavLink to={`/courseTrackers/${course.courseTrackerId}`}>
-  //         {course.course.courseName}
-  //       </NavLink>
-  //     </li>
-  //   );
-  // });
 
   // pd donut chart stuff
   console.log(userPds.map((pd) => pd.pdHours));
@@ -148,10 +135,6 @@ const UserDashboard = () => {
     labels: ["Current Progress"], // Label in the center
   };
 
-  // const yaxis = {
-  //   min: 0, // Minimum value of the gauge
-  //   max: 20, // Maximum value of the gauge
-  // };
 
   // totalCourseCredits for gauge
   const totalCourseCredits = userCourses.reduce((acc, course) => {
@@ -161,19 +144,6 @@ const UserDashboard = () => {
   const chartData = [percentage];
   // const chartData = [((userCurrentProgress / + userLane.needed) * 100).toFixed(2)];
   // console.log(totalCourseCredits);
-
-  // useEffect(() => {
-  //   if (userId) {
-  //     axios.get('/api/userInfo')
-  //     .then((res) => {
-  //       setUserPds(res.data.userPds)
-  //       setUserCourses(res.data.userCourses)
-  //     })
-  //   } else {
-  //     navigate("/")
-  //   }
-  //   // return { userPds: res.data.userPds, userCourses: res.data.userCourses }
-  // }, [userId])
 
   // can't view userDashboard if you aren't logged in
   useEffect(() => {
@@ -191,14 +161,9 @@ const UserDashboard = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
       <h2 className="text-xl font-semibold">Professional Development:</h2>
-      {/* show list of completed PDs here */}
-      {/* <ul>{pdItems}</ul> */}
-      {/* <div style={{ width: '400px', height: '400px' }}>
-        <Doughnut data={data} options={options} plugins={[centerTextPlugin]}/>
-      </div> */}
       
       {/* if total pd hours > 0, then show chart */}
       {totalPdHours > 0 && (
@@ -219,8 +184,6 @@ const UserDashboard = () => {
       <h2 className="text-xl font-semibold">Coursework:</h2>
       <h3>Current Salary Lane Progress:</h3>
       <h2>{userLane.laneName}</h2>
-      {/* <h3>All completed courses:</h3> */}
-      {/* <ul>{courseItems}</ul> */}
       <Chart
         options={gaugeOptions}
         series={chartData}

@@ -55,6 +55,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       message: "user logged in",
       success: true,
       userId: req.session.userId,
+      admin: user.admin,
     });
   },
 
@@ -76,7 +77,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       fname,
       lname,
       email,
-      district,
+      school,
       degreeId,
       laneId,
       currentProgress,
@@ -105,10 +106,11 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       fname,
       lname,
       email,
-      district,
+      school,
       laneId,
       degreeId,
       currentProgress,
+      admin: false,
     });
 
     // if degreeId === 1, 2, 3 create the appropriate userLane to determine their degree and their lane when they first sign up
@@ -127,12 +129,19 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
   checkSession: async (req, res) => {
     // when this function is called, we simply want to check if there is a userId on the req.session object, and send it back if so
     if (req.session.userId) {
+      const user = await User.findOne({
+        where: {
+          userId: req.session.userId
+        }
+      })
+
       res.send({
         message: "user is still logged in",
         success: true,
         userId: req.session.userId,
+        admin: user.admin,
       });
-      return;
+      return; 
     } else {
       res.send({
         message: "no user logged in",
@@ -454,6 +463,7 @@ Will return { message: 'PD saved!'}
         userPds: userPds,
         userCourses: userCourses,
         userId: userId,
+        userAdmin: user.admin,
         userLane: user.lane,
         userDegree: user.degree,
         userCurrentProgress: user.currentProgress,

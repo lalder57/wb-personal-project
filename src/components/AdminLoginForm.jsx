@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const AdminLoginForm = () => {
   // To login, I need a user to enter their username + password
   // I should keep track of these with state values, and then when the form is submitted,
   // send those state values to my server as a req.body
@@ -12,6 +12,7 @@ const LoginForm = () => {
 
   // to use Redux, we need to "subscribe" (useSelector()) to the store
   const userId = useSelector((state) => state.userId);
+  const admin = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   const [invalidLogin, setInvalidLogin] = useState(false);
@@ -33,14 +34,14 @@ const LoginForm = () => {
 
     console.log(res.data);
     // get response and save the userId to the redux store
-    if (res.data.success) {
+    if (res.data.admin) {
       dispatch({
-        type: "USER_AUTH",
-        payload: {userId: res.data.userId, admin: res.data.admin }
+        type: "ADMIN_AUTH",
+        payload: {userId: res.data.userId, admin: admin }
       });
       // reset username and password fields
-      // setUsername("");
-      // setPassword("");
+      setUsername("");
+      setPassword("");
       //navigate to the user's dashboard
       navigate("/userDashboard");
     } else {
@@ -75,4 +76,5 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default AdminLoginForm;
+

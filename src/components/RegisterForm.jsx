@@ -13,7 +13,7 @@ const RegisterForm = ({ setShowRegister }) => {
   const [email, setEmail] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [district, setDistrict] = useState("");
+  const [school, setSchool] = useState("");
   const [degreeId, setDegreeId] = useState("");
   const [laneId, setLaneId] = useState("");
 
@@ -32,7 +32,7 @@ const RegisterForm = ({ setShowRegister }) => {
       fname,
       lname,
       email,
-      district,
+      school,
       degreeId,
       laneId,
       currentProgress: 0
@@ -54,7 +54,7 @@ const RegisterForm = ({ setShowRegister }) => {
       setEmail("");
       setFname("");
       setLname("");
-      setDistrict("");
+      setSchool("");
       setDegreeId("");
       setLaneId("");
       setShowRegister(false);
@@ -108,13 +108,13 @@ const RegisterForm = ({ setShowRegister }) => {
           placeholder="Last name"
           onChange={(e) => setLname(e.target.value)}
         />
-        <label htmlFor="district">district:</label>
+        <label htmlFor="school">school:</label>
         <input
-          value={district}
+          value={school}
           type="text"
           required
-          placeholder="district"
-          onChange={(e) => setDistrict(e.target.value)}
+          placeholder="school"
+          onChange={(e) => setSchool(e.target.value)}
         />
         <label htmlFor="degreeId">degree:</label>
         <select value={degreeId} required onChange={(e) => setDegreeId(e.target.value)}>
@@ -139,9 +139,7 @@ const RegisterForm = ({ setShowRegister }) => {
         <button className="bg-blue-300 rounded-md w-24" type="submit">Register</button>
       </form>
 
-        {/* <button>Return to Landing Page</button> // find a way to "take user back" to landing page */}
-
-      {/* { invalidLogin && <p>Incorrect username or password. Please try again.</p> } */}
+       <button onClick={() => setShowRegister(false)}>Cancel</button>
     </>
   );
 };

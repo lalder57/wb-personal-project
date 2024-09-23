@@ -109,8 +109,9 @@ const user1 = await User.create({
   fname: 'sam',
   lname: 'smith',
   email: '1234@gmail.com',
-  district: 'Alpine',
+  school: 'Timpanogos',
   currentProgress: 1,
+  admin: true,
   laneId: 2,
   degreeId: 1,
 });
@@ -121,8 +122,9 @@ const user2 = await User.create({
   fname: 'alex',
   lname: 'smith',
   email: '5678@gmail.com',
-  district: 'Alpine',
+  school: 'Orem High',
   currentProgress: 2,
+  admin: false,
   laneId: 7,
   degreeId: 2,
 });
