@@ -450,6 +450,7 @@ Will return { message: 'PD saved!'}
       res.send({
         message: "Here's your info!",
         succes: true,
+        fname: user.fname,
         userPds: userPds,
         userCourses: userCourses,
         userId: userId,
@@ -724,5 +725,50 @@ Will return { message: 'PD saved!'}
       success: true,
       user: user
     })
+  },
+  // get a list of all pds a user has completed
+  getUserPds: async (req, res) => {
+    // grab userId from req.session
+    const { userId } = req.session;
+
+    // do a sequelize query for any pd_trackers with the userId, include Pd model
+    const userPds = await PdTracker.findAll({
+      where: {
+        userId: userId,
+      },
+      include: {
+        model: Pd,
+      },
+    });
+
+    // send success message
+    res.send({
+      message: 'Here are all your PDs!',
+      success: true,
+      userPds: userPds,
+    })
+  },
+
+  // get list of all courses a user has taken
+  getUserCourses: async (req, res) => {
+    // get userId from req.session
+    const { userId } = req.session;
+
+    // do a sequelize query to get all courses a user has taken
+    const userCourses = await CourseTracker.findAll({
+      where: {
+        userId: userId,
+      },
+      include: {
+        model: Course,
+      },
+    });
+
+    // send success message
+    res.send({
+      message: 'Here are all your completed courses!',
+      success: true,
+      userCourses: userCourses,
+    });
   },
 };

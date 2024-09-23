@@ -2,6 +2,7 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import EditPdForm from "../components/EditPdForm";
+import Header from "../components/Header";
 
 const PdDetailPage = () => {
   const { pdDetails } = useLoaderData();
@@ -49,14 +50,17 @@ const PdDetailPage = () => {
 
   return editMode ? (
     <div>
+      <Header />
       <EditPdForm
         toggleEdit={toggleEdit}
         newPdDetails={newPdDetails}
         setNewPdDetails={setNewPdDetails}
       />
+      <button onClick={toggleEdit}>Cancel</button>
     </div>
   ) : (
     <div>
+       <Header />
       <h1>{pdName}</h1>
       <h2>Provider of PD: {pdProvider}</h2>
       <h2>Number of Hours: {pdHours}</h2>
@@ -68,6 +72,10 @@ const PdDetailPage = () => {
 
       <button onClick={toggleEdit}>Edit PD Information</button>
       <button onClick={deleteFunc}>Delete PD</button>
+
+      <Link to="/myPds">
+        <button>Return to PD List</button>
+      </Link>
 
       <Link to="/userDashboard">
         <button>Return to Dashboard</button>

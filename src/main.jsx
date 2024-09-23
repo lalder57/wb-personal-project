@@ -23,6 +23,8 @@ import UpdateDegreeForm from "./components/UpdateDegreeForm.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import CreateCoursePage from "./pages/CreateCoursePage.jsx";
 import CreatePdPage from "./pages/CreatePdPage.jsx";
+import MyCoursesPage from "./pages/MyCoursesPage.jsx";
+import MyPdsPage from "./pages/MyPdsPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,7 @@ const router = createBrowserRouter(
         loader={async () => {
           const res = await axios.get("/api/userInfo");
           return {
+            fname: res.data.fname,
             userPds: res.data.userPds,
             userCourses: res.data.userCourses,
             userId: res.data.userId,
@@ -92,6 +95,22 @@ const router = createBrowserRouter(
       />
       <Route path="createCoursePage" element={<CreateCoursePage />} />
       <Route path="createPdPage" element={<CreatePdPage />} />
+      <Route 
+        path="myCourses"
+        element={<MyCoursesPage />}
+        loader={async () => {
+          const res = await axios.get("/api/getUserCourses");
+          return {  userCourses: res.data.userCourses };
+        }}
+      />
+      <Route 
+        path="myPds"
+        element={<MyPdsPage />}
+        loader={async () => {
+          const res = await axios.get("/api/getUserPds");
+          return {  userPds: res.data.userPds };
+        }}
+      />
     </Route>
   )
 );

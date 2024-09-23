@@ -107,4 +107,10 @@ app.delete('/api/deleteCourse/:courseTrackerId', handlerFunctions.deleteCourse)
 
 // get request to see user profile info
 app.get('/api/getProfileInfo', handlerFunctions.getProfileInfo)
+
+// get request to see user pd list
+app.get('/api/getUserPds', handlerFunctions.getUserPds)
+
+// get request to see user course list
+app.get('/api/getUserCourses', handlerFunctions.getUserCourses);
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

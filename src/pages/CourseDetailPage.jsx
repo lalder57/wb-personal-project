@@ -2,6 +2,7 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import EditCourseForm from "../components/EditCourseForm";
 import axios from "axios";
+import Header from "../components/Header";
 
 const CourseDetailPage = () => {
   const { courseDetails } = useLoaderData();
@@ -47,14 +48,17 @@ const CourseDetailPage = () => {
 
   return editMode ? (
     <div>
+      <Header />
       <EditCourseForm
         toggleEdit={toggleEdit} 
         newCourseDetails={newCourseDetails}
         setNewCourseDetails={setNewCourseDetails}
       />
+      <button onClick={toggleEdit}>Cancel</button>
     </div>
   ) :(
     <div>
+      <Header />
       <h1>{courseName}</h1>
       <h2>Provider of course: {courseProvider}</h2>
       <h2>Number of Hours: {courseCredits}</h2>
@@ -67,9 +71,13 @@ const CourseDetailPage = () => {
       <button onClick={toggleEdit}>Edit Course Information</button>
       <button onClick={deleteFunc}>Delete Course</button>
 
+      <Link to="/myCourses">
+        <button>Return to Course List</button>
+      </Link>
       <Link to="/userDashboard">
         <button>Return to Dashboard</button>
       </Link>
+
     </div>
   );
 };

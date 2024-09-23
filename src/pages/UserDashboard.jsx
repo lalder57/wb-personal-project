@@ -12,6 +12,7 @@ import Chart from "react-apexcharts";
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const {
+    fname,
     userPds,
     userCourses,
     userId,
@@ -34,81 +35,24 @@ const UserDashboard = () => {
   // console.log(userDegree);
 
   // Make pd list that displays each pdName that the user has completed with a link to that pd's detail page.
-  const pdItems = userPds.map((pd) => {
-    return (
-      <li key={pd.pdTrackerId}>
-        <NavLink to={`/pdTrackers/${pd.pdTrackerId}`}>{pd.pd.pdName}</NavLink>
-      </li>
-    );
-  });
+  // const pdItems = userPds.map((pd) => {
+  //   return (
+  //     <li key={pd.pdTrackerId}>
+  //       <NavLink to={`/pdTrackers/${pd.pdTrackerId}`}>{pd.pd.pdName}</NavLink>
+  //     </li>
+  //   );
+  // });
 
-  // Make course list that displays each courseName that the user has completed with a link to that course's detail page.
-  const courseItems = userCourses.map((course) => {
-    return (
-      <li key={course.courseTrackerId}>
-        <NavLink to={`/courseTrackers/${course.courseTrackerId}`}>
-          {course.course.courseName}
-        </NavLink>
-      </li>
-    );
-  });
-
-  //chart stuff
-
-  // const data = {
-  //   labels:userPds.map((pd) => pd.pd.pdName),
-  //   datasets: [
-  //     {
-  //       label: '# of Votes',
-  //       data: userPds.map((pd) => pd.pdHours),
-  //       backgroundColor: [
-  //         'rgba(255, 99, 132, 0.2)',
-  //         'rgba(54, 162, 235, 0.2)',
-  //         'rgba(255, 206, 86, 0.2)',
-  //         'rgba(75, 192, 192, 0.2)',
-  //         'rgba(153, 102, 255, 0.2)',
-  //         'rgba(255, 159, 64, 0.2)',
-  //       ],
-  //       borderColor: [
-  //         'rgba(255, 99, 132, 1)',
-  //         'rgba(54, 162, 235, 1)',
-  //         'rgba(255, 206, 86, 1)',
-  //         'rgba(75, 192, 192, 1)',
-  //         'rgba(153, 102, 255, 1)',
-  //         'rgba(255, 159, 64, 1)',
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-
-  // const options = {
-  //   responsive: true,
-  //   plugins: {
-  //     legend: {
-  //       position: 'top',
-  //     },
-  //     tooltip: {
-  //       enabled: true,
-  //     },
-  //   },
-  // };
-
-  // const centerTextPlugin = {
-  //   id: 'textCenter',
-  //   beforeDatasetsDraw(chart, args, pluginOptions) {
-
-  //     const { ctx } = chart;
-
-  //     ctx.save();
-  //     ctx.font = 'bold 20px Arial';  // Customize font style and size
-  //     ctx.textAlign = 'center';
-  //     ctx.textBaseline = 'middle';
-  //     ctx.fillStyle = 'black'; // Customize text color
-  //     ctx.fillText(`Total PD Hours: ${totalPdHours}`, chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y);
-  //     ctx.restore();
-  //   }
-  // }
+  // // Make course list that displays each courseName that the user has completed with a link to that course's detail page.
+  // const courseItems = userCourses.map((course) => {
+  //   return (
+  //     <li key={course.courseTrackerId}>
+  //       <NavLink to={`/courseTrackers/${course.courseTrackerId}`}>
+  //         {course.course.courseName}
+  //       </NavLink>
+  //     </li>
+  //   );
+  // });
 
   // pd donut chart stuff
   console.log(userPds.map((pd) => pd.pdHours));
@@ -148,9 +92,11 @@ const UserDashboard = () => {
     dataLabels: {
       enabled: true,
       formatter: function (val, opts) {
-        return `${opts.w.globals.labels[opts.seriesIndex]}: ${opts.w.globals.series[opts.seriesIndex]} hours`;
-      }
-    }
+        return `${opts.w.globals.labels[opts.seriesIndex]}: ${
+          opts.w.globals.series[opts.seriesIndex]
+        } hours`;
+      },
+    },
   };
 
   // course gauge stuff
@@ -246,27 +192,35 @@ const UserDashboard = () => {
   return (
     <div>
       <Header />
-      <h1 className="text-3xl font-semibold">User Dashboard</h1>
-      <h2 className="text-xl font-semibold">My PD progress:</h2>
-      show list of completed PDs here
-      <ul>{pdItems}</ul>
+      <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
+      <h2 className="text-xl font-semibold">Professional Development:</h2>
+      {/* show list of completed PDs here */}
+      {/* <ul>{pdItems}</ul> */}
       {/* <div style={{ width: '400px', height: '400px' }}>
         <Doughnut data={data} options={options} plugins={[centerTextPlugin]}/>
       </div> */}
+      
+      {/* if total pd hours > 0, then show chart */}
+      {totalPdHours > 0 && (
+        <Chart
+          options={chartOptions}
+          series={chartOptions.series}
+          type="donut"
+          height={350}
+        />
+      )}
+      {/* if user hasn't added any pd hours, show message */}
+      {totalPdHours <= 0 &&
+      <h2>You haven't recorded any professional development hours yet. <br /> Click the button below to get started!</h2>
+      }
       <Link to="/addPd">
         <button className="bg-blue-300 rounded-md w-32">Add New PD</button>{" "}
       </Link>
-      <Chart
-        options={chartOptions}
-        series={chartOptions.series}
-        type="donut"
-        height={350}
-      />
-      <h2 className="text-xl font-semibold">Next Lane Change:</h2>
-      <h2>Degree: {userDegree.degreeName}</h2>
+      <h2 className="text-xl font-semibold">Coursework:</h2>
+      <h3>Current Salary Lane Progress:</h3>
       <h2>{userLane.laneName}</h2>
-      <h3>All completed courses:</h3>
-      <ul>{courseItems}</ul>
+      {/* <h3>All completed courses:</h3> */}
+      {/* <ul>{courseItems}</ul> */}
       <Chart
         options={gaugeOptions}
         series={chartData}
@@ -276,36 +230,35 @@ const UserDashboard = () => {
       <Link to="/addCourse">
         <button className="bg-blue-300 rounded-md w-40">Add New Course</button>{" "}
       </Link>
+
       {userLane.laneId <= 4 && (
         <div>
           <h2>Degree needed for the next lane: bachelor's</h2>
-          <h2>Your current degree: {userDegree.degreeName}</h2>  
+          <h2>Your current degree: {userDegree.degreeName}</h2>
         </div>
-      )
-      }
-      {userLane.laneId === 5 || userLane.laneId === 6 || userLane.laneId === 7 ? (
+      )}
+      {userLane.laneId === 5 ||
+      userLane.laneId === 6 ||
+      userLane.laneId === 7 ? (
         <div>
           <h2>Degree needed for the next lane: master's</h2>
-          <h2>Your current degree: {userDegree.degreeName}</h2>  
+          <h2>Your current degree: {userDegree.degreeName}</h2>
         </div>
       ) : (
         <></>
-      )
-      }
+      )}
       {userLane.laneId === 8 && (
         <div>
           <h2>Degree needed for the next lane: Ph.D</h2>
-          <h2>Your current degree: {userDegree.degreeName}</h2>  
+          <h2>Your current degree: {userDegree.degreeName}</h2>
         </div>
-      )
-      }
+      )}
       {userLane.laneId === 9 && (
         <div>
           <h2>You are currently in the highest lane!</h2>
-          <h2>Your current degree:{userDegree.degreeName}</h2>  
+          <h2>Your current degree:{userDegree.degreeName}</h2>
         </div>
-      )
-      }
+      )}
       {showUpdateDegree && (
         <Link to="/updateDegree">
           <button>Update Degree</button>

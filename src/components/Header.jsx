@@ -7,8 +7,8 @@ const Header = () => {
         Logo
        name of website/logo
       <NavLink to="/userDashboard">My Dashboard</NavLink>
-      <NavLink to="/addPd">Add Professional Development</NavLink>
-      <NavLink to="/addCourse">Add New Course</NavLink>
+      <NavLink to="/myPds">My PDs</NavLink>
+      <NavLink to="/myCourses">My Courses</NavLink>
       <NavLink to="/myProfile">My Profile</NavLink>
       <LogoutButton />
   </nav>
