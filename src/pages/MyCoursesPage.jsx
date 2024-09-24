@@ -34,7 +34,6 @@ const MyCoursesPage = () => {
 
   return (
     <div>
-      <Header />
       List of my completed courses: 
       <ul>{courseItems}</ul>
 

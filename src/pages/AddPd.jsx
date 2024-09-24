@@ -49,8 +49,6 @@ const AddPd = () => {
 
   return (
     <>
-      <Header />
-
       <h1>Search for an existing PD -</h1>
 
       {/* 

@@ -116,6 +116,10 @@ const router = createBrowserRouter(
       <Route 
         path="adminPortal"
         element={<AdminPortal />}
+        loader={async () => {
+          const res = await axios.get("/api/adminPortal");
+          return { users: res.data.users };
+        }}
       
       />
     </Route>

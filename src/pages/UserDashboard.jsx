@@ -31,6 +31,9 @@ const UserDashboard = () => {
   // console.log(userDegree);
   console.log(`LOADER ADMIN: ${userAdmin}`)
 
+  console.log(userPds)
+  console.log(userCourses)
+
   // dispatch the Redux store to update the value of admin
   // if (userAdmin) {
   //   console.log("FOUND ADMIN")
@@ -161,7 +164,6 @@ const UserDashboard = () => {
 
   return (
     <div>
-      {/* <Header /> */}
       <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
       <h2 className="text-xl font-semibold">Professional Development:</h2>
       

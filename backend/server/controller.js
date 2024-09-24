@@ -80,6 +80,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       school,
       degreeId,
       laneId,
+      admin,
       currentProgress,
     } = req.body;
     console.log(`REG username: ${username}, REG password: ${password}`);
@@ -110,7 +111,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       laneId,
       degreeId,
       currentProgress,
-      admin: false,
+      admin,
     });
 
     // if degreeId === 1, 2, 3 create the appropriate userLane to determine their degree and their lane when they first sign up
@@ -123,6 +124,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
       message: "New user created!",
       success: true,
       userId: user.userId,
+      admin: user.admin,
     });
   },
 
@@ -131,9 +133,9 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
     if (req.session.userId) {
       const user = await User.findOne({
         where: {
-          userId: req.session.userId
-        }
-      })
+          userId: req.session.userId,
+        },
+      });
 
       res.send({
         message: "user is still logged in",
@@ -141,7 +143,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
         userId: req.session.userId,
         admin: user.admin,
       });
-      return; 
+      return;
     } else {
       res.send({
         message: "no user logged in",
@@ -497,9 +499,9 @@ Will return { message: 'PD saved!'}
 
   // will send back a specific pdTracker with it's details
   getPdDetails: async (req, res) => {
-    console.log('HIT PD DETAILS')
+    console.log("HIT PD DETAILS");
     const { pdTrackerId } = req.params;
-    console.log(+pdTrackerId)
+    console.log(+pdTrackerId);
 
     const pdDetails = await PdTracker.findOne({
       where: {
@@ -576,123 +578,135 @@ Will return { message: 'PD saved!'}
       degreeId: degreeId,
       laneId: user.laneId,
     });
-  },  
+  },
   // put request to edit a pd's information
   // will need a body obj and the pdId or the pdTrackerId (maybe from req.params if not in the body obj)
   editPd: async (req, res) => {
-    console.log('HIT EDIT PD')
+    console.log("HIT EDIT PD");
     // get pdTrakcerId from req.params
     const { pdTrackerId } = req.params;
-    console.log(pdTrackerId)
-   
+    console.log(pdTrackerId);
+
     // do a sequelize query to find the right pdTracker
     const pdTracker = await PdTracker.findOne({
       where: {
-        pdTrackerId: pdTrackerId
-      }
-    })
+        pdTrackerId: pdTrackerId,
+      },
+    });
     // get pdTracker info from req.body;
-    const { pdProvider, pdHours, pdDateCompleted, pdDescription, pdReflection, pdRecommend } = req.body;
+    const {
+      pdProvider,
+      pdHours,
+      pdDateCompleted,
+      pdDescription,
+      pdReflection,
+      pdRecommend,
+    } = req.body;
 
-    // update pdTracker info with the user's new input 
+    // update pdTracker info with the user's new input
 
-    pdTracker.pdProvider = pdProvider,
-    pdTracker.pdHours = pdHours,
-    pdTracker.pdDateCompleted = pdDateCompleted;
+    (pdTracker.pdProvider = pdProvider),
+      (pdTracker.pdHours = pdHours),
+      (pdTracker.pdDateCompleted = pdDateCompleted);
     pdTracker.pdDescription = pdDescription;
     pdTracker.pdReflection = pdReflection;
     pdTracker.pdRecommend = pdRecommend;
-    pdTracker.save();   
+    pdTracker.save();
 
     // send success message
 
     res.send({
-      message: 'Your PD has been successfully updated!',
+      message: "Your PD has been successfully updated!",
       success: true,
-      pdTracker: pdTracker
+      pdTracker: pdTracker,
     });
-  }, 
+  },
   // put request to edit a course's information
   // will need a body obj and the courseId or the courseTrackerId (maybe from req.params if not in the body obj)
   editCourse: async (req, res) => {
-    console.log('HIT EDIT COURSE')
+    console.log("HIT EDIT COURSE");
     // get pdTrakcerId from req.params
     const { courseTrackerId } = req.params;
-    console.log(courseTrackerId)
-   
+    console.log(courseTrackerId);
+
     // do a sequelize query to find the right courseTracker
     const courseTracker = await CourseTracker.findOne({
       where: {
-        courseTrackerId: courseTrackerId
-      }
-    })
+        courseTrackerId: courseTrackerId,
+      },
+    });
     // get courseTracker info from req.body;
-    const { courseProvider, courseCredits, courseDateCompleted, courseDescription, courseReflection, courseRecommend } = req.body;
+    const {
+      courseProvider,
+      courseCredits,
+      courseDateCompleted,
+      courseDescription,
+      courseReflection,
+      courseRecommend,
+    } = req.body;
 
-    // ucourseate courseTracker info with the user's new input 
+    // ucourseate courseTracker info with the user's new input
 
-    courseTracker.courseProvider = courseProvider,
-    courseTracker.courseCredits = courseCredits,
-    courseTracker.courseDateCompleted = courseDateCompleted;
+    (courseTracker.courseProvider = courseProvider),
+      (courseTracker.courseCredits = courseCredits),
+      (courseTracker.courseDateCompleted = courseDateCompleted);
     courseTracker.courseDescription = courseDescription;
     courseTracker.courseReflection = courseReflection;
     courseTracker.courseRecommend = courseRecommend;
-    courseTracker.save();   
+    courseTracker.save();
 
     // send success message
 
     res.send({
-      message: 'Your course has been successfully updated!',
+      message: "Your course has been successfully updated!",
       success: true,
-      courseTracker: courseTracker
+      courseTracker: courseTracker,
     });
-  }, 
+  },
   // delete pd
-  // will need to get the pdTrackerId from req.params  
+  // will need to get the pdTrackerId from req.params
   deletePd: async (req, res) => {
     // grab the pdTrackerId from req.params
     const { pdTrackerId } = req.params;
 
     const pdTracker = await PdTracker.findOne({
       where: {
-        pdTrackerId: pdTrackerId
-      }
+        pdTrackerId: pdTrackerId,
+      },
     });
 
     await pdTracker.destroy();
 
     // send message
     res.send({
-      message: 'PD successfully deleted',
+      message: "PD successfully deleted",
       success: true,
-    })
+    });
   },
   // delete course
-  // will need to get the courseTrackerId from req.params  
+  // will need to get the courseTrackerId from req.params
   deleteCourse: async (req, res) => {
-    console.log("HIT DELETE COURSE")
+    console.log("HIT DELETE COURSE");
     // grab the pdTrackerId from req.params
     const { courseTrackerId } = req.params;
 
     const courseTracker = await CourseTracker.findOne({
       where: {
-        courseTrackerId: courseTrackerId
-      }
+        courseTrackerId: courseTrackerId,
+      },
     });
-    console.log(courseTracker)
-    
-    const user = await User.findOne({ 
+    console.log(courseTracker);
+
+    const user = await User.findOne({
       where: {
-        userId: courseTracker.userId
-      }
-    })
+        userId: courseTracker.userId,
+      },
+    });
 
-   
-
-    // math to calculate the user's current progress now 
+    // math to calculate the user's current progress now
     // when subtracting the amount of credits their deleted course was worth
 
-    console.log(courseTracker)
+    console.log(courseTracker);
 
     user.currentProgress = user.currentProgress - courseTracker.courseCredits;
     await user.save();
@@ -702,9 +716,9 @@ Will return { message: 'PD saved!'}
         where: {
           laneId: +user.laneId - 1,
         },
-      })
+      });
       user.laneId = newLane.laneId;
-      user.currentProgress = user.currentProgress + newLane.needed
+      user.currentProgress = user.currentProgress + newLane.needed;
       await user.save();
     }
 
@@ -712,29 +726,28 @@ Will return { message: 'PD saved!'}
 
     // send message
     res.send({
-      message: 'Course successfully deleted',
+      message: "Course successfully deleted",
       success: true,
-    })
+    });
   },
   // get a user's profile info
-  // will need to get the pdTrackerId from req.params  
+  // will need to get the pdTrackerId from req.params
   getProfileInfo: async (req, res) => {
     // grab userId from req.session
     const { userId } = req.session;
 
     const user = await User.findOne({
       where: {
-        userId: userId
-      }
+        userId: userId,
+      },
     });
-
 
     // send message
     res.send({
       message: "Here's your profile information",
       success: true,
-      user: user
-    })
+      user: user,
+    });
   },
   // get a list of all pds a user has completed
   getUserPds: async (req, res) => {
@@ -753,10 +766,10 @@ Will return { message: 'PD saved!'}
 
     // send success message
     res.send({
-      message: 'Here are all your PDs!',
+      message: "Here are all your PDs!",
       success: true,
       userPds: userPds,
-    })
+    });
   },
 
   // get list of all courses a user has taken
@@ -776,9 +789,26 @@ Will return { message: 'PD saved!'}
 
     // send success message
     res.send({
-      message: 'Here are all your completed courses!',
+      message: "Here are all your completed courses!",
       success: true,
       userCourses: userCourses,
     });
+  },
+  // get request to get all users' pdTrackers and courses
+  getAllUserData: async (req, res) => {
+    // sequelize query to get all users with all tables included
+    const users = await User.findAll({
+      include: {
+        all: true,
+        nested: true,
+      },
+    });
+
+    // send success message 
+    res.send({
+      message: "Here is all the data for all users",
+      success: true,
+      users: users
+    })
   },
 };

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
-const RegisterForm = ({ setShowRegister }) => {
+const RegisterForm = ({ setShowLogin, setShowRegister }) => {
   // To login, I need a user to enter their username + password
   // I should keep track of these with state values, and then when the form is submitted,
   // send those state values to my server as a req.body
@@ -35,6 +35,7 @@ const RegisterForm = ({ setShowRegister }) => {
       school,
       degreeId,
       laneId,
+      admin: false,
       currentProgress: 0
     };
 
@@ -46,7 +47,7 @@ const RegisterForm = ({ setShowRegister }) => {
     if (res.data.success) {
       dispatch({
         type: "USER_AUTH",
-        payload: res.data.userId,
+        payload: {userId: res.data.userId, admin: res.data.admin}
       });
       // reset username and password fields
       setUsername("");
@@ -57,7 +58,7 @@ const RegisterForm = ({ setShowRegister }) => {
       setSchool("");
       setDegreeId("");
       setLaneId("");
-      setShowRegister(false);
+      setShowLogin(true);
       //navigate to the user's dashboard
       // navigate("/userDashboard"); Do I need this? Seems to be working without it
     }
@@ -66,8 +67,8 @@ const RegisterForm = ({ setShowRegister }) => {
 
   return (
     <>
+      <h1>Register Form</h1>
       <form onSubmit={handleRegister}>
-        Register Form
         <label htmlFor="username">Username:</label>
         <input
           value={username}
@@ -139,7 +140,15 @@ const RegisterForm = ({ setShowRegister }) => {
         <button className="bg-blue-300 rounded-md w-24" type="submit">Register</button>
       </form>
 
-       <button onClick={() => setShowRegister(false)}>Cancel</button>
+      <h3>Already have an account?</h3>
+
+       <button 
+        onClick={() => {
+          setShowLogin(true);
+          setShowRegister(false);
+          }}>
+        Login
+      </button>
     </>
   );
 };

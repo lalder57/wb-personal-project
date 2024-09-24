@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({setShowRegister, setShowLogin}) => {
   // To login, I need a user to enter their username + password
   // I should keep track of these with state values, and then when the form is submitted,
   // send those state values to my server as a req.body
@@ -50,6 +50,8 @@ const LoginForm = () => {
 
   return (
     <>
+    <h1>Hello, welcome back</h1>
+    <h2>Sign in to continue</h2>
       <form onSubmit={handleLogin}>
         
         <label htmlFor="username">Username:</label>
@@ -70,6 +72,14 @@ const LoginForm = () => {
         />
         <button className="bg-blue-300 rounded-md w-24" type="submit">Login</button>
       </form>
+      <h2>Don't have an account?</h2>
+      <button 
+        onClick={() => {
+          setShowRegister(true);
+          setShowLogin(false);
+          }}>
+        Join us
+      </button>
       { invalidLogin && <p>Incorrect username or password. Please try again.</p> }
     </>
   );

@@ -49,10 +49,7 @@ const AddCourse = () => {
   };
 
   return (
-    <>
-      <Header />
-
-      
+    <> 
       <h1>Search for an existing course -</h1>
 
       {/* 

@@ -7,7 +7,6 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <Header />
       <h1>Welcome, {fname} {lname}</h1>
       <h2>username: {username}</h2>
       <h2>email: {email}</h2>

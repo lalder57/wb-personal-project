@@ -50,7 +50,6 @@ const PdDetailPage = () => {
 
   return editMode ? (
     <div>
-      <Header />
       <EditPdForm
         toggleEdit={toggleEdit}
         newPdDetails={newPdDetails}
@@ -60,7 +59,6 @@ const PdDetailPage = () => {
     </div>
   ) : (
     <div>
-       <Header />
       <h1>{pdName}</h1>
       <h2>Provider of PD: {pdProvider}</h2>
       <h2>Number of Hours: {pdHours}</h2>

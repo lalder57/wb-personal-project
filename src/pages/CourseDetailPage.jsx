@@ -10,6 +10,8 @@ const CourseDetailPage = () => {
   const [newCourseDetails, setNewCourseDetails] = useState(courseDetails);
   const [courseName, setCourseName] = useState(courseDetails.course.courseName)
 
+  console.log(courseDetails)
+
   const navigate = useNavigate();
   const {
     course,
@@ -45,10 +47,10 @@ const CourseDetailPage = () => {
     }
   };
 
+  console.log(newCourseDetails)
 
   return editMode ? (
     <div>
-      <Header />
       <EditCourseForm
         toggleEdit={toggleEdit} 
         newCourseDetails={newCourseDetails}
@@ -58,7 +60,6 @@ const CourseDetailPage = () => {
     </div>
   ) :(
     <div>
-      <Header />
       <h1>{courseName}</h1>
       <h2>Provider of course: {courseProvider}</h2>
       <h2>Number of Hours: {courseCredits}</h2>

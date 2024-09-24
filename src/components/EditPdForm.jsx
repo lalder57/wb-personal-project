@@ -5,12 +5,12 @@ import axios from "axios";
 
 
 const EditPdForm = ({toggleEdit, newPdDetails, setNewPdDetails}) => {
-  const [pdProvider, setPdProvider] = useState("");
-  const [pdDateCompleted, setPdDateCompleted] = useState(""); //Should this be a string or a date?
-  const [pdHours, setPdHours] = useState(''); // Should this be a string or a number
-  const [pdDescription, setPdDescription] = useState("");
-  const [pdReflection, setPdReflection] = useState("");
-  const [pdRecommend, setPdRecommend] = useState(false);
+  const [pdProvider, setPdProvider] = useState(newPdDetails.pdProvider);
+  const [pdDateCompleted, setPdDateCompleted] = useState(newPdDetails.pdDateCompleted); //Should this be a string or a date?
+  const [pdHours, setPdHours] = useState(newPdDetails.pdHours); // Should this be a string or a number
+  const [pdDescription, setPdDescription] = useState(newPdDetails.pdDescription);
+  const [pdReflection, setPdReflection] = useState(newPdDetails.pdReflection);
+  const [pdRecommend, setPdRecommend] = useState(newPdDetails.pdRecommend);
   
 
   const navigate = useNavigate();

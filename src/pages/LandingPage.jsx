@@ -8,7 +8,7 @@ import AdminLoginForm from "../components/AdminLoginForm";
 
 const LandingPage = () => {
   const [showRegister, setShowRegister] = useState(false);
-  const [showAdminForm, setShowAdminForm] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   // to use Redux, we need to "subscribe" (useSelector()) to the store
   const userId = useSelector((state) => state.userId);
@@ -34,37 +34,32 @@ const LandingPage = () => {
     }
   }, [userId]);
 
-  return (
-    <>
-      <LoginForm />
-      <p>Not a member? Register below</p>
+  return showLogin ? (
+    <> 
+      <LoginForm 
+      setShowRegister={setShowRegister}
+      setShowLogin={setShowLogin}
+      />
+      {/* <p>Not a member? Register below</p>
       <button
         className="bg-blue-300 rounded-md w-24"
         onClick={() => {
           setShowRegister(true);
-          setShowAdminForm(false);
         }}
       >
         Register
-      </button>
-      <button
-        className="bg-blue-300 rounded-md w-36"
-        onClick={() => {
-          setShowAdminForm(true);
-          setShowRegister(false);
-        }}
-      >
-        Sign In as Admin
-      </button>
-      {showRegister &&
-        <RegisterForm setShowRegister={setShowRegister} />
-      }
+      </button> */}
+      {/* {showRegister &&
+        <RegisterForm setShowLogin={setShowLogin} />
+      } */}
 
-      {showAdminForm &&
-        <AdminLoginForm />
-      }
     </>
-  );
+  ) : (
+    <RegisterForm 
+    setShowLogin={setShowLogin}
+    setShowRegister={setShowRegister} 
+    />
+  )
 
   // showRegister ? (
   //   <RegisterForm setShowRegister={setShowRegister} />

@@ -31,7 +31,6 @@ const MyPdsPage = () => {
   const data = eachPd;
   return (
     <div>
-      <Header />
       List of my completed pds: 
       <ul>{pdItems}</ul>
 

@@ -113,4 +113,8 @@ app.get('/api/getUserPds', handlerFunctions.getUserPds)
 
 // get request to see user course list
 app.get('/api/getUserCourses', handlerFunctions.getUserCourses);
+
+// get request for Admin portal to see all user data
+app.get('/api/adminPortal', handlerFunctions.getAllUserData);
+
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

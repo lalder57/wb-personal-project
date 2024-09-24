@@ -36,19 +36,25 @@ const userCourses = await CourseTracker.findAll({
 
 // console.log(userCourses)
 
-const user = await User.findOne({
-  where: {
-    userId: 3
-  },
+const users = await User.findAll({
   include: [
     {
-      model: Degree
+      model: CourseTracker,
+      include: [Course]
     },
     {
-      model: Lane
+      model: PdTracker,
+      include: [Pd]
     },
   ]
 });
+
+// const users = await User.findAll({
+//   include: {
+//     all: true,
+//     nested: true
+//   }
+// })
 
 // to display degree name
 // console.log(user.degree.degreeName)
@@ -57,11 +63,17 @@ const user = await User.findOne({
 // user.currentProgress = 18;
 // user.save();
 // to check their current progress against the needed value of their current lane
-if (user.currentProgress > user.lane.needed) {
-  user.laneId = +user.laneId + 1
-  user.save();
-}
-  console.log(user);
+// if (user.currentProgress > user.lane.needed) {
+//   user.laneId = +user.laneId + 1
+//   user.save();
+// }
+
+// to get all the way to the name of the first pd of the first user
+// why does it have an underscore for pdTrackers and courseTrackers
+  // console.log(users[0].pd_trackers[0].pd.pdName);
+
+  console.log(users)
+
 
 
 

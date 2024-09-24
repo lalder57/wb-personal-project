@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 const EditCourseForm = ({toggleEdit, newCourseDetails, setNewCourseDetails}) => {
 
-  const [courseProvider, setCourseProvider] = useState("");
-  const [courseDateCompleted, setCourseDateCompleted] = useState(""); //Should this be a string or a date?
-  const [courseCredits, setCourseCredits] = useState(''); // Should this be a string or a number
-  const [courseDescription, setCourseDescription] = useState("");
-  const [courseReflection, setCourseReflection] = useState("");
-  const [courseRecommend, setCourseRecommend] = useState(false);
+  const [courseProvider, setCourseProvider] = useState(newCourseDetails.courseProvider);
+  const [courseDateCompleted, setCourseDateCompleted] = useState(newCourseDetails.courseDateCompleted); //Should this be a string or a date?
+  const [courseCredits, setCourseCredits] = useState(newCourseDetails.courseCredits); // Should this be a string or a number
+  const [courseDescription, setCourseDescription] = useState(newCourseDetails.courseDescription);
+  const [courseReflection, setCourseReflection] = useState(newCourseDetails.courseReflection);
+  const [courseRecommend, setCourseRecommend] = useState(newCourseDetails.courseRecommend);
   
 
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ const EditCourseForm = ({toggleEdit, newCourseDetails, setNewCourseDetails}) => 
       alert(res.data.message)
       toggleEdit();
       setNewCourseDetails(res.data.courseTracker)
+      
     }
 
   }
