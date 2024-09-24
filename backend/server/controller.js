@@ -796,19 +796,31 @@ Will return { message: 'PD saved!'}
   },
   // get request to get all users' pdTrackers and courses
   getAllUserData: async (req, res) => {
-    // sequelize query to get all users with all tables included
-    const users = await User.findAll({
-      include: {
-        all: true,
-        nested: true,
-      },
+    // get userId from req.session
+    const { userId } = req.session;
+    const user = await User.findOne({
+      where: {
+        userId: userId
+      }
     });
 
-    // send success message 
-    res.send({
-      message: "Here is all the data for all users",
-      success: true,
-      users: users
-    })
+    if (user.admin) {
+      // sequelize query to get all users with all tables included
+      const users = await User.findAll({
+        include: {
+          all: true,
+          nested: true,
+        },
+      });
+  
+      // send success message 
+      res.send({
+        message: "Here is all the data for all users",
+        success: true,
+        users: users
+      });
+    } else {
+      res.sendStatus(403);
+    }
   },
 };

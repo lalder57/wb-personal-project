@@ -13,6 +13,15 @@ const ErrorPage = () => {
           <Link to="/">Click here to go back to the homepage</Link>
         </>
       );
+    } else if (error.response.status === 403) {
+      return (
+        <>
+          <h1>Oops!</h1>
+          <p>You must be an admin to access this page.</p>
+          <Link to="/userDashboard">Click here to go back to your dashboard</Link>
+          <p>If you are an admin, please contact our support team.</p>
+        </>
+      )
     }
   }
 

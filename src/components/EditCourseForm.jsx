@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {formatDate} from "../assets/helper-functions.js";
 
 const EditCourseForm = ({toggleEdit, newCourseDetails, setNewCourseDetails}) => {
 
   const [courseProvider, setCourseProvider] = useState(newCourseDetails.courseProvider);
-  const [courseDateCompleted, setCourseDateCompleted] = useState(newCourseDetails.courseDateCompleted); //Should this be a string or a date?
+  const [courseDateCompleted, setCourseDateCompleted] = useState(formatDate(newCourseDetails.courseDateCompleted)); //Should this be a string or a date?
   const [courseCredits, setCourseCredits] = useState(newCourseDetails.courseCredits); // Should this be a string or a number
   const [courseDescription, setCourseDescription] = useState(newCourseDetails.courseDescription);
   const [courseReflection, setCourseReflection] = useState(newCourseDetails.courseReflection);

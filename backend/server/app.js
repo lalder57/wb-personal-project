@@ -12,12 +12,15 @@ app.use(express.json());
 app.use(session({ secret: 'ssshhhhh', saveUninitialized: true, resave: false }));
 
 function loginRequired(req, res, next) {
+  console.log(req.session.userId)
   if (!req.session.userId) {
     res.status(401).json({ error: 'Unauthorized' });
   } else {
     next();
   }
 };
+
+
 
 
 
@@ -50,7 +53,7 @@ app.post('/api/register', handlerFunctions.register)
 /* #4 - Logout
 destroy session data
 */ 
-app.get('/api/logout', handlerFunctions.logout)
+app.get('/api/logout', loginRequired, handlerFunctions.logout)
 
 /* #5 - Add Pd - 
 Add newly created PD to the database
@@ -60,7 +63,7 @@ Will return { message: 'PD saved!'}
 Maybe have a create Pd endpoint and an add Pd endpoint 
 */
 
-app.post('/api/addPd', handlerFunctions.addPd);
+app.post('/api/addPd', loginRequired, handlerFunctions.addPd);
 
 /* #6 - Add Course
 Add newly created course to the database
@@ -68,7 +71,7 @@ Need a body with the newly added info (Course and courseTracker models)
 Will return { message: 'Course saved!'}
 */
 
-app.post('/api/addCourse', handlerFunctions.addCourse);
+app.post('/api/addCourse', loginRequired, handlerFunctions.addCourse);
 
 /* #7 -- Show user their completed pds and courses
 Get request to find all pds and courses that have the userId
@@ -76,45 +79,45 @@ will need the userId
 will return {message: 'Here's your info', success: true, info: info }
 */
 
-app.get('/api/userInfo', handlerFunctions.getUserInfo);
+app.get('/api/userInfo', loginRequired, handlerFunctions.getUserInfo);
 
 // gets all the existing pds from the DB
-app.get('/api/pds', handlerFunctions.getPds);
+app.get('/api/pds', loginRequired, handlerFunctions.getPds);
 
 // get all existing courses from the DB
-app.get('/api/courses', handlerFunctions.getCourses)
+app.get('/api/courses', loginRequired, handlerFunctions.getCourses)
 
 // get specific pdTracker details
-app.get('/api/pdTrackers/:pdTrackerId', handlerFunctions.getPdDetails)
+app.get('/api/pdTrackers/:pdTrackerId', loginRequired, handlerFunctions.getPdDetails)
 
 // get specific courseTracker detials
-app.get('/api/courseTrackers/:courseTrackerId', handlerFunctions.getCourseDetails)
+app.get('/api/courseTrackers/:courseTrackerId', loginRequired, handlerFunctions.getCourseDetails)
 
 // post request to update a user's degreeId if they are in lane 5 or 8
-app.post('/api/updateDegree', handlerFunctions.updateDegree)
+app.post('/api/updateDegree', loginRequired, handlerFunctions.updateDegree)
 
 // put request to edit a pd's information
-app.put('/api/editPd/:pdTrackerId', handlerFunctions.editPd)
+app.put('/api/editPd/:pdTrackerId', loginRequired, handlerFunctions.editPd)
 
 // put request to edit a course's information
-app.put('/api/editCourse/:courseTrackerId', handlerFunctions.editCourse)
+app.put('/api/editCourse/:courseTrackerId', loginRequired, handlerFunctions.editCourse)
 
 // delete request to delete a pdTracker
-app.delete('/api/deletePd/:pdTrackerId', handlerFunctions.deletePd)
+app.delete('/api/deletePd/:pdTrackerId', loginRequired, handlerFunctions.deletePd)
 
 // delete request to delete a course
-app.delete('/api/deleteCourse/:courseTrackerId', handlerFunctions.deleteCourse)
+app.delete('/api/deleteCourse/:courseTrackerId', loginRequired, handlerFunctions.deleteCourse)
 
 // get request to see user profile info
-app.get('/api/getProfileInfo', handlerFunctions.getProfileInfo)
+app.get('/api/getProfileInfo', loginRequired, handlerFunctions.getProfileInfo)
 
 // get request to see user pd list
-app.get('/api/getUserPds', handlerFunctions.getUserPds)
+app.get('/api/getUserPds', loginRequired, handlerFunctions.getUserPds)
 
 // get request to see user course list
-app.get('/api/getUserCourses', handlerFunctions.getUserCourses);
+app.get('/api/getUserCourses', loginRequired, handlerFunctions.getUserCourses);
 
 // get request for Admin portal to see all user data
-app.get('/api/adminPortal', handlerFunctions.getAllUserData);
+app.get('/api/adminPortal', loginRequired, handlerFunctions.getAllUserData);
 
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

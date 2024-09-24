@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { formatDate } from "../assets/helper-functions.js";
 
 
 
 const EditPdForm = ({toggleEdit, newPdDetails, setNewPdDetails}) => {
   const [pdProvider, setPdProvider] = useState(newPdDetails.pdProvider);
-  const [pdDateCompleted, setPdDateCompleted] = useState(newPdDetails.pdDateCompleted); //Should this be a string or a date?
+  const [pdDateCompleted, setPdDateCompleted] = useState(formatDate(newPdDetails.pdDateCompleted)); //Should this be a string or a date?
   const [pdHours, setPdHours] = useState(newPdDetails.pdHours); // Should this be a string or a number
   const [pdDescription, setPdDescription] = useState(newPdDetails.pdDescription);
   const [pdReflection, setPdReflection] = useState(newPdDetails.pdReflection);

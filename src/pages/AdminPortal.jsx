@@ -2,10 +2,9 @@ import { useLoaderData } from "react-router-dom"
 import UserCard from "../components/UserCard";
 
 
+
 const AdminPortal = () => {
   const {users} = useLoaderData();
-
-  
 
   const userCards = users.map((user) => {
     return (
@@ -15,6 +14,7 @@ const AdminPortal = () => {
       />  
     )
   })
+
 
   return (
     <div className="h-full w-full flex flex-col">

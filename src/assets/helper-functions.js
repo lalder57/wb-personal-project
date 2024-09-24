@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const donutChartOptions = (userPds) => {
   const totalPdHours = userPds.reduce((acc, pd) => {
     return acc + pd.pdHours;
@@ -98,4 +100,14 @@ const gaugeChartOptions = (user) => {
 
 }
 
-export {donutChartOptions, gaugeChartOptions}
+const formatDate = (date) => {
+
+  return format(date, 'yyyy-MM-dd');
+}
+
+const displayDate = (date) => {
+  return format(date, 'MMM-dd-yyyy');
+}
+
+
+export {donutChartOptions, gaugeChartOptions, formatDate, displayDate}
