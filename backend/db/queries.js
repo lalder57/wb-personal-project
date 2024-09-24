@@ -36,25 +36,25 @@ const userCourses = await CourseTracker.findAll({
 
 // console.log(userCourses)
 
-const users = await User.findAll({
-  include: [
-    {
-      model: CourseTracker,
-      include: [Course]
-    },
-    {
-      model: PdTracker,
-      include: [Pd]
-    },
-  ]
-});
-
 // const users = await User.findAll({
-//   include: {
-//     all: true,
-//     nested: true
-//   }
-// })
+//   include: [
+//     {
+//       model: CourseTracker,
+//       include: [Course]
+//     },
+//     {
+//       model: PdTracker,
+//       include: [Pd]
+//     },
+//   ]
+// });
+
+const users = await User.findAll({
+  include: {
+    all: true,
+    nested: true
+  }
+})
 
 // to display degree name
 // console.log(user.degree.degreeName)

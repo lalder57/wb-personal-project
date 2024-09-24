@@ -17,9 +17,11 @@ const AdminPortal = () => {
   })
 
   return (
-    <div>
+    <div className="h-full w-full flex flex-col">
       Welcome to the Admin Portal!
+      <div className="h-full w-full flex flex-row">
       {userCards}
+      </div>
     </div>
   )
 }
