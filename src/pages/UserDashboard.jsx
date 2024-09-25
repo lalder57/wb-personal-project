@@ -42,7 +42,7 @@ const UserDashboard = () => {
   //   })
   // }
 
-  console.log(`TRACKER IDs: ${userPds.map((pd) => pd.pdTrackerId)}`)
+  console.log(userPds.map((pd) => pd.pdTrackerId))
   const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId)
 
 
@@ -57,37 +57,39 @@ const UserDashboard = () => {
     chart: {
       type: "donut",
       events: {
-        dataPointSelection: function (event, chartContext, config, userPds) {
+        dataPointSelection: function (event, chartContext, config) {
           const clickedIndex = config.dataPointIndex;
           const clickedLabel = config.w.config.labels[clickedIndex];
           const clickedValue = config.w.config.series[clickedIndex];
-          const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId)
+          
+          const extraInfo = pdTrackerIds[clickedIndex] 
 
-          alert(`You clicked on ${clickedLabel} with value ${clickedValue}`);
-          navigate(`/pdTrackers/${pdTrackerIds}`);
+          alert(`You clicked on ${clickedLabel} with value ${clickedValue}. Extra Info: ${extraInfo}`);
+          navigate(`/pdTrackers/${extraInfo}`);
         }
       }
     },
     series: userPds.map((pd) => pd.pdHours),
     labels: userPds.map((pd) => pd.pd.pdName),
-    // dataLabels: {
-    //   enabled: true,
-    //   formatter: function (val) {
-    //     return val;
-    //   },
-    // },
     plotOptions: {
       pie: {
         expandOnClick: false,
         donut: {
           labels: {
             show: true,
+            name: {
+              show: true,
+            },
+            value: {
+              show: true,
+            },
             total: {
               show: true,
+              showAlways: true,
               label: "Total PD Hours:",
-            //   formatter: function () {
-            //     return totalPdHours;
-            //   },
+              formatter: function () {
+                return totalPdHours;
+              },
             },
           },
         },
@@ -95,11 +97,6 @@ const UserDashboard = () => {
     },
     dataLabels: {
       enabled: false,
-      // formatter: function (val, opts) {
-      //   return `${opts.w.globals.labels[opts.seriesIndex]}: ${
-      //     opts.w.globals.series[opts.seriesIndex]
-      //   } hours`;
-      // },
     },
     legend: {
       position: "bottom",

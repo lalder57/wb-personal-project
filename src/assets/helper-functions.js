@@ -1,29 +1,31 @@
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 const donutChartOptions = (userPds) => {
   const totalPdHours = userPds.reduce((acc, pd) => {
     return acc + pd.pdHours;
   }, 0);
-
+  
   const chartOptions = {
     chart: {
       type: "donut",
     },
     series: userPds.map((pd) => pd.pdHours),
     labels: userPds.map((pd) => pd.pd.pdName),
-    dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return val;
-      },
-    },
     plotOptions: {
       pie: {
+        expandOnClick: false,
         donut: {
           labels: {
             show: true,
+            name: {
+              show: true,
+            },
+            value: {
+              show: true,
+            },
             total: {
               show: true,
+              showAlways: true,
               label: "Total PD Hours:",
               formatter: function () {
                 return totalPdHours;
@@ -34,18 +36,14 @@ const donutChartOptions = (userPds) => {
       },
     },
     dataLabels: {
-      enabled: true,
-      formatter: function (val, opts) {
-        return `${opts.w.globals.labels[opts.seriesIndex]}: ${
-          opts.w.globals.series[opts.seriesIndex]
-        } hours`;
-      },
+      enabled: false,
+    },
+    legend: {
+      position: "bottom",
     },
   };
-
-  return { totalPdHours, chartOptions }
-}
-
+  return { chartOptions };
+};
 
 const gaugeChartOptions = (user) => {
   const percentage = (user.currentProgress / user.lane.needed) * 100;
@@ -96,15 +94,12 @@ const gaugeChartOptions = (user) => {
     labels: ["Current Progress"], // Label in the center
   };
 
-  return { gaugeOptions }
-
-}
-
+  return { gaugeOptions };
+};
 
 const displayDate = (date) => {
-  const newDate = new Date(date)
-  return format(newDate, 'MMM-dd-yyyy');
-}
+  const newDate = new Date(date);
+  return format(newDate, "MMM-dd-yyyy");
+};
 
-
-export {donutChartOptions, gaugeChartOptions, displayDate}
+export { donutChartOptions, gaugeChartOptions, displayDate };

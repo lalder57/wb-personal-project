@@ -6,7 +6,7 @@ import {
 } from "../assets/helper-functions.js";
 
 const UserCard = ({ user }) => {
-  const { totalPdHours, chartOptions } = donutChartOptions(user.pd_trackers);
+  const { chartOptions } = donutChartOptions(user.pd_trackers);
   // to display all users' names (maybe for titles of cards/charts?)
 
   const { gaugeOptions } = gaugeChartOptions(user);
