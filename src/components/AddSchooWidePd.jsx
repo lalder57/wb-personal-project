@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const CreatePdPage = () => {
+const AddSchooWidePd = () => {
   const [pdName, setPdName] = useState("");
   const [pdProvider, setPdProvider] = useState("");
   const [pdDateCompleted, setPdDateCompleted] = useState(""); //Should this be a string or a date?
@@ -13,6 +13,7 @@ const CreatePdPage = () => {
   const [pdRecommend, setPdRecommend] = useState(false);
 
   const userId = useSelector((state) => state.userId);
+  console.log(userId);
   
   const navigate = useNavigate();
 
@@ -27,13 +28,13 @@ const CreatePdPage = () => {
       pdReflection,
       pdRecommend
     }
-    const res = await axios.post("/api/addpd", formData);
+    const res = await axios.post("/api/addSchoolWidePd", formData);
     console.log(res.data);
     
     // send some form of alert to the user so they know if their attempt was successful
     alert(res.data.message);
     // send back to userDashboard (has a loader to get new info from DB)
-    navigate('/userDashboard')
+    navigate('/adminPortal')
   };
 
   useEffect(() => {
@@ -44,8 +45,8 @@ const CreatePdPage = () => {
 
   return (
     <>
+      Create New pd Form
       <form onSubmit={handleNewPd}>
-        Create New pd Form
         <label htmlFor="pdName">Name of pd:</label>
         <input
           value={pdName}
@@ -97,11 +98,11 @@ const CreatePdPage = () => {
         />
         <button type="submit">Create & Save PD</button>
       </form>
-      <Link to='/addPd'>
+      <Link to='/adminPortal'>
         <button>Cancel</button>
       </Link>
     </>
   );
-};
+}
 
-export default CreatePdPage;
+export default AddSchooWidePd

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const CreateCoursePage = () => {
   const [courseName, setCourseName] = useState("");
@@ -11,6 +12,7 @@ const CreateCoursePage = () => {
   const [courseReflection, setCourseReflection] = useState("");
   const [courseRecommend, setCourseRecommend] = useState(false);
   
+  const userId = useSelector((state) => state.userId);
   const navigate = useNavigate();
 
   const handleNewCourse = async (e) => {
@@ -32,6 +34,11 @@ const CreateCoursePage = () => {
     // send back to userDashboard (has a loader to get new info from DB)
     navigate('/userDashboard')
   };
+  useEffect(() => {
+    if(!userId) {
+      navigate('/')
+    }
+  },[])
 
   return (
     <>
@@ -88,6 +95,9 @@ const CreateCoursePage = () => {
         />
         <button type="submit">Create & Save course</button>
       </form>
+      <Link to='/addCourse'>
+        <button>Cancel</button>
+      </Link>
     </>
   );
 };

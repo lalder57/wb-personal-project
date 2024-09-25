@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "./Header";
+import { useSelector } from "react-redux";
 
 const UpdateDegreeForm = () => {
   const [degreeId, setDegreeId] = useState("");
   const navigate = useNavigate();
+  const userId = useSelector((state) => state.userId);
 
   // create the handle UpdateDegree function
   const handleUpdateDegree = async (e) => {
@@ -25,10 +26,14 @@ const UpdateDegreeForm = () => {
       navigate("/userDashboard");
     }
   };
+  useEffect(() => {
+    if(!userId) {
+      navigate('/')
+    }
+  },[])
 
   return (
     <div>
-      <Header />
       <form onSubmit={handleUpdateDegree}>
         Update Degree Form
         <label htmlFor="degreeId">degree:</label>

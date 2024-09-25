@@ -8,6 +8,10 @@ async function connectToDB(dbURI) {
     define: {
       timestamps: false,
       underscored: true,
+      timezone: 'UTC',
+      dialectOptions: {
+        useUTC: true, 
+      },
     },
   });
 

@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate, Link, useLoaderData, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
 import React from "react";
 import UpdateDegreeForm from "../components/UpdateDegreeForm";
 import Chart from "react-apexcharts";
@@ -43,6 +42,9 @@ const UserDashboard = () => {
   //   })
   // }
 
+  console.log(`TRACKER IDs: ${userPds.map((pd) => pd.pdTrackerId)}`)
+  const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId)
+
 
   // pd donut chart stuff
   console.log(userPds.map((pd) => pd.pdHours));
@@ -54,39 +56,54 @@ const UserDashboard = () => {
   const chartOptions = {
     chart: {
       type: "donut",
+      events: {
+        dataPointSelection: function (event, chartContext, config, userPds) {
+          const clickedIndex = config.dataPointIndex;
+          const clickedLabel = config.w.config.labels[clickedIndex];
+          const clickedValue = config.w.config.series[clickedIndex];
+          const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId)
+
+          alert(`You clicked on ${clickedLabel} with value ${clickedValue}`);
+          navigate(`/pdTrackers/${pdTrackerIds}`);
+        }
+      }
     },
     series: userPds.map((pd) => pd.pdHours),
     labels: userPds.map((pd) => pd.pd.pdName),
-    dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return val;
-      },
-    },
+    // dataLabels: {
+    //   enabled: true,
+    //   formatter: function (val) {
+    //     return val;
+    //   },
+    // },
     plotOptions: {
       pie: {
+        expandOnClick: false,
         donut: {
           labels: {
             show: true,
             total: {
               show: true,
               label: "Total PD Hours:",
-              formatter: function () {
-                return totalPdHours;
-              },
+            //   formatter: function () {
+            //     return totalPdHours;
+            //   },
             },
           },
         },
       },
     },
     dataLabels: {
-      enabled: true,
-      formatter: function (val, opts) {
-        return `${opts.w.globals.labels[opts.seriesIndex]}: ${
-          opts.w.globals.series[opts.seriesIndex]
-        } hours`;
-      },
+      enabled: false,
+      // formatter: function (val, opts) {
+      //   return `${opts.w.globals.labels[opts.seriesIndex]}: ${
+      //     opts.w.globals.series[opts.seriesIndex]
+      //   } hours`;
+      // },
     },
+    legend: {
+      position: "bottom",
+    }
   };
 
   // course gauge stuff
@@ -181,7 +198,7 @@ const UserDashboard = () => {
       <h2>You haven't recorded any professional development hours yet. <br /> Click the button below to get started!</h2>
       }
       <Link to="/addPd">
-        <button className="bg-blue-300 rounded-md w-32">Add New PD</button>{" "}
+        <button className="bg-blue-300 rounded-md w-32">Add New PD</button>
       </Link>
       <h2 className="text-xl font-semibold">Coursework:</h2>
       <h3>Current Salary Lane Progress:</h3>
@@ -193,7 +210,7 @@ const UserDashboard = () => {
         height={350}
       />
       <Link to="/addCourse">
-        <button className="bg-blue-300 rounded-md w-40">Add New Course</button>{" "}
+        <button className="bg-blue-300 rounded-md w-40">Add New Course</button>
       </Link>
 
       {userLane.laneId <= 4 && (

@@ -593,6 +593,7 @@ Will return { message: 'PD saved!'}
         pdTrackerId: pdTrackerId,
       },
     });
+    console.log(req.body);
     // get pdTracker info from req.body;
     const {
       pdProvider,
@@ -604,6 +605,9 @@ Will return { message: 'PD saved!'}
     } = req.body;
 
     // update pdTracker info with the user's new input
+    // const dateTimestamp = new Date(pdDateCompleted);
+    // console.log(dateTimestamp);
+    
 
     (pdTracker.pdProvider = pdProvider),
       (pdTracker.pdHours = pdHours),
@@ -612,6 +616,8 @@ Will return { message: 'PD saved!'}
     pdTracker.pdReflection = pdReflection;
     pdTracker.pdRecommend = pdRecommend;
     pdTracker.save();
+
+    console.log(pdDateCompleted)
 
     // send success message
 
@@ -800,8 +806,8 @@ Will return { message: 'PD saved!'}
     const { userId } = req.session;
     const user = await User.findOne({
       where: {
-        userId: userId
-      }
+        userId: userId,
+      },
     });
 
     if (user.admin) {
@@ -812,15 +818,60 @@ Will return { message: 'PD saved!'}
           nested: true,
         },
       });
-  
-      // send success message 
+
+      // send success message
       res.send({
         message: "Here is all the data for all users",
         success: true,
-        users: users
+        users: users,
       });
     } else {
       res.sendStatus(403);
     }
+  },
+  // add a school-wide pd option for admin (POST)
+  // will add this new pd to all users (or users that the admin is over)
+  addSchooWidePd: async (req, res) => {
+    // get values from req.body
+    const {
+      pdName,
+      pdProvider,
+      pdHours,
+      pdDateCompleted,
+      pdDescription,
+      pdReflection,
+      pdRecommend,
+    } = req.body;
+
+    // sequelize query to create a new pd with pdName
+    const newPd = await Pd.create({
+      pdName,
+    });
+
+    // sequelize query to make a new pdTracker for each user
+    // for each of the users with this pd
+    const users = await User.findAll();
+
+    await Promise.all(
+      users.map((user) => {
+        const newPdTracker = PdTracker.create({
+          userId: user.userId,
+          pdId: newPd.pdId,
+          pdProvider,
+          pdHours,
+          pdDateCompleted,
+          pdDescription,
+          pdReflection,
+          pdRecommend,
+        });
+        return newPdTracker;
+      })
+    );
+    // send success message
+    res.send({
+      message: "School-wide PD successfully added to all users!",
+      success: true,
+      newPd: newPd.pdName,
+    });
   },
 };

@@ -2,7 +2,6 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import EditCourseForm from "../components/EditCourseForm";
 import axios from "axios";
-import { displayDate } from "../assets/helper-functions.js"
 
 const CourseDetailPage = () => {
   const { courseDetails } = useLoaderData();
@@ -63,7 +62,7 @@ const CourseDetailPage = () => {
       <h1>{courseName}</h1>
       <h2>Provider of course: {courseProvider}</h2>
       <h2>Number of Hours: {courseCredits}</h2>
-      <h2>Date Completed: {displayDate(courseDateCompleted)}</h2>
+      <h2>Date Completed: {courseDateCompleted}</h2>
       <h2>Description: {courseDescription}</h2>
       <h2>Reflection: {courseReflection}</h2>
       {courseRecommend && <h2>Would you recommend: yes</h2>}

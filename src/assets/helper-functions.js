@@ -100,14 +100,11 @@ const gaugeChartOptions = (user) => {
 
 }
 
-const formatDate = (date) => {
-
-  return format(date, 'yyyy-MM-dd');
-}
 
 const displayDate = (date) => {
-  return format(date, 'MMM-dd-yyyy');
+  const newDate = new Date(date)
+  return format(newDate, 'MMM-dd-yyyy');
 }
 
 
-export {donutChartOptions, gaugeChartOptions, formatDate, displayDate}
+export {donutChartOptions, gaugeChartOptions, displayDate}

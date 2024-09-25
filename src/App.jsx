@@ -15,6 +15,7 @@ function App() {
   const userId = useSelector((state) => state.userId)
   // console.log(userId)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   const checkSession = async () => {
     const res = await axios.get("/api/check-session");
@@ -28,26 +29,17 @@ function App() {
     }
   };
 
-  // dispatch the Redux store to update the value of admin if admin
- 
-  //   if (res.data.admin) {
-  //   console.log("FOUND ADMIN")
-  //   dispatch({
-  //     type: "ADMIN_AUTH",
-  //     payload: {userId: res.data.userId, admin: res.data.admin}
-  //   })
-  // }
-
 
   useEffect(() => {
     checkSession();
   }, []);
-  
+
   // useEffect(() => {
-  //   if (userId) {
-  //     navigate("/userDashboard");
+  //   if(!userId) {
+  //     navigate('/')
   //   }
-  // }, [userId]);
+  // },[])
+  
 
   return (
     <>

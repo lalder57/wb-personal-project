@@ -134,7 +134,7 @@ CourseTracker.init (
       allowNull: false,
     },
     courseDateCompleted: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     courseDescription: {
@@ -179,7 +179,7 @@ PdTracker.init (
       allowNull: false,
     },
     pdDateCompleted: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     pdDescription: {

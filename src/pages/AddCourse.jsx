@@ -142,6 +142,10 @@ const AddCourse = () => {
       <Link to={'/CreateCoursePage'}>
         <button>Create New course</button>
         </Link>
+
+      <Link to='/userDashboard'>
+        <button>Cancel</button>
+      </Link>
     </>
   );
 };

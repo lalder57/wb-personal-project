@@ -147,6 +147,10 @@ const AddPd = () => {
       <Link to={'/CreatePdPage'}>
         <button>Create New PD</button>
       </Link>
+
+      <Link to='/userDashboard'>
+        <button>Cancel</button>
+      </Link>
     </>
   );
 };

@@ -120,4 +120,7 @@ app.get('/api/getUserCourses', loginRequired, handlerFunctions.getUserCourses);
 // get request for Admin portal to see all user data
 app.get('/api/adminPortal', loginRequired, handlerFunctions.getAllUserData);
 
+// post request for Admin to add a school-wide pd
+app.post('/api/addSchoolWidePd', loginRequired, handlerFunctions.addSchooWidePd)
+
 ViteExpress.listen(app, port, () => console.log(`Server is listening on http://localhost:${port}`));

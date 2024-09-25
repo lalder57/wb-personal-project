@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, Link } from "react-router-dom"
 import UserCard from "../components/UserCard";
 
 
@@ -22,6 +22,9 @@ const AdminPortal = () => {
       <div className="h-full w-full flex flex-row">
       {userCards}
       </div>
+      <Link to="/addPdForAll">
+        <button>Add School-Wide PD</button>
+      </Link>
     </div>
   )
 }

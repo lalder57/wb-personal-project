@@ -26,6 +26,7 @@ import CreatePdPage from "./pages/CreatePdPage.jsx";
 import MyCoursesPage from "./pages/MyCoursesPage.jsx";
 import MyPdsPage from "./pages/MyPdsPage.jsx";
 import AdminPortal from "./pages/AdminPortal.jsx";
+import AddSchoolWidePd from "./components/AddSchooWidePd.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -120,7 +121,10 @@ const router = createBrowserRouter(
           const res = await axios.get("/api/adminPortal");
           return { users: res.data.users };
         }}
-      
+      />
+      <Route 
+        path="addPdForAll"
+        element={<AddSchoolWidePd />}
       />
     </Route>
   )

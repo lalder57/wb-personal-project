@@ -2,7 +2,6 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import EditPdForm from "../components/EditPdForm";
-import { displayDate } from "../assets/helper-functions.js"
 
 const PdDetailPage = () => {
   const { pdDetails } = useLoaderData();
@@ -23,8 +22,7 @@ const PdDetailPage = () => {
     pdRecommend,
     pdReflection,
   } = newPdDetails;
-
-  // console.log(pdRecommend);
+  
 
   const toggleEdit = () => setEditMode(!editMode);
 
@@ -62,7 +60,7 @@ const PdDetailPage = () => {
       <h1>{pdName}</h1>
       <h2>Provider of PD: {pdProvider}</h2>
       <h2>Number of Hours: {pdHours}</h2>
-      <h2>Date Completed: {displayDate(pdDateCompleted)}</h2>
+      <h2>Date Completed: {pdDateCompleted}</h2>
       <h2>Description: {pdDescription}</h2>
       <h2>Reflection: {pdReflection}</h2>
       {pdRecommend && <h2>Would you recommend: yes</h2>}
