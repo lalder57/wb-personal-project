@@ -42,7 +42,8 @@ function App() {
   
 
   return (
-    <>
+    <div className="flex flex-row ">
+      <div>
     {!userId &&
       <nav className="h-16 bg-blue-400">
         Logo
@@ -51,11 +52,13 @@ function App() {
     {userId &&
       <Header />
     }
-
-    <main>
-      <Outlet />
-    </main>
-  </>
+     </div>
+     <div>
+        <main>
+          <Outlet />
+        </main>
+      </div>
+  </div>
    
   )
 }

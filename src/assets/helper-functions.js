@@ -102,4 +102,21 @@ const displayDate = (date) => {
   return format(newDate, "MMM-dd-yyyy");
 };
 
-export { donutChartOptions, gaugeChartOptions, displayDate };
+const formatNames = (name) => {
+  let newName = "";
+  for (let i = 0; i < name.length; i++) {
+    if (i === 0) {
+      newName += name[i].toUpperCase();
+    } else {
+      newName += name[i]
+    }
+  }
+  return newName
+}
+const toTitleCase = (str) => {
+  return str.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+
+export { donutChartOptions, gaugeChartOptions, displayDate, formatNames, toTitleCase };

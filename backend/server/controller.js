@@ -9,6 +9,7 @@ import {
   Lane,
 } from "../db/model.js";
 import bcryptjs from "bcryptjs";
+import {formatNames, toTitleCase} from "../../src/assets/helper-functions.js"
 
 export const handlerFunctions = {
   /* #1 - Login
@@ -104,10 +105,10 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
     const user = await User.create({
       username,
       password: hashedPassword,
-      fname,
-      lname,
+      fname: formatNames(fname),
+      lname: formatNames(lname),
       email,
-      school,
+      school: toTitleCase(school),
       laneId,
       degreeId,
       currentProgress,
@@ -186,7 +187,7 @@ Will return { message: 'PD saved!'}
       const newPdTracker = await PdTracker.create({
         pdId: pd.pdId,
         userId: userId,
-        pdProvider,
+        pdProvider: toTitleCase(pdProvider),
         pdHours,
         pdDateCompleted,
         pdDescription,
@@ -204,14 +205,14 @@ Will return { message: 'PD saved!'}
       // create a new Pd if pdName doesn't exist
       console.log("pdName does not exist, create a new pd");
       const newPd = await Pd.create({
-        pdName,
+        pdName: toTitleCase(pdName),
       });
 
       // create a new PdTracker with the userId and the newPd.pdId
       const newPdTracker = await PdTracker.create({
         pdId: newPd.pdId,
         userId: userId,
-        pdProvider,
+        pdProvider: toTitleCase(pdProvider),
         pdHours,
         pdDateCompleted,
         pdDescription,
@@ -262,7 +263,7 @@ Will return { message: 'PD saved!'}
       const newCourseTracker = await CourseTracker.create({
         courseId: course.courseId,
         userId: userId,
-        courseProvider,
+        courseProvider: formatNames(courseProvider),
         courseCredits,
         courseDateCompleted,
         courseDescription,
@@ -333,14 +334,14 @@ Will return { message: 'PD saved!'}
       // create a new course if courseName doesn't exist
       console.log("courseName does not exist, create a new course");
       const newCourse = await Course.create({
-        courseName,
+        courseName: formatNames(courseName),
       });
 
       // create a new courseTracker with the userId and the newcourse.courseId
       const newCourseTracker = await CourseTracker.create({
         courseId: newCourse.courseId,
         userId: userId,
-        courseProvider,
+        courseProvider: formatNames(courseProvider),
         courseCredits,
         courseDateCompleted,
         courseDescription,
@@ -609,9 +610,9 @@ Will return { message: 'PD saved!'}
     // console.log(dateTimestamp);
     
 
-    (pdTracker.pdProvider = pdProvider),
-      (pdTracker.pdHours = pdHours),
-      (pdTracker.pdDateCompleted = pdDateCompleted);
+    pdTracker.pdProvider = toTitleCase(pdProvider);
+    pdTracker.pdHours = pdHours;
+    pdTracker.pdDateCompleted = pdDateCompleted;
     pdTracker.pdDescription = pdDescription;
     pdTracker.pdReflection = pdReflection;
     pdTracker.pdRecommend = pdRecommend;
@@ -653,9 +654,9 @@ Will return { message: 'PD saved!'}
 
     // ucourseate courseTracker info with the user's new input
 
-    (courseTracker.courseProvider = courseProvider),
-      (courseTracker.courseCredits = courseCredits),
-      (courseTracker.courseDateCompleted = courseDateCompleted);
+    courseTracker.courseProvider = toTitleCase(courseProvider);
+    courseTracker.courseCredits = courseCredits;
+    courseTracker.courseDateCompleted = courseDateCompleted;
     courseTracker.courseDescription = courseDescription;
     courseTracker.courseReflection = courseReflection;
     courseTracker.courseRecommend = courseRecommend;
@@ -845,7 +846,7 @@ Will return { message: 'PD saved!'}
 
     // sequelize query to create a new pd with pdName
     const newPd = await Pd.create({
-      pdName,
+      pdName: toTitleCase(pdName),
     });
 
     // sequelize query to make a new pdTracker for each user
@@ -857,7 +858,7 @@ Will return { message: 'PD saved!'}
         const newPdTracker = PdTracker.create({
           userId: user.userId,
           pdId: newPd.pdId,
-          pdProvider,
+          pdProvider: toTitleCase(pdProvider),
           pdHours,
           pdDateCompleted,
           pdDescription,

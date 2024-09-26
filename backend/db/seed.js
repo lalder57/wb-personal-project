@@ -7,21 +7,21 @@ const hashedPassword = bcryptjs.hashSync('test', bcryptjs.genSaltSync(10));
 
 
 const pd1 = await Pd.create({
-  pdName: 'first pd',
+  pdName: 'First Pd',
 })
 
 const pd2 = await Pd.create({
-  pdName: 'second pd',
+  pdName: 'Second Pd',
 })
 
 console.log(pd1, pd2);
 
 const course1 = await Course.create({
-  courseName: 'first course',
+  courseName: 'First Course',
 })
 
 const course2 = await Course.create({
-  courseName: 'second course',
+  courseName: 'Second Course',
 })
 
 console.log(course1, course2);
@@ -106,8 +106,8 @@ const lane9 = await Lane.create({
 const user1 = await User.create({
   username: 'user1',
   password: hashedPassword,
-  fname: 'sam',
-  lname: 'smith',
+  fname: 'Sam',
+  lname: 'Smith',
   email: '1234@gmail.com',
   school: 'Timpanogos',
   currentProgress: 1,
@@ -119,8 +119,8 @@ const user1 = await User.create({
 const user2 = await User.create({
   username: 'user2',
   password: hashedPassword,
-  fname: 'alex',
-  lname: 'smith',
+  fname: 'Alex',
+  lname: 'Smith',
   email: '5678@gmail.com',
   school: 'Orem High',
   currentProgress: 2,

@@ -8,12 +8,12 @@ const Header = () => {
 
 
   return (
-    <nav className="h-16 bg-blue-400 flex justify-evenly items-center">
+    <nav className="h-screen w-50 bg-blue-400 flex flex-col justify-evenly items-center shadow-lg ">
         Logo
        name of website/logo
-      <NavLink to="/userDashboard">My Dashboard</NavLink>
+      <NavLink to="/userDashboard" className="bg-blue-300 hover:bg-green-100">My Dashboard</NavLink>
       <NavLink to="/myPds">My PDs</NavLink>
-      <NavLink to="/myCourses">My Courses</NavLink>
+      <NavLink to="/myCourses" className="bg-blue-300 hover:bg-green-100">My Courses</NavLink>
       <NavLink to="/myProfile">My Profile</NavLink>
       {admin &&
       <NavLink to="/adminPortal">Admin Portal</NavLink>
