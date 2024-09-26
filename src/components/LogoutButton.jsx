@@ -24,7 +24,7 @@ const LogoutButton = () => {
   return (
     <>
       <button
-        className="w-24 rounded-md bg-blue-300 text-xl"
+        className="text-darkGray rounded-md text-xl"
         onClick={handleLogout}
       >
         Logout
