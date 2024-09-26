@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import React from "react";
 import UpdateDegreeForm from "../components/UpdateDegreeForm";
 import Chart from "react-apexcharts";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const UserDashboard = () => {
   const admin = useSelector((state) => state.admin);
-  console.log(`DASHBOARD ADMIN: ${admin}`)
+  console.log(`DASHBOARD ADMIN: ${admin}`);
 
   // redux value for admin, if true, conditionally render the adminDashboard
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const UserDashboard = () => {
     userLane,
     userDegree,
     userCurrentProgress,
-    userAdmin
+    userAdmin,
   } = useLoaderData();
   const [showUpdateDegree, setShowUpdateDegree] = useState(false);
 
@@ -28,10 +29,10 @@ const UserDashboard = () => {
   // const userId = useSelector((state) => state.userId); // from redux
   console.log(userId);
   // console.log(userDegree);
-  console.log(`LOADER ADMIN: ${userAdmin}`)
+  console.log(`LOADER ADMIN: ${userAdmin}`);
 
-  console.log(userPds)
-  console.log(userCourses)
+  console.log(userPds);
+  console.log(userCourses);
 
   // dispatch the Redux store to update the value of admin
   // if (userAdmin) {
@@ -42,9 +43,8 @@ const UserDashboard = () => {
   //   })
   // }
 
-  console.log(userPds.map((pd) => pd.pdTrackerId))
-  const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId)
-
+  console.log(userPds.map((pd) => pd.pdTrackerId));
+  const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId);
 
   // pd donut chart stuff
   console.log(userPds.map((pd) => pd.pdHours));
@@ -61,13 +61,15 @@ const UserDashboard = () => {
           const clickedIndex = config.dataPointIndex;
           const clickedLabel = config.w.config.labels[clickedIndex];
           const clickedValue = config.w.config.series[clickedIndex];
-          
-          const extraInfo = pdTrackerIds[clickedIndex] 
 
-          alert(`You clicked on ${clickedLabel} with value ${clickedValue}. Extra Info: ${extraInfo}`);
+          const extraInfo = pdTrackerIds[clickedIndex];
+
+          alert(
+            `You clicked on ${clickedLabel} with value ${clickedValue}. Extra Info: ${extraInfo}`,
+          );
           navigate(`/pdTrackers/${extraInfo}`);
-        }
-      }
+        },
+      },
     },
     series: userPds.map((pd) => pd.pdHours),
     labels: userPds.map((pd) => pd.pd.pdName),
@@ -100,7 +102,7 @@ const UserDashboard = () => {
     },
     legend: {
       position: "bottom",
-    }
+    },
   };
 
   // course gauge stuff
@@ -152,7 +154,6 @@ const UserDashboard = () => {
     labels: ["Current Progress"], // Label in the center
   };
 
-
   // totalCourseCredits for gauge
   const totalCourseCredits = userCourses.reduce((acc, course) => {
     return acc + course.courseCredits;
@@ -178,9 +179,10 @@ const UserDashboard = () => {
 
   return (
     <div>
+      <FaRegUserCircle className="h-10 w-10" />
       <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
       <h2 className="text-xl font-semibold">Professional Development:</h2>
-      
+
       {/* if total pd hours > 0, then show chart */}
       {totalPdHours > 0 && (
         <Chart
@@ -191,11 +193,14 @@ const UserDashboard = () => {
         />
       )}
       {/* if user hasn't added any pd hours, show message */}
-      {totalPdHours <= 0 &&
-      <h2>You haven't recorded any professional development hours yet. <br /> Click the button below to get started!</h2>
-      }
+      {totalPdHours <= 0 && (
+        <h2>
+          You haven't recorded any professional development hours yet. <br />{" "}
+          Click the button below to get started!
+        </h2>
+      )}
       <Link to="/addPd">
-        <button className="bg-blue-300 rounded-md w-32">Add New PD</button>
+        <button className="w-32 rounded-md bg-blue-300">Add New PD</button>
       </Link>
       <h2 className="text-xl font-semibold">Coursework:</h2>
       <h3>Current Salary Lane Progress:</h3>
@@ -207,7 +212,7 @@ const UserDashboard = () => {
         height={350}
       />
       <Link to="/addCourse">
-        <button className="bg-blue-300 rounded-md w-40">Add New Course</button>
+        <button className="w-40 rounded-md bg-blue-300">Add New Course</button>
       </Link>
 
       {userLane.laneId <= 4 && (
