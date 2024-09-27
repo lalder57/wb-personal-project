@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = ({setShowRegister, setShowLogin}) => {
+const LoginForm = ({ setShowRegister, setShowLogin }) => {
   // To login, I need a user to enter their username + password
   // I should keep track of these with state values, and then when the form is submitted,
   // send those state values to my server as a req.body
@@ -36,7 +36,7 @@ const LoginForm = ({setShowRegister, setShowLogin}) => {
     if (res.data.success) {
       dispatch({
         type: "USER_AUTH",
-        payload: {userId: res.data.userId, admin: res.data.admin }
+        payload: { userId: res.data.userId, admin: res.data.admin },
       });
       // reset username and password fields
       // setUsername("");
@@ -49,39 +49,60 @@ const LoginForm = ({setShowRegister, setShowLogin}) => {
   };
 
   return (
-    <>
-    <h1>Hello, welcome back</h1>
-    <h2>Sign in to continue</h2>
-      <form onSubmit={handleLogin}>
-        
-        <label htmlFor="username">Username:</label>
-        <input
-          value={username}
-          type="text"
-          placeholder="Username"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          value={password}
-          type="password"
-          required
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="bg-blue-300 rounded-md w-24" type="submit">Login</button>
-      </form>
-      <h2>Don't have an account?</h2>
-      <button 
-        onClick={() => {
-          setShowRegister(true);
-          setShowLogin(false);
-          }}>
-        Join us
-      </button>
-      { invalidLogin && <p>Incorrect username or password. Please try again.</p> }
-    </>
+    <div className="lg:bg-ashGray lg:grid lg:h-screen lg:place-items-center">
+      <div className="flex h-[75vh] flex-col justify-around px-10 lg:h-[65vh] lg:w-[65vw] lg:justify-evenly lg:rounded-lg lg:bg-white lg:px-60">
+        <div>
+          <h1 className="text-2xl">Welcome back</h1>
+          <h2 className="text-sm">Enter your details to continue</h2>
+        </div>
+
+        <form onSubmit={handleLogin} className="flex flex-col text-sm">
+          <label className="mb-1" htmlFor="username">
+            Username
+          </label>
+          <input
+            value={username}
+            type="text"
+            required
+            placeholder="user1"
+            onChange={(e) => setUsername(e.target.value)}
+            className="mb-10 h-10 rounded-md px-2"
+          />
+          <label className="mb-1" htmlFor="password">
+            Password
+          </label>
+          <input
+            value={password}
+            type="password"
+            required
+            placeholder="*********"
+            onChange={(e) => setPassword(e.target.value)}
+            className="mb-16 h-10 rounded-md px-2"
+          />
+          <button
+            className="border-mint bg-mint h-10 rounded-md border"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </form>
+        <div className="flex flex-row justify-evenly">
+          <h2>Don't have an account?</h2>
+          <button
+            className="text-mint cursor-pointer underline"
+            onClick={() => {
+              setShowRegister(true);
+              setShowLogin(false);
+            }}
+          >
+            Join us
+          </button>
+        </div>
+        {invalidLogin && (
+          <p>Incorrect username or password. Please try again.</p>
+        )}
+      </div>
+    </div>
   );
 };
 

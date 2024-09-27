@@ -41,7 +41,13 @@ function App() {
   return (
     <div className="flex flex-col">
       <div>
-        {!userId && <nav className="h-16 bg-blue-400">Logo</nav>}
+        {!userId && (
+          <nav className="bg-ashGray flex h-[10vh] w-screen flex-row items-center justify-around shadow-md lg:hidden">
+            <h1 className="text-2xl font-extralight text-white">
+              EDUCATOR EXCELLENCE
+            </h1>
+          </nav>
+        )}
         {userId && <Header />}
       </div>
       <div>

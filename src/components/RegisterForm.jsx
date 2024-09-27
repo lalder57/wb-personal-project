@@ -36,7 +36,7 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
       degreeId,
       laneId,
       admin: false,
-      currentProgress: 0
+      currentProgress: 0,
     };
 
     // now send this data to our /login endpoint to validate:
@@ -47,7 +47,7 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
     if (res.data.success) {
       dispatch({
         type: "USER_AUTH",
-        payload: {userId: res.data.userId, admin: res.data.admin}
+        payload: { userId: res.data.userId, admin: res.data.admin },
       });
       // reset username and password fields
       setUsername("");
@@ -66,90 +66,151 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
   };
 
   return (
-    <>
-      <h1>Register Form</h1>
-      <form onSubmit={handleRegister}>
-        <label htmlFor="username">Username:</label>
-        <input
-          value={username}
-          type="text"
-          placeholder="Username"
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          value={password}
-          type="password"
-          required
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="email">Email:</label>
-        <input
-          value={email}
-          type="text"
-          required
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="fname">First Name:</label>
-        <input
-          value={fname}
-          type="text"
-          required
-          placeholder="First name"
-          onChange={(e) => setFname(e.target.value)}
-        />
-        <label htmlFor="lname">Last Name:</label>
-        <input
-          value={lname}
-          type="text"
-          required
-          placeholder="Last name"
-          onChange={(e) => setLname(e.target.value)}
-        />
-        <label htmlFor="school">school:</label>
-        <input
-          value={school}
-          type="text"
-          required
-          placeholder="school"
-          onChange={(e) => setSchool(e.target.value)}
-        />
-        <label htmlFor="degreeId">degree:</label>
-        <select value={degreeId} required onChange={(e) => setDegreeId(e.target.value)}>
-          <option value="">Please choose a degree</option>
-          <option value="1">bachelor's</option>
-          <option value="2">master's</option>
-          <option value="3">Ph.D.</option>          
-        </select>
-        <label htmlFor="laneId">lane:</label>
-        <select value={laneId} required onChange={(e) => setLaneId(e.target.value)}>
-          <option value="">Please choose a lane</option>
-          <option value="1">Lane 1</option>
-          <option value="2">Lane 2</option>
-          <option value="3">Lane 3</option>
-          <option value="4">Lane 4</option>          
-          <option value="5">Lane 5</option>          
-          <option value="6">Lane 6</option>          
-          <option value="7">Lane 7</option>         
-          <option value="8">Lane 8</option>         
-          <option value="9">Lane 9</option>         
-        </select>
-        <button className="bg-blue-300 rounded-md w-24" type="submit">Register</button>
-      </form>
+    <div className="lg:bg-ashGray lg:grid lg:h-screen lg:place-items-center">
+      <div className="h[100vh] m-10 flex flex-col justify-around lg:rounded-lg lg:bg-white lg:px-60">
+        <div>
+          <h1 className="text-2xl">
+            Register for <br /> Free trial account
+          </h1>
+          <h2 className="text-sm">
+            Try Educator Excellence free for 14 days and start tracking your
+            professional progress! It takes less than 5 minutes to set up.
+          </h2>
+        </div>
+        <form
+          onSubmit={handleRegister}
+          className="mb-5 mt-10 flex flex-col text-sm"
+        >
+          <label className="mb-1" htmlFor="username">
+            Username
+          </label>
+          <input
+            value={username}
+            type="text"
+            placeholder="Create a username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+            className="mb-10 h-10 rounded-md px-2"
+          />
+          <label className="mb-1" htmlFor="password">
+            Password
+          </label>
+          <input
+            value={password}
+            type="password"
+            required
+            placeholder="Create a password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="mb-10 h-10 rounded-md px-2"
+          />
+          <div className="lg:flex lg:flex-row">
+            <label className="mb-1" htmlFor="fname">
+              First Name
+            </label>
+            <input
+              value={fname}
+              type="text"
+              required
+              placeholder="Your first name"
+              onChange={(e) => setFname(e.target.value)}
+              className="mb-10 h-10 rounded-md px-2"
+            />
+            <label className="mb-1" htmlFor="lname">
+              Last Name
+            </label>
+            <input
+              value={lname}
+              type="text"
+              required
+              placeholder="Your last name"
+              onChange={(e) => setLname(e.target.value)}
+              className="mb-10 h-10 rounded-md px-2"
+            />
+          </div>
+          <label className="mb-1" htmlFor="email">
+            Email
+          </label>
+          <input
+            value={email}
+            type="email"
+            required
+            placeholder="Your email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="mb-10 h-10 rounded-md px-2"
+          />
+          <label className="mb-1" htmlFor="school">
+            School
+          </label>
+          <input
+            value={school}
+            type="text"
+            required
+            placeholder="Your school"
+            onChange={(e) => setSchool(e.target.value)}
+            className="mb-10 h-10 rounded-md px-2"
+          />
+          <div>
+            <label className="mb-1" htmlFor="degreeId">
+              Degree
+            </label>
+            <select
+              value={degreeId}
+              required
+              onChange={(e) => setDegreeId(e.target.value)}
+              className="mb-10 h-10 rounded-md border border-black px-2"
+            >
+              <option value="" disabled hidden>
+                Choose a degree
+              </option>
+              <option value="1">bachelor's</option>
+              <option value="2">master's</option>
+              <option value="3">Ph.D.</option>
+            </select>
+            <label className="mb-1" htmlFor="laneId">
+              Lane
+            </label>
+            <select
+              value={laneId}
+              required
+              onChange={(e) => setLaneId(e.target.value)}
+              className="mb-12 h-10 rounded-md border border-black px-2"
+            >
+              <option value="" disabled hidden>
+                Choose a lane
+              </option>
+              <option value="1">Lane 1</option>
+              <option value="2">Lane 2</option>
+              <option value="3">Lane 3</option>
+              <option value="4">Lane 4</option>
+              <option value="5">Lane 5</option>
+              <option value="6">Lane 6</option>
+              <option value="7">Lane 7</option>
+              <option value="8">Lane 8</option>
+              <option value="9">Lane 9</option>
+            </select>
+          </div>
+          <button
+            className="border-mint bg-mint h-10 rounded-md border"
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
+        <div className="flex flex-row justify-evenly">
+          <h3>Already have an account?</h3>
 
-      <h3>Already have an account?</h3>
-
-       <button 
-        onClick={() => {
-          setShowLogin(true);
-          setShowRegister(false);
-          }}>
-        Login
-      </button>
-    </>
+          <button
+            onClick={() => {
+              setShowLogin(true);
+              setShowRegister(false);
+            }}
+            className="text-mint cursor-pointer underline"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -178,76 +178,105 @@ const UserDashboard = () => {
   }, []);
 
   return (
-    <div>
-      <FaRegUserCircle className="h-10 w-10" />
-      <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
-      <h2 className="text-xl font-semibold">Professional Development:</h2>
-
-      {/* if total pd hours > 0, then show chart */}
-      {totalPdHours > 0 && (
+    <div className="flex h-[100vh] w-[100vw] flex-col justify-around">
+      <div className="flex flex-row">
+        <FaRegUserCircle className="h-10 w-10" />
+        <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
+      </div>
+      <h2 className="text-xl">Professional Development:</h2>
+      <div
+        id="pd-container"
+        className="flex h-[30vh] w-[100vw] flex-row border border-black"
+      >
+        <div
+          id="pd-chart-container"
+          className="border-mint flex w-1/2 items-center border"
+        >
+          {/* if total pd hours > 0, then show chart */}
+          {totalPdHours > 0 && (
+            <Chart
+              options={chartOptions}
+              series={chartOptions.series}
+              type="donut"
+              height={250}
+            />
+          )}
+          {/* if user hasn't added any pd hours, show message */}
+          {totalPdHours <= 0 && (
+            <h2>
+              You haven't recorded any professional development hours yet.{" "}
+              <br /> Click the button below to get started!
+            </h2>
+          )}
+        </div>
+        <div
+          id="add-pd-btn-container"
+          className="flex h-full w-1/2 flex-col items-center justify-evenly border border-black"
+        >
+          <Link to="/addPd">
+            <button className="border-ashGray bg-ashGray flex h-8 w-28 items-center justify-center rounded-md border text-white">
+              Add New PD
+            </button>
+          </Link>
+          <Link to="/myPds">
+            <button className="border-ashGray bg-ashGray flex h-8 w-28 items-center justify-center rounded-md border text-white">
+              See All PDs
+            </button>
+          </Link>
+        </div>
+      </div>
+      <h2 className="text-xl">Coursework:</h2>
+      <div id="course-container" className="border-darkGray border">
+        <h3>Current Salary Lane Progress:</h3>
+        <h2>{userLane.laneName}</h2>
         <Chart
-          options={chartOptions}
-          series={chartOptions.series}
-          type="donut"
+          options={gaugeOptions}
+          series={chartData}
+          type="radialBar"
           height={350}
         />
-      )}
-      {/* if user hasn't added any pd hours, show message */}
-      {totalPdHours <= 0 && (
-        <h2>
-          You haven't recorded any professional development hours yet. <br />{" "}
-          Click the button below to get started!
-        </h2>
-      )}
-      <Link to="/addPd">
-        <button className="w-32 rounded-md bg-blue-300">Add New PD</button>
-      </Link>
-      <h2 className="text-xl font-semibold">Coursework:</h2>
-      <h3>Current Salary Lane Progress:</h3>
-      <h2>{userLane.laneName}</h2>
-      <Chart
-        options={gaugeOptions}
-        series={chartData}
-        type="radialBar"
-        height={350}
-      />
-      <Link to="/addCourse">
-        <button className="w-40 rounded-md bg-blue-300">Add New Course</button>
-      </Link>
-
-      {userLane.laneId <= 4 && (
-        <div>
-          <h2>Degree needed for the next lane: bachelor's</h2>
-          <h2>Your current degree: {userDegree.degreeName}</h2>
-        </div>
-      )}
-      {userLane.laneId === 5 ||
-      userLane.laneId === 6 ||
-      userLane.laneId === 7 ? (
-        <div>
-          <h2>Degree needed for the next lane: master's</h2>
-          <h2>Your current degree: {userDegree.degreeName}</h2>
-        </div>
-      ) : (
-        <></>
-      )}
-      {userLane.laneId === 8 && (
-        <div>
-          <h2>Degree needed for the next lane: Ph.D</h2>
-          <h2>Your current degree: {userDegree.degreeName}</h2>
-        </div>
-      )}
-      {userLane.laneId === 9 && (
-        <div>
-          <h2>You are currently in the highest lane!</h2>
-          <h2>Your current degree:{userDegree.degreeName}</h2>
-        </div>
-      )}
-      {showUpdateDegree && (
-        <Link to="/updateDegree">
-          <button>Update Degree</button>
+        <Link to="/addCourse">
+          <button className="border-ashGray bg-ashGray flex h-8 w-36 items-center justify-center rounded-md border text-white">
+            Add New Course
+          </button>
         </Link>
-      )}
+
+        {userLane.laneId <= 4 && (
+          <div>
+            <h2>Degree needed for the next lane: bachelor's</h2>
+            <h2>Your current degree: {userDegree.degreeName}</h2>
+          </div>
+        )}
+        {userLane.laneId === 5 ||
+        userLane.laneId === 6 ||
+        userLane.laneId === 7 ? (
+          <div>
+            <h2>Degree needed for the next lane: master's</h2>
+            <h2>Your current degree: {userDegree.degreeName}</h2>
+          </div>
+        ) : (
+          <></>
+        )}
+        {userLane.laneId === 8 && (
+          <div>
+            <h2>Degree needed for the next lane: Ph.D</h2>
+            <h2>Your current degree: {userDegree.degreeName}</h2>
+          </div>
+        )}
+        {userLane.laneId === 9 && (
+          <div>
+            <h2>You are currently in the highest lane!</h2>
+            <h2>Your current degree:{userDegree.degreeName}</h2>
+          </div>
+        )}
+        {showUpdateDegree && (
+          <Link to="/updateDegree">
+            <button className="border-ashGray bg-ashGray flex h-8 w-36 items-center justify-center rounded-md border text-white">
+              Update Degree
+            </button>
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

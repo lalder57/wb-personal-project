@@ -18,7 +18,6 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (userId) {
       navigate("/userDashboard");
@@ -26,19 +25,18 @@ const LandingPage = () => {
   }, [userId]);
 
   return showLogin ? (
-    <> 
-      <LoginForm 
-      setShowRegister={setShowRegister}
-      setShowLogin={setShowLogin}
+    <>
+      <LoginForm
+        setShowRegister={setShowRegister}
+        setShowLogin={setShowLogin}
       />
-
     </>
   ) : (
-    <RegisterForm 
-    setShowLogin={setShowLogin}
-    setShowRegister={setShowRegister} 
+    <RegisterForm
+      setShowLogin={setShowLogin}
+      setShowRegister={setShowRegister}
     />
-  )
+  );
 };
 
 export default LandingPage;
