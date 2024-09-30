@@ -179,22 +179,22 @@ const UserDashboard = () => {
   }, []);
 
   return (
-    <div id="main-div" className="bg-greenGray flex flex-col justify-center">
-      <div
-        id="content-div"
-        className="flex flex-col items-center justify-center"
-      >
-        <div id="name-div" className="flex w-full justify-start">
+    <div
+      id="main-div"
+      className="bg-greenGray flex w-full flex-col items-center"
+    >
+      <div id="content-div" className="flex w-[90%] flex-col justify-between">
+        <div id="name-div" className="my-5 ml-1 flex w-full justify-start">
           <h1 className="text-3xl font-semibold">
             {fname} {lname}
           </h1>
         </div>
-        <div id="pd-title-div" className="flex w-full justify-start">
+        <div id="pd-title-div" className="mb-1 ml-1 flex w-full justify-start">
           <h2 className="text-xl">Professional Development:</h2>
         </div>
         <div
           id="pd-container"
-          className="bg-greenGray flex h-[40vh] w-[96vw] flex-col items-center justify-around rounded-lg shadow-lg"
+          className="bg-greenGray mb-10 flex h-[40vh] w-full flex-col items-center justify-evenly rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)]"
         >
           <div id="pd-chart-container" className="flex justify-center">
             {/* if total pd hours > 0, then show chart */}
@@ -216,111 +216,137 @@ const UserDashboard = () => {
           </div>
           <div id="pd-btn-container" className="flex w-full justify-evenly">
             <Link to="/addPd">
-              <button className="border-darkGreen bg-darkGreen flex h-8 w-28 items-center justify-center rounded-md border text-white">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-28 items-center justify-center rounded-lg border text-white">
                 Add New PD
               </button>
             </Link>
             <Link to="/myPds">
-              <button className="border-darkGreen bg-darkGreen flex h-8 w-28 items-center justify-center rounded-md border text-white">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-28 items-center justify-center rounded-lg border text-white">
                 See All PDs
               </button>
             </Link>
           </div>
         </div>
-        <div id="course-title-div" className="flex w-full">
+        <div id="course-title-div" className="mb-1 ml-1 flex w-full">
           <h2 className="text-xl">Coursework:</h2>
         </div>
         <div
           id="course-container"
-          className="bg-greenGray flex h-[50vh] w-[96%] flex-col items-center justify-around rounded-lg shadow-lg"
+          className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-around rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)]"
         >
-          <div id="gauge-title-div" className="flex flex-col items-center">
-            <h3>Current Salary Lane:</h3>
-            <h2>{userLane.laneName}</h2>
-          </div>
-          <div id="gauge-div" className="flex">
+          <div
+            id="gauge-container"
+            className="flex items-center justify-center"
+          >
             <Chart
               options={gaugeOptions}
               series={chartData}
               type="radialBar"
               height={350}
-              className="ml-0"
+              className="-my-8"
             />
-            <div
-              id="degree-div"
-              className="flex w-[28%] flex-col justify-around"
-            >
-              {userLane.laneId <= 4 && (
-                <>
-                  <div
-                    id="user-degree"
-                    className="bg-lightGreen rounded-md p-1 shadow-md"
-                  >
-                    <h2 className="text-center">
-                      Your current degree: {userDegree.degreeName}
-                    </h2>
-                  </div>
-                  <div
-                    id="degree-needed"
-                    className="bg-lightGreen rounded-md p-1 shadow-md"
-                  >
-                    <h2 className="text-center">
-                      Degree needed to advance: bachelor's
-                    </h2>
-                  </div>
-                </>
-              )}
-              {userLane.laneId === 5 ||
-              userLane.laneId === 6 ||
-              userLane.laneId === 7 ? (
-                <>
-                  <div id="user-degree">
-                    <h2>Your current degree: {userDegree.degreeName}</h2>
-                  </div>
-                  <div id="degree-needed">
-                    <h2>Degree needed for the next lane: master's</h2>
-                  </div>
-                </>
-              ) : (
-                <></>
-              )}
-              {userLane.laneId === 8 && (
-                <>
-                  <div id="user-degree">
-                    <h2>Your current degree: {userDegree.degreeName}</h2>
-                  </div>
-                  <div id="degree-needed">
-                    <h2>Degree needed for the next lane: Ph.D</h2>
-                  </div>
-                </>
-              )}
-              {userLane.laneId === 9 && (
-                <>
-                  <div id="user-degree">
-                    <h2>Your current degree: {userDegree.degreeName}</h2>
-                  </div>
-                  <div id="degree-needed">
-                    <h2>You're currently in the highest salary lane!</h2>
-                  </div>
-                </>
-              )}
-            </div>
           </div>
+          <div
+            id="degree-div"
+            className="flex w-[96%] flex-row items-center justify-between lg:flex-col"
+          >
+            {userLane.laneId <= 4 && (
+              <>
+                <div
+                  id="gauge-title-div"
+                  className="flex flex-col items-center"
+                >
+                  <h3 className="text-center text-sm md:text-base lg:text-lg">
+                    Your current salary lane:
+                  </h3>
+                  <h2 className="text-darkGreen text-center text-sm font-semibold md:text-base lg:text-lg">
+                    {userLane.laneName.toLowerCase()}
+                  </h2>
+                </div>
+                <div id="user-degree" className="p-1">
+                  <h2 className="text-center text-sm md:text-base lg:text-lg">
+                    Your current degree:{" "}
+                    <span className="text-darkGreen font-semibold">
+                      {userDegree.degreeName}
+                    </span>
+                  </h2>
+                </div>
+                <div id="degree-needed" className="p-1">
+                  <h2 className="text-center text-sm md:text-base lg:text-lg">
+                    Degree needed to advance:{" "}
+                    <span className="text-darkGreen font-semibold">
+                      bachelor's
+                    </span>
+                  </h2>
+                </div>
+              </>
+            )}
+            {userLane.laneId === 5 ||
+            userLane.laneId === 6 ||
+            userLane.laneId === 7 ? (
+              <>
+                <div id="user-degree" className="p-1">
+                  <h2 className="text-center text-sm md:text-lg">
+                    Your current degree: {userDegree.degreeName}
+                  </h2>
+                </div>
+                <div id="degree-needed" className="p-1">
+                  <h2 className="text-center text-sm md:text-lg">
+                    Degree needed for the next lane: master's
+                  </h2>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+            {userLane.laneId === 8 && (
+              <>
+                <div id="user-degree" className="p-1">
+                  <h2 className="text-center text-sm md:text-lg">
+                    Your current degree: {userDegree.degreeName}
+                  </h2>
+                </div>
+                <div id="degree-needed" className="p-1">
+                  <h2 className="text-center text-sm md:text-lg">
+                    Degree needed for the next lane: Ph.D
+                  </h2>
+                </div>
+              </>
+            )}
+            {userLane.laneId === 9 && (
+              <>
+                <div id="user-degree" className="p-1">
+                  <h2 className="text-center text-sm md:text-lg">
+                    Your current degree: {userDegree.degreeName}
+                  </h2>
+                </div>
+                <div id="degree-needed" className="p-1">
+                  <h2 className="text-center text-sm md:text-lg">
+                    You're currently in the highest salary lane!
+                  </h2>
+                </div>
+              </>
+            )}
+          </div>
+          {/* <div
+            id="gauge-div"
+            className="flex h-[45%] w-full flex-col items-center justify-center lg:flex-row"
+          > */}
           <div id="course-btn-container" className="flex w-full justify-evenly">
             <Link to="/addCourse">
-              <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-md border text-white">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-lg border text-white">
                 Add New Course
               </button>
             </Link>
             <Link to="/myCourses">
-              <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-md border text-white">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-lg border text-white">
                 See All Courses
               </button>
             </Link>
 
             {showUpdateDegree && (
               <Link to="/updateDegree">
-                <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-md border text-white">
+                <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-lg border text-white">
                   Update Degree
                 </button>
               </Link>
@@ -329,6 +355,7 @@ const UserDashboard = () => {
         </div>
       </div>
     </div>
+    // </div>
   );
 };
 
