@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PiUserCircleThin } from "react-icons/pi";
 
 const LoginForm = ({ setShowRegister, setShowLogin }) => {
   // To login, I need a user to enter their username + password
@@ -49,14 +50,31 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
   };
 
   return (
-    <div className="lg:bg-ashGray lg:grid lg:h-screen lg:place-items-center">
-      <div className="flex h-[75vh] flex-col justify-around px-10 lg:h-[65vh] lg:w-[65vw] lg:justify-evenly lg:rounded-lg lg:bg-white lg:px-60">
-        <div>
-          <h1 className="text-2xl">Welcome back</h1>
-          <h2 className="text-sm">Enter your details to continue</h2>
+    <div
+      id="main-div"
+      className="bg-greenGray flex h-screen w-full items-center justify-center lg:justify-between lg:bg-white"
+    >
+      <div
+        id="large-screen-div"
+        className="bg-lightGreen flex h-screen w-[60%] flex-col items-center justify-center max-lg:hidden"
+      >
+        <h1 className="mb-10 text-5xl font-normal text-mint">
+          EDUCATOR EXCELLENCE
+        </h1>
+        <h2 className="text-4xl font-light text-mint">Welcome Back</h2>
+      </div>
+      <div
+        id="content-container"
+        className="lg:bg-greenGray flex h-[90%] w-[85%] flex-col items-center justify-around lg:h-[80%] lg:w-[40%]"
+      >
+        <div className="flex h-1/4 w-full justify-center">
+          <PiUserCircleThin className="h-[75%] w-[75%]" />
         </div>
 
-        <form onSubmit={handleLogin} className="flex flex-col text-sm">
+        <form
+          onSubmit={handleLogin}
+          className="flex w-full max-w-[380px] flex-col text-sm"
+        >
           <label className="mb-1" htmlFor="username">
             Username
           </label>
@@ -66,7 +84,7 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
             required
             placeholder="user1"
             onChange={(e) => setUsername(e.target.value)}
-            className="mb-10 h-10 rounded-md px-2"
+            className="mb-10 h-10 rounded-lg px-2"
           />
           <label className="mb-1" htmlFor="password">
             Password
@@ -77,10 +95,10 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
             required
             placeholder="*********"
             onChange={(e) => setPassword(e.target.value)}
-            className="mb-16 h-10 rounded-md px-2"
+            className="mb-16 h-10 rounded-lg px-2"
           />
           <button
-            className="border-mint bg-mint h-10 rounded-md border"
+            className="bg-lightGreen border-lightGreen h-10 rounded-lg border font-semibold text-white"
             type="submit"
           >
             Sign in
@@ -89,7 +107,7 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
         <div className="flex flex-row justify-evenly">
           <h2>Don't have an account?</h2>
           <button
-            className="text-mint cursor-pointer underline"
+            className="text-darkGreen cursor-pointer underline"
             onClick={() => {
               setShowRegister(true);
               setShowLogin(false);
