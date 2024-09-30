@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <>
       {/* mobile screen navbar */}
-      <nav className="bg-ashGray flex h-[10vh] w-screen flex-row items-center justify-around shadow-md lg:hidden">
+      <nav className="bg-lightGreen flex h-[10vh] w-screen flex-row items-center justify-around shadow-sm lg:hidden">
         <GiHamburgerMenu
           className="h-6 w-6 text-white"
           onClick={() => setShowMenu(!showMenu)}
@@ -24,7 +24,7 @@ const Header = () => {
           EDUCATOR EXCELLENCE
         </h1>
         {showMenu && (
-          <div className="bg-ashGray absolute left-0 top-[10vh] z-10 flex h-[90vh] w-3/5 flex-col items-start px-5">
+          <div className="bg-lightGreen absolute left-0 top-[10vh] z-10 flex h-[90vh] w-3/5 flex-col items-start px-5">
             <div className="flex h-1/3 flex-col items-start justify-between">
               <NavLink
                 to="/userDashboard"
@@ -78,36 +78,36 @@ const Header = () => {
       </nav>
 
       {/* big screen navbar */}
-      <nav className="bg-ashGray hidden h-[10vh] w-screen flex-row items-center shadow-md lg:flex">
+      <nav className="bg-lightGreen hidden h-[10vh] w-screen flex-row items-center shadow-md lg:flex">
         <div className="flex w-screen flex-row items-center justify-around">
           <NavLink
             to="/userDashboard"
-            className="hover:bg-darkGray focus-within:bg-darkGray border-darkGray w-32 rounded-md text-center text-xl text-white"
+            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
           >
             Home
           </NavLink>
           <NavLink
             to="/myPds"
-            className="hover:bg-darkGray focus-within:bg-darkGray border-darkGray w-32 rounded-md text-center text-xl text-white"
+            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
           >
             My PDs
           </NavLink>
           <NavLink
             to="/myCourses"
-            className="hover:bg-darkGray focus-within:bg-darkGray border-darkGray w-32 rounded-md text-center text-xl text-white"
+            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
           >
             My Courses
           </NavLink>
           <NavLink
             to="/myProfile"
-            className="hover:bg-darkGray focus-within:bg-darkGray border-darkGray w-32 rounded-md text-center text-xl text-white"
+            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
           >
             My Profile
           </NavLink>
           {admin && (
             <NavLink
               to="/adminPortal"
-              className="hover:bg-darkGray focus-within:bg-darkGray border-darkGray w-32 rounded-md text-center text-xl text-white"
+              className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
             >
               Admin Portal
             </NavLink>

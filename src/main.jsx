@@ -39,6 +39,7 @@ const router = createBrowserRouter(
           const res = await axios.get("/api/userInfo");
           return {
             fname: res.data.fname,
+            lname: res.data.lname,
             userPds: res.data.userPds,
             userCourses: res.data.userCourses,
             userId: res.data.userId,
@@ -98,23 +99,23 @@ const router = createBrowserRouter(
       />
       <Route path="createCoursePage" element={<CreateCoursePage />} />
       <Route path="createPdPage" element={<CreatePdPage />} />
-      <Route 
+      <Route
         path="myCourses"
         element={<MyCoursesPage />}
         loader={async () => {
           const res = await axios.get("/api/getUserCourses");
-          return {  userCourses: res.data.userCourses };
+          return { userCourses: res.data.userCourses };
         }}
       />
-      <Route 
+      <Route
         path="myPds"
         element={<MyPdsPage />}
         loader={async () => {
           const res = await axios.get("/api/getUserPds");
-          return {  userPds: res.data.userPds };
+          return { userPds: res.data.userPds };
         }}
       />
-      <Route 
+      <Route
         path="adminPortal"
         element={<AdminPortal />}
         loader={async () => {
@@ -122,12 +123,9 @@ const router = createBrowserRouter(
           return { users: res.data.users };
         }}
       />
-      <Route 
-        path="addPdForAll"
-        element={<AddSchoolWidePd />}
-      />
-    </Route>
-  )
+      <Route path="addPdForAll" element={<AddSchoolWidePd />} />
+    </Route>,
+  ),
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -135,5 +133,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );

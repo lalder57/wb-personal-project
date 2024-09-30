@@ -9,7 +9,7 @@ import {
   Lane,
 } from "../db/model.js";
 import bcryptjs from "bcryptjs";
-import {formatNames, toTitleCase} from "../../src/assets/helper-functions.js"
+import { formatNames, toTitleCase } from "../../src/assets/helper-functions.js";
 
 export const handlerFunctions = {
   /* #1 - Login
@@ -98,7 +98,7 @@ or { success: false } if the user doesn't exist and/or the password is incorrect
 
     const hashedPassword = bcryptjs.hashSync(
       password,
-      bcryptjs.genSaltSync(10)
+      bcryptjs.genSaltSync(10),
     );
 
     // Create new user with the information
@@ -463,6 +463,7 @@ Will return { message: 'PD saved!'}
         message: "Here's your info!",
         succes: true,
         fname: user.fname,
+        lname: user.lname,
         userPds: userPds,
         userCourses: userCourses,
         userId: userId,
@@ -608,7 +609,6 @@ Will return { message: 'PD saved!'}
     // update pdTracker info with the user's new input
     // const dateTimestamp = new Date(pdDateCompleted);
     // console.log(dateTimestamp);
-    
 
     pdTracker.pdProvider = toTitleCase(pdProvider);
     pdTracker.pdHours = pdHours;
@@ -618,7 +618,7 @@ Will return { message: 'PD saved!'}
     pdTracker.pdRecommend = pdRecommend;
     pdTracker.save();
 
-    console.log(pdDateCompleted)
+    console.log(pdDateCompleted);
 
     // send success message
 
@@ -866,7 +866,7 @@ Will return { message: 'PD saved!'}
           pdRecommend,
         });
         return newPdTracker;
-      })
+      }),
     );
     // send success message
     res.send({

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import UpdateDegreeForm from "../components/UpdateDegreeForm";
 import Chart from "react-apexcharts";
-import { FaRegUserCircle } from "react-icons/fa";
+import { PiUserCircleThin } from "react-icons/pi";
 
 const UserDashboard = () => {
   const admin = useSelector((state) => state.admin);
@@ -15,6 +15,7 @@ const UserDashboard = () => {
   const dispatch = useDispatch();
   const {
     fname,
+    lname,
     userPds,
     userCourses,
     userId,
@@ -151,7 +152,7 @@ const UserDashboard = () => {
     // stroke: {
     //   lineCap: 'round', // Rounded end cap for the stroke
     // },
-    labels: ["Current Progress"], // Label in the center
+    labels: ["Lane Progress"], // Label in the center
   };
 
   // totalCourseCredits for gauge
@@ -178,104 +179,154 @@ const UserDashboard = () => {
   }, []);
 
   return (
-    <div className="flex h-[100vh] w-[100vw] flex-col justify-around">
-      <div className="flex flex-row">
-        <FaRegUserCircle className="h-10 w-10" />
-        <h1 className="text-3xl font-semibold">Welcome back, {fname}</h1>
-      </div>
-      <h2 className="text-xl">Professional Development:</h2>
+    <div id="main-div" className="bg-greenGray flex flex-col justify-center">
       <div
-        id="pd-container"
-        className="flex h-[30vh] w-[100vw] flex-row border border-black"
+        id="content-div"
+        className="flex flex-col items-center justify-center"
       >
+        <div id="name-div" className="flex w-full justify-start">
+          <h1 className="text-3xl font-semibold">
+            {fname} {lname}
+          </h1>
+        </div>
+        <div id="pd-title-div" className="flex w-full justify-start">
+          <h2 className="text-xl">Professional Development:</h2>
+        </div>
         <div
-          id="pd-chart-container"
-          className="border-mint flex w-1/2 items-center border"
+          id="pd-container"
+          className="bg-greenGray flex h-[40vh] w-[96vw] flex-col items-center justify-around rounded-lg shadow-lg"
         >
-          {/* if total pd hours > 0, then show chart */}
-          {totalPdHours > 0 && (
+          <div id="pd-chart-container" className="flex justify-center">
+            {/* if total pd hours > 0, then show chart */}
+            {totalPdHours > 0 && (
+              <Chart
+                options={chartOptions}
+                series={chartOptions.series}
+                type="donut"
+                height={250}
+              />
+            )}
+            {/* if user hasn't added any pd hours, show message */}
+            {totalPdHours <= 0 && (
+              <h2>
+                You haven't recorded any professional development hours yet.{" "}
+                <br /> Click the button below to get started!
+              </h2>
+            )}
+          </div>
+          <div id="pd-btn-container" className="flex w-full justify-evenly">
+            <Link to="/addPd">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-28 items-center justify-center rounded-md border text-white">
+                Add New PD
+              </button>
+            </Link>
+            <Link to="/myPds">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-28 items-center justify-center rounded-md border text-white">
+                See All PDs
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div id="course-title-div" className="flex w-full">
+          <h2 className="text-xl">Coursework:</h2>
+        </div>
+        <div
+          id="course-container"
+          className="bg-greenGray flex h-[50vh] w-[96%] flex-col items-center justify-around rounded-lg shadow-lg"
+        >
+          <div id="gauge-title-div" className="flex flex-col items-center">
+            <h3>Current Salary Lane:</h3>
+            <h2>{userLane.laneName}</h2>
+          </div>
+          <div id="gauge-div" className="flex">
             <Chart
-              options={chartOptions}
-              series={chartOptions.series}
-              type="donut"
-              height={250}
+              options={gaugeOptions}
+              series={chartData}
+              type="radialBar"
+              height={350}
+              className="ml-0"
             />
-          )}
-          {/* if user hasn't added any pd hours, show message */}
-          {totalPdHours <= 0 && (
-            <h2>
-              You haven't recorded any professional development hours yet.{" "}
-              <br /> Click the button below to get started!
-            </h2>
-          )}
-        </div>
-        <div
-          id="add-pd-btn-container"
-          className="flex h-full w-1/2 flex-col items-center justify-evenly border border-black"
-        >
-          <Link to="/addPd">
-            <button className="border-ashGray bg-ashGray flex h-8 w-28 items-center justify-center rounded-md border text-white">
-              Add New PD
-            </button>
-          </Link>
-          <Link to="/myPds">
-            <button className="border-ashGray bg-ashGray flex h-8 w-28 items-center justify-center rounded-md border text-white">
-              See All PDs
-            </button>
-          </Link>
-        </div>
-      </div>
-      <h2 className="text-xl">Coursework:</h2>
-      <div id="course-container" className="border-darkGray border">
-        <h3>Current Salary Lane Progress:</h3>
-        <h2>{userLane.laneName}</h2>
-        <Chart
-          options={gaugeOptions}
-          series={chartData}
-          type="radialBar"
-          height={350}
-        />
-        <Link to="/addCourse">
-          <button className="border-ashGray bg-ashGray flex h-8 w-36 items-center justify-center rounded-md border text-white">
-            Add New Course
-          </button>
-        </Link>
+            <div
+              id="degree-div"
+              className="flex w-[28%] flex-col justify-around"
+            >
+              {userLane.laneId <= 4 && (
+                <>
+                  <div
+                    id="user-degree"
+                    className="bg-lightGreen rounded-md p-1 shadow-md"
+                  >
+                    <h2 className="text-center">
+                      Your current degree: {userDegree.degreeName}
+                    </h2>
+                  </div>
+                  <div
+                    id="degree-needed"
+                    className="bg-lightGreen rounded-md p-1 shadow-md"
+                  >
+                    <h2 className="text-center">
+                      Degree needed to advance: bachelor's
+                    </h2>
+                  </div>
+                </>
+              )}
+              {userLane.laneId === 5 ||
+              userLane.laneId === 6 ||
+              userLane.laneId === 7 ? (
+                <>
+                  <div id="user-degree">
+                    <h2>Your current degree: {userDegree.degreeName}</h2>
+                  </div>
+                  <div id="degree-needed">
+                    <h2>Degree needed for the next lane: master's</h2>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+              {userLane.laneId === 8 && (
+                <>
+                  <div id="user-degree">
+                    <h2>Your current degree: {userDegree.degreeName}</h2>
+                  </div>
+                  <div id="degree-needed">
+                    <h2>Degree needed for the next lane: Ph.D</h2>
+                  </div>
+                </>
+              )}
+              {userLane.laneId === 9 && (
+                <>
+                  <div id="user-degree">
+                    <h2>Your current degree: {userDegree.degreeName}</h2>
+                  </div>
+                  <div id="degree-needed">
+                    <h2>You're currently in the highest salary lane!</h2>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div id="course-btn-container" className="flex w-full justify-evenly">
+            <Link to="/addCourse">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-md border text-white">
+                Add New Course
+              </button>
+            </Link>
+            <Link to="/myCourses">
+              <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-md border text-white">
+                See All Courses
+              </button>
+            </Link>
 
-        {userLane.laneId <= 4 && (
-          <div>
-            <h2>Degree needed for the next lane: bachelor's</h2>
-            <h2>Your current degree: {userDegree.degreeName}</h2>
+            {showUpdateDegree && (
+              <Link to="/updateDegree">
+                <button className="border-darkGreen bg-darkGreen flex h-8 w-36 items-center justify-center rounded-md border text-white">
+                  Update Degree
+                </button>
+              </Link>
+            )}
           </div>
-        )}
-        {userLane.laneId === 5 ||
-        userLane.laneId === 6 ||
-        userLane.laneId === 7 ? (
-          <div>
-            <h2>Degree needed for the next lane: master's</h2>
-            <h2>Your current degree: {userDegree.degreeName}</h2>
-          </div>
-        ) : (
-          <></>
-        )}
-        {userLane.laneId === 8 && (
-          <div>
-            <h2>Degree needed for the next lane: Ph.D</h2>
-            <h2>Your current degree: {userDegree.degreeName}</h2>
-          </div>
-        )}
-        {userLane.laneId === 9 && (
-          <div>
-            <h2>You are currently in the highest lane!</h2>
-            <h2>Your current degree:{userDegree.degreeName}</h2>
-          </div>
-        )}
-        {showUpdateDegree && (
-          <Link to="/updateDegree">
-            <button className="border-ashGray bg-ashGray flex h-8 w-36 items-center justify-center rounded-md border text-white">
-              Update Degree
-            </button>
-          </Link>
-        )}
+        </div>
       </div>
     </div>
   );
