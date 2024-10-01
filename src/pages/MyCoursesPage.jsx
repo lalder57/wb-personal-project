@@ -1,4 +1,4 @@
-import { useLoaderData, NavLink } from "react-router-dom";
+import { useLoaderData, NavLink, Link } from "react-router-dom";
 import Header from "../components/Header";
 import { CSVLink } from "react-csv";
 
@@ -8,8 +8,14 @@ const MyCoursesPage = () => {
   // Make course list that displays each courseName that the user has completed with a link to that course's detail page.
   const courseItems = userCourses.map((course) => {
     return (
-      <li key={course.courseTrackerId}>
-        <NavLink to={`/courseTrackers/${course.courseTrackerId}`}>
+      <li
+        className="flex h-8 items-center rounded-md bg-blueGray p-2 md:h-10 lg:h-10"
+        key={course.courseTrackerId}
+      >
+        <NavLink
+          className="underline underline-offset-[3px]"
+          to={`/courseTrackers/${course.courseTrackerId}`}
+        >
           {course.course.courseName}
         </NavLink>
       </li>
@@ -30,25 +36,39 @@ const MyCoursesPage = () => {
   const data = eachCourse;
 
   return (
-    <div className="flex h-[90vh] w-full justify-center border border-black">
+    <div className="bg-greenGray flex h-[90vh] w-full justify-center">
       <div
         id="content-div"
-        className="border-darkGreen my-10 flex w-[90%] flex-col justify-between border"
+        className="my-4 flex w-[90%] flex-col lg:my-10 lg:w-[60%]"
       >
-        <div id="my-courses-title" className="h-[10%] border border-black">
-          <h2 className="text-xl">Completed Courses:</h2>
-        </div>
-        <div id="course-list" className="h-[30%] border border-black">
-          <ul>{courseItems}</ul>
-        </div>
-
-        <CSVLink
-          data={data}
-          filename="myCourses.csv"
-          className="h-[10%] border border-black"
+        <div
+          id="my-courses-title"
+          className="flex h-[10%] items-center justify-between"
         >
-          Download CSV
-        </CSVLink>
+          <h2 className="text-xl">Completed Courses</h2>
+          <CSVLink
+            data={data}
+            filename="myCourses.csv"
+            className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base"
+          >
+            Download CSV
+          </CSVLink>
+        </div>
+        <div id="course-list" className="my-10 w-full">
+          <ul className="flex w-full flex-col justify-evenly gap-6">
+            {courseItems}
+          </ul>
+        </div>
+        <div
+          id="add-course-btn-div"
+          className="flex h-[10%] items-center justify-end"
+        >
+          <Link to="/addCourse">
+            <button className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base">
+              + Course
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
