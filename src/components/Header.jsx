@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <>
       {/* mobile screen navbar */}
-      <nav className="bg-lightGreen flex h-[10vh] w-screen flex-row items-center justify-around shadow-sm lg:hidden">
+      <nav className="bg-lightGreen flex h-[10vh] w-full max-w-[100vw] flex-row items-center justify-around shadow-sm lg:hidden">
         <GiHamburgerMenu
           className="h-6 w-6 text-white"
           onClick={() => setShowMenu(!showMenu)}
@@ -78,7 +78,7 @@ const Header = () => {
       </nav>
 
       {/* big screen navbar */}
-      <nav className="bg-lightGreen hidden h-[10vh] w-screen flex-row items-center shadow-md lg:flex">
+      <nav className="bg-lightGreen hidden h-[10vh] flex-row items-center shadow-md lg:flex">
         <div className="flex w-screen flex-row items-center justify-around">
           <NavLink
             to="/userDashboard"

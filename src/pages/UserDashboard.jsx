@@ -139,13 +139,49 @@ const UserDashboard = () => {
               return `${userCurrentProgress}/${userLane.needed}`;
             },
             color: "#111",
-            fontSize: "36px",
+            fontSize: "32px",
             show: true,
             offsetY: 16,
           },
         },
       },
     },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          plotOptions: {
+            radialBar: {
+              dataLabels: {
+                name: {
+                  fontSize: "14px", // Smaller name font size
+                },
+                value: {
+                  fontSize: "20px", // Smaller value font size
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 480, // For screens less than 480px
+        options: {
+          plotOptions: {
+            radialBar: {
+              dataLabels: {
+                name: {
+                  fontSize: "12px", // Even smaller name font size
+                },
+                value: {
+                  fontSize: "16px", // Even smaller value font size
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
     fill: {
       colors: ["#00E396"], // Color for the radial bar
     },
@@ -183,7 +219,10 @@ const UserDashboard = () => {
       id="main-div"
       className="bg-greenGray flex w-full flex-col items-center"
     >
-      <div id="content-div" className="flex w-[90%] flex-col justify-between">
+      <div
+        id="content-div"
+        className="flex w-[90%] flex-col justify-between lg:w-[75%]"
+      >
         <div id="name-div" className="my-5 ml-1 flex w-full justify-start">
           <h1 className="text-3xl font-semibold">
             {fname} {lname}
@@ -194,7 +233,7 @@ const UserDashboard = () => {
         </div>
         <div
           id="pd-container"
-          className="bg-greenGray mb-10 flex h-[40vh] w-full flex-col items-center justify-evenly rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)]"
+          className="bg-greenGray mb-10 flex h-[40vh] w-full flex-col items-center justify-evenly rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[50vh]"
         >
           <div id="pd-chart-container" className="flex justify-center">
             {/* if total pd hours > 0, then show chart */}
@@ -216,7 +255,7 @@ const UserDashboard = () => {
           </div>
           <div
             id="pd-btn-container"
-            className="flex h-[15%] min-h-12 w-full justify-around"
+            className="flex h-[15%] min-h-12 w-full items-center justify-around lg:justify-center lg:gap-16"
           >
             <Link
               to="/addPd"
@@ -241,23 +280,22 @@ const UserDashboard = () => {
         </div>
         <div
           id="course-container"
-          className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-around rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)]"
+          className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-around rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[55vh]"
         >
           <div
             id="gauge-container"
-            className="flex items-center justify-center"
+            className="flex h-full w-full items-center justify-center"
           >
             <Chart
               options={gaugeOptions}
               series={chartData}
               type="radialBar"
-              height={350}
               className="-mb-6 -mt-8"
             />
           </div>
           <div
             id="degree-div"
-            className="flex w-[96%] flex-row items-center justify-around lg:flex-col"
+            className="flex w-[96%] flex-row items-center justify-around"
           >
             {userLane.laneId <= 4 && (
               <>
@@ -356,7 +394,7 @@ const UserDashboard = () => {
           > */}
           <div
             id="course-btn-container"
-            className="flex h-[13.5%] min-h-12 w-full items-center justify-around"
+            className="flex h-[13.5%] min-h-12 w-full items-center justify-around lg:justify-center lg:gap-16"
           >
             <Link
               to="/addCourse"

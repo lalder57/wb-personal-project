@@ -50,7 +50,7 @@ function App() {
         )} */}
         {userId && <Header />}
       </div>
-      <div>
+      <div className="">
         <main>
           <Outlet />
         </main>
