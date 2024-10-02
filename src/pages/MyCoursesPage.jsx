@@ -9,7 +9,7 @@ const MyCoursesPage = () => {
   const courseItems = userCourses.map((course) => {
     return (
       <li
-        className="flex h-8 items-center rounded-md bg-blueGray p-2 md:h-10 lg:h-10"
+        className="flex items-center rounded-md bg-blueGray p-2"
         key={course.courseTrackerId}
       >
         <NavLink
@@ -39,11 +39,11 @@ const MyCoursesPage = () => {
     <div className="bg-greenGray flex h-[90vh] w-full justify-center">
       <div
         id="content-div"
-        className="my-4 flex w-[90%] flex-col lg:my-10 lg:w-[60%]"
+        className="mt-4 flex w-[90%] flex-col md:w-[80%] lg:my-10 lg:w-[70%]"
       >
         <div
           id="my-courses-title"
-          className="flex h-[10%] items-center justify-between"
+          className="flex items-center justify-between"
         >
           <h2 className="text-xl">Completed Courses</h2>
           <CSVLink

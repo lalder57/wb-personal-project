@@ -46,13 +46,24 @@ const PdDetailPage = () => {
   };
 
   return editMode ? (
-    <div>
-      <EditPdForm
-        toggleEdit={toggleEdit}
-        newPdDetails={newPdDetails}
-        setNewPdDetails={setNewPdDetails}
-      />
-      <button onClick={toggleEdit}>Cancel</button>
+    <div
+      id="main-div"
+      className="bg-greenGray flex h-[90vh] w-full justify-center"
+    >
+      <div
+        id="content-div"
+        className="mt-4 flex w-[90%] flex-col md:w-[80%] lg:my-10 lg:w-[70%]"
+      >
+        <div id="pd-title" className="flex items-center">
+          <h1 className="text-xl">{pdName}</h1>
+        </div>
+
+        <EditPdForm
+          toggleEdit={toggleEdit}
+          newPdDetails={newPdDetails}
+          setNewPdDetails={setNewPdDetails}
+        />
+      </div>
     </div>
   ) : (
     <div
@@ -61,9 +72,9 @@ const PdDetailPage = () => {
     >
       <div
         id="content-div"
-        className="my-4 flex w-[90%] flex-col md:w-[80%] lg:my-10 lg:w-[70%]"
+        className="mt-4 flex w-[90%] flex-col md:w-[80%] lg:my-10 lg:w-[70%]"
       >
-        <div id="pd-title" className="flex items-center justify-between">
+        <div id="pd-title" className="flex items-center">
           <h1 className="text-xl">{pdName}</h1>
         </div>
         <div
@@ -97,7 +108,7 @@ const PdDetailPage = () => {
           )}
         </div>
 
-        <div id="first-btns" className="flex justify-between">
+        <div id="first-btns" className="flex gap-6">
           <button
             className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base"
             onClick={toggleEdit}

@@ -52,7 +52,7 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
   return (
     <div
       id="main-div"
-      className="bg-greenGray flex h-screen w-full items-center justify-center lg:justify-between lg:bg-white"
+      className="bg-greenGray flex h-screen w-full justify-center lg:items-center"
     >
       <div
         id="large-screen-div"
@@ -65,15 +65,15 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
       </div>
       <div
         id="content-container"
-        className="lg:bg-greenGray flex h-[90%] w-[85%] flex-col items-center justify-around lg:h-[80%] lg:w-[40%]"
+        className="lg:bg-greenGray mt-10 flex w-[85%] flex-col items-center lg:mt-0 lg:w-[40%] lg:justify-center"
       >
-        <div className="flex h-1/4 w-full justify-center">
-          <PiUserCircleThin className="h-[75%] w-[75%]" />
+        <div className="flex w-full items-center justify-center">
+          <PiUserCircleThin className="h-[60%] w-[60%] lg:h-[25%] lg:w-[25%]" />
         </div>
 
         <form
           onSubmit={handleLogin}
-          className="flex w-full max-w-[380px] flex-col text-sm"
+          className="my-10 flex w-full max-w-[380px] flex-col text-sm"
         >
           <label className="mb-1" htmlFor="username">
             Username
@@ -104,7 +104,7 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
             Sign in
           </button>
         </form>
-        <div className="flex flex-row justify-evenly">
+        <div className="flex w-full flex-row justify-evenly">
           <h2>Don't have an account?</h2>
           <button
             className="text-darkGreen cursor-pointer underline"

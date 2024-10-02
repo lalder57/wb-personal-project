@@ -68,7 +68,7 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
   return (
     <div
       id="main-div"
-      className="bg-greenGray flex h-screen w-full items-center justify-center lg:justify-between lg:bg-white"
+      className="bg-greenGray flex h-screen w-full items-center justify-center lg:justify-between"
     >
       <div
         id="large-screen-div"
@@ -81,14 +81,14 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
       </div>
       <div
         id="content-container"
-        className="lg:bg-greenGray flex h-[90%] w-[85%] flex-col items-center justify-between lg:h-[80%] lg:w-[40%]"
+        className="lg:bg-greenGray flex w-[85%] flex-col items-center justify-around lg:h-[80%] lg:w-[40%]"
       >
         <div className="flex justify-center">
           <h1 className="text-2xl">Create an Account</h1>
         </div>
         <form
           onSubmit={handleRegister}
-          className="flex max-w-[380px] flex-col text-sm"
+          className="my-10 flex max-w-[380px] flex-col text-sm"
         >
           <label className="mb-1" htmlFor="username">
             Username
@@ -219,7 +219,7 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
             Register
           </button>
         </form>
-        <div className="flex flex-row justify-evenly">
+        <div className="flex w-full flex-row justify-evenly">
           <h3>Already have an account?</h3>
 
           <button
