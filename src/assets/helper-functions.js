@@ -4,13 +4,22 @@ const donutChartOptions = (userPds) => {
   const totalPdHours = userPds.reduce((acc, pd) => {
     return acc + pd.pdHours;
   }, 0);
-  
+
   const chartOptions = {
     chart: {
       type: "donut",
+      offsety: -10,
     },
     series: userPds.map((pd) => pd.pdHours),
     labels: userPds.map((pd) => pd.pd.pdName),
+    colors: ["#CCE3DE", "#6B9080", "#A4C3B2"],
+    states: {
+      hover: {
+        filter: {
+          type: "none",
+        },
+      },
+    },
     plotOptions: {
       pie: {
         expandOnClick: false,
@@ -20,18 +29,23 @@ const donutChartOptions = (userPds) => {
             name: {
               show: true,
             },
-            value: {
-              show: true,
-            },
             total: {
               show: true,
               showAlways: true,
-              label: "Total PD Hours:",
+              label: undefined,
+            },
+            value: {
+              show: true,
+              showAlways: true,
+              offsetY: -7,
+              fontWeight: "bold",
+              color: "#6B9080",
               formatter: function () {
                 return totalPdHours;
               },
             },
           },
+          size: "65%",
         },
       },
     },
@@ -40,6 +54,8 @@ const donutChartOptions = (userPds) => {
     },
     legend: {
       position: "bottom",
+      fontSize: "10px",
+      offsetY: 10,
     },
   };
   return { chartOptions };
@@ -58,7 +74,7 @@ const gaugeChartOptions = (user) => {
         startAngle: -90, // Start angle of the radial bar
         endAngle: 90, // End angle of the radial bar
         hollow: {
-          size: "65%", // Size of the hollow area in the center
+          size: "55%", // Size of the hollow area in the center
         },
         track: {
           background: "#e7e7e7", // Track background color
@@ -70,28 +86,28 @@ const gaugeChartOptions = (user) => {
           name: {
             offsetY: -10,
             show: true,
-            color: "#888",
-            fontSize: "17px",
+            color: "#6B9080",
+            fontSize: "14px",
           },
           value: {
             formatter: function () {
               return `${user.currentProgress}/${user.lane.needed}`;
             },
             color: "#111",
-            fontSize: "36px",
+            fontSize: "20px",
             show: true,
-            offsetY: 16,
+            offsetY: 0,
           },
         },
       },
     },
     fill: {
-      colors: ["#00E396"], // Color for the radial bar
+      colors: ["#6B9080"], // Color for the radial bar
     },
     // stroke: {
     //   lineCap: 'round', // Rounded end cap for the stroke
     // },
-    labels: ["Current Progress"], // Label in the center
+    labels: ["Lane Credits"], // Label in the center
   };
 
   return { gaugeOptions };
@@ -108,15 +124,25 @@ const formatNames = (name) => {
     if (i === 0) {
       newName += name[i].toUpperCase();
     } else {
-      newName += name[i]
+      newName += name[i];
     }
   }
-  return newName
-}
+  return newName;
+};
 const toTitleCase = (str) => {
-  return str.toLowerCase().split(' ').map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
-}
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+};
 
-export { donutChartOptions, gaugeChartOptions, displayDate, formatNames, toTitleCase };
+export {
+  donutChartOptions,
+  gaugeChartOptions,
+  displayDate,
+  formatNames,
+  toTitleCase,
+};

@@ -1,32 +1,40 @@
-import { useLoaderData, Link } from "react-router-dom"
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import UserCard from "../components/UserCard";
 
-
-
 const AdminPortal = () => {
-  const {users} = useLoaderData();
+  const { users } = useLoaderData();
+  const navigate = useNavigate();
 
   const userCards = users.map((user) => {
-    return (
-      <UserCard 
-        key={user.userId}
-        user={user}
-      />  
-    )
-  })
-
+    return <UserCard key={user.userId} user={user} />;
+  });
 
   return (
-    <div className="h-full w-full flex flex-col">
-      Welcome to the Admin Portal!
-      <div className="h-full w-full flex flex-row">
-      {userCards}
-      </div>
-      <Link to="/addPdForAll">
-        <button>Add School-Wide PD</button>
-      </Link>
-    </div>
-  )
-}
+    <div
+      id="main-div"
+      className="bg-greenGray flex w-full flex-col items-center lg:h-[90vh] lg:justify-start"
+    >
+      <div
+        id="content-div"
+        className="flex w-[90%] flex-col justify-between lg:h-full lg:items-center lg:justify-start lg:pt-4"
+      >
+        <div
+          id="admin-title-div"
+          className="my-5 ml-1 flex w-full items-center gap-6 lg:w-[95%]"
+        >
+          <h1 className="text-xl">Admin Portal</h1>
 
-export default AdminPortal
+          <button
+            onClick={() => navigate("/addPdForAll")}
+            className="bg-darkGreen border-darkGreen flex h-[34px] w-[40%] min-w-[130px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base"
+          >
+            + School-Wide PD
+          </button>
+        </div>
+        <div id="user-card-div">{userCards}</div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminPortal;

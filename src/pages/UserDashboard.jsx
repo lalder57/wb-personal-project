@@ -66,9 +66,6 @@ const UserDashboard = () => {
 
           const extraInfo = pdTrackerIds[clickedIndex];
 
-          alert(
-            `You clicked on ${clickedLabel} with value ${clickedValue}. Extra Info: ${extraInfo}`,
-          );
           navigate(`/pdTrackers/${extraInfo}`);
         },
         dataPointMouseEnter: function (event) {
@@ -86,16 +83,6 @@ const UserDashboard = () => {
         },
       },
     },
-    // title: {
-    //   text: "Total PD Hours",
-    //   align: "center",
-    //   offsetY: -10,
-    //   style: {
-    //     fontSize: "14px",
-    //     color: "#6B9080",
-    //     fontWeight: "bold",
-    //   },
-    // },
     plotOptions: {
       pie: {
         expandOnClick: false,
