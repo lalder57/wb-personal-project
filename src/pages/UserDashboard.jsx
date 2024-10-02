@@ -58,6 +58,24 @@ const UserDashboard = () => {
     chart: {
       type: "donut",
       events: {
+        animationEnd: undefined,
+        beforeMount: undefined,
+        mounted: undefined,
+        updated: undefined,
+        mouseMove: undefined,
+        mouseLeave: undefined,
+        click: undefined,
+        legendClick: undefined,
+        markerClick: undefined,
+        xAxisLabelClick: undefined,
+        selection: undefined,
+        dataPointMouseLeave: undefined,
+        beforeZoom: undefined,
+        beforeResetZoom: undefined,
+        zoomed: undefined,
+        scrolled: undefined,
+        scrolled: undefined,
+
         dataPointSelection: function (event, chartContext, config) {
           const clickedIndex = config.dataPointIndex;
           const clickedLabel = config.w.config.labels[clickedIndex];
@@ -70,10 +88,31 @@ const UserDashboard = () => {
           );
           navigate(`/pdTrackers/${extraInfo}`);
         },
+        dataPointMouseEnter: function (event) {
+          event.target.style.cursor = "pointer";
+        },
       },
     },
     series: userPds.map((pd) => pd.pdHours),
     labels: userPds.map((pd) => pd.pd.pdName),
+    colors: ["#CCE3DE", "#6B9080", "#A4C3B2"],
+    states: {
+      hover: {
+        filter: {
+          type: "none",
+        },
+      },
+    },
+    title: {
+      text: "Total PD Hours",
+      align: "center",
+      offsetY: -10,
+      style: {
+        fontSize: "14px",
+        color: "#6B9080",
+        fontWeight: "bold",
+      },
+    },
     plotOptions: {
       pie: {
         expandOnClick: false,
@@ -83,26 +122,36 @@ const UserDashboard = () => {
             name: {
               show: true,
             },
-            value: {
-              show: true,
-            },
             total: {
               show: true,
               showAlways: true,
-              label: "Total PD Hours:",
+              label: undefined,
+            },
+            value: {
+              show: true,
+              showAlways: true,
+              offsetY: -7,
+              fontWeight: "bold",
+              color: "#6B9080",
               formatter: function () {
                 return totalPdHours;
               },
             },
           },
+          size: "65%",
         },
       },
     },
     dataLabels: {
       enabled: false,
+      // style: {
+      //   foreColor: "#ffffff",
+      // },
     },
     legend: {
       position: "bottom",
+      fontSize: "10px",
+      offsetY: 10,
     },
   };
 
@@ -119,7 +168,7 @@ const UserDashboard = () => {
         startAngle: -90, // Start angle of the radial bar
         endAngle: 90, // End angle of the radial bar
         hollow: {
-          size: "65%", // Size of the hollow area in the center
+          size: "55%", // Size of the hollow area in the center
         },
         track: {
           background: "#e7e7e7", // Track background color
@@ -131,7 +180,7 @@ const UserDashboard = () => {
           name: {
             offsetY: -10,
             show: true,
-            color: "#888",
+            color: "#6B9080",
             fontSize: "17px",
           },
           value: {
@@ -141,54 +190,18 @@ const UserDashboard = () => {
             color: "#111",
             fontSize: "32px",
             show: true,
-            offsetY: 16,
+            offsetY: 0,
           },
         },
       },
     },
-    responsive: [
-      {
-        breakpoint: 768,
-        options: {
-          plotOptions: {
-            radialBar: {
-              dataLabels: {
-                name: {
-                  fontSize: "14px", // Smaller name font size
-                },
-                value: {
-                  fontSize: "20px", // Smaller value font size
-                },
-              },
-            },
-          },
-        },
-      },
-      {
-        breakpoint: 480, // For screens less than 480px
-        options: {
-          plotOptions: {
-            radialBar: {
-              dataLabels: {
-                name: {
-                  fontSize: "12px", // Even smaller name font size
-                },
-                value: {
-                  fontSize: "16px", // Even smaller value font size
-                },
-              },
-            },
-          },
-        },
-      },
-    ],
     fill: {
-      colors: ["#00E396"], // Color for the radial bar
+      colors: ["#6B9080"], // Color for the radial bar
     },
     // stroke: {
     //   lineCap: 'round', // Rounded end cap for the stroke
     // },
-    labels: ["Lane Progress"], // Label in the center
+    labels: ["Lane Credits"], // Label in the center
   };
 
   // totalCourseCredits for gauge
@@ -233,16 +246,20 @@ const UserDashboard = () => {
         </div>
         <div
           id="pd-container"
-          className="bg-greenGray mb-10 flex h-[40vh] w-full flex-col items-center justify-evenly rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[50vh]"
+          className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-evenly rounded-lg shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[50vh]"
         >
-          <div id="pd-chart-container" className="flex justify-center">
+          <div
+            id="pd-chart-container"
+            className="flex h-full items-center justify-center border border-black"
+          >
             {/* if total pd hours > 0, then show chart */}
             {totalPdHours > 0 && (
               <Chart
                 options={chartOptions}
                 series={chartOptions.series}
                 type="donut"
-                height={250}
+                height={300}
+                // className="h-full"
               />
             )}
             {/* if user hasn't added any pd hours, show message */}
@@ -280,17 +297,17 @@ const UserDashboard = () => {
         </div>
         <div
           id="course-container"
-          className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-around rounded-lg opacity-90 shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[55vh]"
+          className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-around rounded-lg shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[55vh]"
         >
           <div
             id="gauge-container"
-            className="flex h-full w-full items-center justify-center"
+            className="-mb-8 flex scale-125 items-center justify-center"
           >
             <Chart
               options={gaugeOptions}
               series={chartData}
               type="radialBar"
-              className="-mb-6 -mt-8"
+              className=""
             />
           </div>
           <div
@@ -333,6 +350,17 @@ const UserDashboard = () => {
             userLane.laneId === 6 ||
             userLane.laneId === 7 ? (
               <>
+                <div
+                  id="gauge-title-div"
+                  className="flex w-[30%] flex-col items-center"
+                >
+                  <h3 className="text-center text-sm md:text-base lg:text-lg">
+                    Your current salary lane:
+                  </h3>
+                  <h2 className="text-darkGreen text-center text-sm font-semibold md:text-base lg:text-lg">
+                    {userLane.laneName.toLowerCase()}
+                  </h2>
+                </div>
                 <div id="user-degree" className="w-[30%]">
                   <h2 className="text-center text-sm md:text-base lg:text-lg">
                     Your current degree:
@@ -356,6 +384,17 @@ const UserDashboard = () => {
             )}
             {userLane.laneId === 8 && (
               <>
+                <div
+                  id="gauge-title-div"
+                  className="flex w-[30%] flex-col items-center"
+                >
+                  <h3 className="text-center text-sm md:text-base lg:text-lg">
+                    Your current salary lane:
+                  </h3>
+                  <h2 className="text-darkGreen text-center text-sm font-semibold md:text-base lg:text-lg">
+                    {userLane.laneName.toLowerCase()}
+                  </h2>
+                </div>
                 <div id="user-degree" className="w-[30%]">
                   <h2 className="text-center text-sm md:text-base lg:text-lg">
                     Your current degree:
