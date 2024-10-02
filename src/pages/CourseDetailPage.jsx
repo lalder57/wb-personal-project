@@ -49,13 +49,24 @@ const CourseDetailPage = () => {
   console.log(newCourseDetails);
 
   return editMode ? (
-    <div>
-      <EditCourseForm
-        toggleEdit={toggleEdit}
-        newCourseDetails={newCourseDetails}
-        setNewCourseDetails={setNewCourseDetails}
-      />
-      <button onClick={toggleEdit}>Cancel</button>
+    <div
+      id="main-div"
+      className="bg-greenGray flex h-[90vh] w-full justify-center"
+    >
+      <div
+        id="content-div"
+        className="mt-4 flex w-[90%] flex-col md:w-[80%] lg:my-10 lg:w-[70%]"
+      >
+        <div id="course-title" className="flex items-center">
+          <h1 className="text-xl">{courseName}</h1>
+        </div>
+
+        <EditCourseForm
+          toggleEdit={toggleEdit}
+          newCourseDetails={newCourseDetails}
+          setNewCourseDetails={setNewCourseDetails}
+        />
+      </div>
     </div>
   ) : (
     <div
@@ -74,7 +85,7 @@ const CourseDetailPage = () => {
           className="my-10 flex flex-col justify-evenly gap-6"
         >
           <h2 className="flex items-center rounded-md bg-blueGray p-2">
-            Provider of PD: {courseProvider}
+            Provider of Course: {courseProvider}
           </h2>
           <h2 className="flex items-center rounded-md bg-blueGray p-2">
             Number of Credits: {courseCredits}

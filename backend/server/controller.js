@@ -654,7 +654,7 @@ Will return { message: 'PD saved!'}
 
     // ucourseate courseTracker info with the user's new input
 
-    courseTracker.courseProvider = toTitleCase(courseProvider);
+    courseTracker.courseProvider = formatNames(courseProvider);
     courseTracker.courseCredits = courseCredits;
     courseTracker.courseDateCompleted = courseDateCompleted;
     courseTracker.courseDescription = courseDescription;
