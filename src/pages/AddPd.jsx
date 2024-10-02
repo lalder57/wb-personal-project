@@ -27,7 +27,7 @@ const AddPd = () => {
   // if createNewPdButton is clicked, then display the createNewPdForm
 
   // create functions for the two buttons in the two forms to send the axios calls when they are clicked
-  const handleNewPD = async (e) => {
+  const handleNewPd = async (e) => {
     e.preventDefault();
     const formData = {
       pdName,
@@ -48,110 +48,169 @@ const AddPd = () => {
   };
 
   return (
-    <>
-      <h1>Search for an existing PD -</h1>
-
-      {/* 
-      -users can search the DB for an existing PD. If it exists, 
-      -selecting it will open a new page/modal/something with the PdTracker form that will have provider, hours, 
+    <div
+      id="main-div"
+      className="bg-greenGray flex h-[90vh] w-full justify-center"
+    >
+      <div
+        id="content-div"
+        className="mt-6 flex w-[90%] flex-col md:w-[80%] lg:w-[70%]"
+      >
+        {/* 
+      -users can search the DB for an existing course. If it exists, 
+      -selecting it will open a new page/modal/something with the courseTracker form that will have provider, hours, 
       dateCompleted, description, reflection, recommend input fields.
-      -this PdTracker form will have a save PD button that will add it to the DB */}
+      -this courseTracker form will have a save course button that will add it to the DB */}
+        {!showAddPdForm && (
+          <>
+            <div id="add-pd-title" className="flex items-center lg:mt-6">
+              <h1 className="text-xl">Choose from existing courses</h1>
+            </div>
 
-      <form>
-        <label>
-          PD Name:
-          <select
-            value={pdName}
-            required
-            onChange={(e) => setPdName(e.target.value)}
-          >
-            <option value="" disabled>
-              Select an option
-            </option>
-            {/* do a map to populate the options as the existing pds */}
-            {allPds.map((pd) => {
-              return (
-                <option key={pd.pdId} value={pd.pdName}>
-                  {pd.pdName}
+            <form className="mb-10 mt-4 flex flex-col gap-4">
+              <select
+                value={pdName}
+                required
+                onChange={(e) => setPdName(e.target.value)}
+                className="h-[34px] w-[40%] max-w-[263px] cursor-pointer rounded-lg bg-blueGray px-2"
+              >
+                <option value="" disabled>
+                  Select a PD
                 </option>
-              );
-            })}
-          </select>
-          <button
-            type="submit"
-            disabled={!pdName}
-            onClick={(e) => {
-              e.preventDefault();
-              setShowAddPdForm(true);
-            }}
-          >
-            Add PD
-          </button>
-        </label>
-      </form>
+                {/* do a map of the database courseNames to populate the options of this select */}
+                {allPds.map((pd) => (
+                  <option key={pd.pdId} value={pd.pdName}>
+                    {pd.pdName}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="submit"
+                disabled={!pdName}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowAddPdForm(true);
+                }}
+                className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base"
+              >
+                Submit
+              </button>
+            </form>
+          </>
+        )}
 
-      {/* If user clicks the Add PD button */}
+        {/* If user clicks the Add course button */}
 
-      {showAddPdForm && (
-        <>
-          <h1>AddPdForm</h1>
-          <form onSubmit={handleNewPD}>
-            <label htmlFor="pdProvider">Name of Provider:</label>
-            <input
-              value={pdProvider}
-              type="text"
-              required
-              onChange={(e) => setPdProvider(e.target.value)}
-            />
-            <label htmlFor="pdHours">Number of Hours:</label>
-            <input
-              value={pdHours}
-              type="number"
-              required
-              onChange={(e) => setPdHours(e.target.value)}
-            />
-            <label htmlFor="pdDateCompleted">Date Completed:</label>
-            <input
-              value={pdDateCompleted}
-              type="date"
-              required
-              onChange={(e) => setPdDateCompleted(e.target.value)}
-            />
-            <label htmlFor="pdDescription">Description:</label>
-            <input
-              value={pdDescription}
-              type="text"
-              onChange={(e) => setPdDescription(e.target.value)}
-            />
-            <label htmlFor="pdReflection">Reflection:</label>
-            <input
-              value={pdReflection}
-              type="text"
-              onChange={(e) => setPdReflection(e.target.value)}
-            />
-            <label htmlFor="pdRecommend">
-              Would you recommend this to other teachers?
-            </label>
-            <input
-              value={pdRecommend}
-              type="checkbox"
-              checked={pdRecommend}
-              onChange={(e) => setPdRecommend(e.target.checked)}
-            />
-            <button type="submit">Save PD</button>
-          </form>
-        </>
-      )}
+        {showAddPdForm && (
+          <>
+            <h1 className="text-xl lg:mt-6">{pdName}</h1>
+            <form
+              onSubmit={handleNewPd}
+              className="my-10 flex flex-col text-sm"
+            >
+              <label className="mb-1" htmlFor="pdProvider">
+                Name of Provider
+              </label>
+              <input
+                value={pdProvider}
+                type="text"
+                required
+                onChange={(e) => setPdProvider(e.target.value)}
+                className="mb-6 h-10 rounded-lg px-2"
+              />
+              <label className="mb-1" htmlFor="pdHours">
+                Number of Hours
+              </label>
+              <input
+                value={pdHours}
+                type="number"
+                required
+                onChange={(e) => setPdHours(e.target.value)}
+                className="mb-6 h-10 rounded-lg px-2"
+              />
+              <label className="mb-1" htmlFor="pdDateCompleted">
+                Date Completed
+              </label>
+              <input
+                value={pdDateCompleted}
+                type="date"
+                required
+                onChange={(e) => setPdDateCompleted(e.target.value)}
+                className="mb-6 h-10 rounded-lg px-2"
+              />
+              <label className="mb-1" htmlFor="pdDescription">
+                Description
+              </label>
+              <textarea
+                value={pdDescription}
+                onChange={(e) => setPdDescription(e.target.value)}
+                className="mb-6 h-20 rounded-lg border border-black p-2"
+              />
+              <label className="mb-1" htmlFor="pdReflection">
+                Reflection
+              </label>
+              <textarea
+                value={pdReflection}
+                onChange={(e) => setPdReflection(e.target.value)}
+                className="mb-6 h-20 rounded-lg border border-black p-2"
+              />
+              <div
+                id="pdRecommend-div"
+                className="mb-10 flex h-10 items-center gap-5"
+              >
+                <label className="mb-1" htmlFor="pdRecommend">
+                  Would you recommend this to other teachers?
+                </label>
+                <input
+                  value={pdRecommend}
+                  type="checkbox"
+                  checked={pdRecommend}
+                  onChange={(e) => setPdRecommend(e.target.checked)}
+                  className="mb-1 h-5 w-5"
+                />
+              </div>
+              <div id="btn-contianer" className="flex gap-6">
+                <button
+                  className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base"
+                  type="submit"
+                >
+                  Save PD
+                </button>
+                <button
+                  className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base"
+                  onClick={() => setShowAddPdForm(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </>
+        )}
 
-      <h2>Don't see it?</h2>
-      <Link to={'/CreatePdPage'}>
-        <button>Create New PD</button>
-      </Link>
-
-      <Link to='/userDashboard'>
-        <button>Cancel</button>
-      </Link>
-    </>
+        {!showAddPdForm && (
+          <div id="create-pd-option-div">
+            <h2 className="mb-2 text-xl">Don't see it?</h2>
+            <div id="btn-container" className="flex flex-col">
+              <Link
+                to={"/CreatePdPage"}
+                className="h-[34px] w-[25%] min-w-[140px] max-w-[175px]"
+              >
+                <button className="bg-darkGreen border-darkGreen flex h-full w-full items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base">
+                  Create New PD
+                </button>
+              </Link>
+            </div>
+            <div id="second-btn" className="absolute bottom-5">
+              <Link to="/myPds">
+                <button className="text-darkGreen text-sm underline underline-offset-2 md:text-base lg:text-base">
+                  Return to PD List
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

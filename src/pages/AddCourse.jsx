@@ -58,7 +58,7 @@ const AddCourse = () => {
     >
       <div
         id="content-div"
-        className="mt-4 flex w-[90%] flex-col md:w-[80%] lg:w-[70%]"
+        className="mt-6 flex w-[90%] flex-col md:w-[80%] lg:w-[70%]"
       >
         {/* 
       -users can search the DB for an existing course. If it exists, 
@@ -67,7 +67,7 @@ const AddCourse = () => {
       -this courseTracker form will have a save course button that will add it to the DB */}
         {!showAddCourseForm && (
           <>
-            <div id="add-course-title" className="flex items-center">
+            <div id="add-course-title" className="flex items-center lg:mt-6">
               <h1 className="text-xl">Choose from existing courses</h1>
             </div>
 
@@ -76,7 +76,7 @@ const AddCourse = () => {
                 value={courseName}
                 required
                 onChange={(e) => setCourseName(e.target.value)}
-                className="h-[34px] w-[40%] rounded-lg bg-blueGray px-2"
+                className="h-[34px] w-[45%] min-w-[156px] max-w-[263px] cursor-pointer rounded-lg bg-blueGray px-2"
               >
                 <option value="" disabled>
                   Select a Course
@@ -107,7 +107,7 @@ const AddCourse = () => {
 
         {showAddCourseForm && (
           <>
-            <h1 className="text-xl">{courseName}</h1>
+            <h1 className="text-xl lg:mt-6">{courseName}</h1>
             <form
               onSubmit={handleNewCourse}
               className="my-10 flex flex-col text-sm"
