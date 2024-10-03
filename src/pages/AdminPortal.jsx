@@ -20,7 +20,7 @@ const AdminPortal = () => {
       >
         <div
           id="admin-title-div"
-          className="my-5 ml-1 flex w-full items-center gap-6 lg:w-[95%]"
+          className="my-5 ml-1 flex w-[99%] items-center justify-between lg:w-[95%]"
         >
           <h1 className="text-xl">Admin Portal</h1>
 
@@ -31,7 +31,9 @@ const AdminPortal = () => {
             + School-Wide PD
           </button>
         </div>
-        <div id="user-card-div">{userCards}</div>
+        <div id="user-card-div" className="">
+          {userCards}
+        </div>
       </div>
     </div>
   );

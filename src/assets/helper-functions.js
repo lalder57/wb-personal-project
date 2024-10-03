@@ -58,7 +58,7 @@ const donutChartOptions = (userPds) => {
       offsetY: 10,
     },
   };
-  return { chartOptions };
+  return { chartOptions, totalPdHours };
 };
 
 const gaugeChartOptions = (user) => {
