@@ -72,7 +72,7 @@ const EditPdForm = ({ toggleEdit, newPdDetails, setNewPdDetails }) => {
         className="mb-6 h-10 rounded-lg px-2"
       />
       <label className="mb-1" htmlFor="pdDescription">
-        Description
+        Description (optional)
       </label>
       <textarea
         value={pdDescription}
@@ -80,7 +80,7 @@ const EditPdForm = ({ toggleEdit, newPdDetails, setNewPdDetails }) => {
         className="mb-6 h-20 rounded-lg border border-black p-2"
       />
       <label className="mb-1" htmlFor="pdReflection">
-        Reflection
+        Reflection (optional)
       </label>
       <textarea
         value={pdReflection}

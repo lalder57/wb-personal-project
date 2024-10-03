@@ -72,7 +72,7 @@ const EditCourseForm = ({
         required
         min={0}
         max={5}
-        onChange={(e) => setCourseHours(e.target.value)}
+        onChange={(e) => setCourseCredits(e.target.value)}
         className="mb-6 h-10 rounded-lg px-2"
       />
       <label className="mb-1" htmlFor="courseDateCompleted">
@@ -86,7 +86,7 @@ const EditCourseForm = ({
         className="mb-6 h-10 rounded-lg px-2"
       />
       <label className="mb-1" htmlFor="courseDescription">
-        Description
+        Description (optional)
       </label>
       <textarea
         value={courseDescription}
@@ -94,7 +94,7 @@ const EditCourseForm = ({
         className="mb-6 h-20 rounded-lg border border-black p-2"
       />
       <label className="mb-1" htmlFor="courseReflection">
-        Reflection
+        Reflection (optional)
       </label>
       <textarea
         value={courseReflection}

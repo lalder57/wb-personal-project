@@ -68,7 +68,7 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
         className="lg:bg-greenGray mt-10 flex w-[85%] flex-col items-center lg:mt-0 lg:w-[40%] lg:justify-center"
       >
         <div className="flex w-full items-center justify-center">
-          <PiUserCircleThin className="h-[60%] w-[60%] md:h-[45%] md:w-[45%] lg:h-[25%] lg:w-[25%]" />
+          <PiUserCircleThin className="h-[60%] w-[60%] md:h-[45%] md:w-[45%] lg:h-[20%] lg:w-[20%]" />
         </div>
 
         <form

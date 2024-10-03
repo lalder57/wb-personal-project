@@ -39,12 +39,11 @@ const AddPd = () => {
       pdRecommend,
     };
     const res = await axios.post("/api/addPd", formData);
-    console.log(res.data);
 
     // send some form of alert to the user so they know if their attempt was successful
     alert(res.data.message);
     // send back to userDashboard (has a loader to get new info from DB)
-    navigate("/userDashboard");
+    navigate(-1);
   };
 
   return (
@@ -139,7 +138,7 @@ const AddPd = () => {
                 className="mb-6 h-10 rounded-lg px-2"
               />
               <label className="mb-1" htmlFor="pdDescription">
-                Description
+                Description (optional)
               </label>
               <textarea
                 value={pdDescription}
@@ -147,7 +146,7 @@ const AddPd = () => {
                 className="mb-6 h-20 rounded-lg border border-black p-2"
               />
               <label className="mb-1" htmlFor="pdReflection">
-                Reflection
+                Reflection (optional)
               </label>
               <textarea
                 value={pdReflection}

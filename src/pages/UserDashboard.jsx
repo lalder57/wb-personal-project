@@ -238,11 +238,11 @@ const UserDashboard = () => {
               </div>
               <div
                 id="pd-btn-container"
-                className="flex h-[13.5%] min-h-12 w-full items-center justify-around md:justify-center md:gap-16 lg:justify-center lg:gap-16"
+                className="flex h-[13.5%] min-h-12 w-full items-center justify-around"
               >
                 <Link
                   to="/addPd"
-                  className="flex h-[70%] min-h-[34px] w-[40%] max-w-[175px] items-center justify-center"
+                  className="flex h-[70%] min-h-[34px] w-[30%] max-w-[175px] items-center justify-center"
                 >
                   <button className="border-darkGreen bg-darkGreen flex h-full w-full items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
                     + New PD
@@ -250,7 +250,7 @@ const UserDashboard = () => {
                 </Link>
                 <Link
                   to="/myPds"
-                  className="flex h-[70%] min-h-[34px] w-[40%] max-w-[175px] items-center justify-center"
+                  className="flex h-[70%] min-h-[34px] w-[30%] max-w-[175px] items-center justify-center"
                 >
                   <button className="border-darkGreen bg-darkGreen flex h-full w-full items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
                     See All PDs
@@ -418,7 +418,7 @@ const UserDashboard = () => {
           > */}
               <div
                 id="course-btn-container"
-                className="flex h-[13.5%] min-h-12 w-full items-center justify-around md:justify-center md:gap-16 lg:justify-center lg:gap-4"
+                className="flex h-[13.5%] min-h-12 w-full items-center justify-around"
               >
                 <Link
                   to="/addCourse"

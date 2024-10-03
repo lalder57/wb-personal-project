@@ -43,12 +43,11 @@ const AddCourse = () => {
       courseRecommend,
     };
     const res = await axios.post("/api/addCourse", formData);
-    console.log(res.data);
 
     // send some form of alert to the user so they know if their attempt was successful
     alert(res.data.message);
     // send back to userDashboard (has a loader to get new info from DB)
-    navigate("/userDashboard");
+    navigate(-1);
   };
 
   return (
@@ -113,7 +112,7 @@ const AddCourse = () => {
               className="my-10 flex flex-col text-sm"
             >
               <label className="mb-1" htmlFor="courseProvider">
-                Name of Provider:
+                Name of Provider
               </label>
               <input
                 value={courseProvider}
@@ -123,19 +122,19 @@ const AddCourse = () => {
                 className="mb-6 h-10 rounded-lg px-2"
               />
               <label className="mb-1" htmlFor="courseCredits">
-                Number of Credits:
+                Number of Credits
               </label>
               <input
                 value={courseCredits}
                 type="number"
-                // min={0}
-                // max={5}
+                min={0}
+                max={5}
                 required
                 onChange={(e) => setCourseCredits(e.target.value)}
                 className="mb-6 h-10 rounded-lg px-2"
               />
               <label className="mb-1" htmlFor="courseDateCompleted">
-                Date Completed:
+                Date Completed
               </label>
               <input
                 value={courseDateCompleted}
@@ -145,7 +144,7 @@ const AddCourse = () => {
                 className="mb-6 h-10 rounded-lg px-2"
               />
               <label className="mb-1" htmlFor="courseDescription">
-                Description:
+                Description (optional)
               </label>
               <textarea
                 value={courseDescription}
@@ -153,7 +152,7 @@ const AddCourse = () => {
                 className="mb-6 h-20 rounded-lg border border-black p-2"
               />
               <label className="mb-1" htmlFor="courseReflection">
-                Reflection:
+                Reflection (optional)
               </label>
               <textarea
                 value={courseReflection}

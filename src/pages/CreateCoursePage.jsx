@@ -99,7 +99,7 @@ const CreateCoursePage = () => {
             className="mb-6 h-10 rounded-lg px-2"
           />
           <label className="mb-1" htmlFor="courseDescription">
-            Description
+            Description (optional)
           </label>
           <textarea
             value={courseDescription}
@@ -107,7 +107,7 @@ const CreateCoursePage = () => {
             className="mb-6 h-20 rounded-lg border border-black p-2"
           />
           <label className="mb-1" htmlFor="courseReflection">
-            Reflection
+            Reflection (optional)
           </label>
           <textarea
             value={courseReflection}
