@@ -11,7 +11,6 @@ const PdDetailPage = () => {
 
   const navigate = useNavigate();
 
-  console.log("newPdDetails: ", newPdDetails);
   const {
     pd,
     pdTrackerId,

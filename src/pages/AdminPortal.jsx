@@ -31,10 +31,7 @@ const AdminPortal = () => {
             + School-Wide PD
           </button>
         </div>
-        {/* <div
-          id="big-screen-card-container"
-          className="border border-black lg:flex lg:w-[70%] lg:flex-row"
-        > */}
+
         <div
           id="user-card-div"
           className="lg:mt-10 lg:flex lg:w-full lg:flex-wrap lg:gap-10"

@@ -1,14 +1,11 @@
 import LogoutButton from "./LogoutButton";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { IoHome } from "react-icons/io5";
-import { GiBookshelf } from "react-icons/gi";
+import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 
 const Header = () => {
   const admin = useSelector((state) => state.admin);
-  console.log("HEADER ADMIN:", admin);
 
   const [showMenu, setShowMenu] = useState(false);
 

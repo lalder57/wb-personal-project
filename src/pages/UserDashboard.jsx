@@ -1,18 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { useNavigate, Link, useLoaderData, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
-import UpdateDegreeForm from "../components/UpdateDegreeForm";
 import Chart from "react-apexcharts";
-import { PiUserCircleThin } from "react-icons/pi";
 
 const UserDashboard = () => {
   const admin = useSelector((state) => state.admin);
-  console.log(`DASHBOARD ADMIN: ${admin}`);
 
   // redux value for admin, if true, conditionally render the adminDashboard
-  const dispatch = useDispatch();
   const {
     fname,
     lname,
@@ -27,28 +22,10 @@ const UserDashboard = () => {
   const [showUpdateDegree, setShowUpdateDegree] = useState(false);
 
   const navigate = useNavigate();
-  // const userId = useSelector((state) => state.userId); // from redux
-  console.log(userId);
-  // console.log(userDegree);
-  console.log(`LOADER ADMIN: ${userAdmin}`);
 
-  console.log(userPds);
-  console.log(userCourses);
-
-  // dispatch the Redux store to update the value of admin
-  // if (userAdmin) {
-  //   console.log("FOUND ADMIN")
-  //   dispatch({
-  //     type: "ADMIN_AUTH",
-  //     payload: {userId: userId, admin: userAdmin}
-  //   })
-  // }
-
-  console.log(userPds.map((pd) => pd.pdTrackerId));
   const pdTrackerIds = userPds.map((pd) => pd.pdTrackerId);
 
   // pd donut chart stuff
-  console.log(userPds.map((pd) => pd.pdHours));
   // totalPdHours to be displayed in the chart title
   const totalPdHours = userPds.reduce((acc, pd) => {
     return acc + pd.pdHours;
@@ -165,9 +142,7 @@ const UserDashboard = () => {
     fill: {
       colors: ["#6B9080"], // Color for the radial bar
     },
-    // stroke: {
-    //   lineCap: 'round', // Rounded end cap for the stroke
-    // },
+
     labels: ["Lane Credits"], // Label in the center
   };
 
@@ -177,8 +152,6 @@ const UserDashboard = () => {
   }, 0);
   // Chart data (Progress percentage)
   const chartData = [percentage];
-  // const chartData = [((userCurrentProgress / + userLane.needed) * 100).toFixed(2)];
-  // console.log(totalCourseCredits);
 
   // can't view userDashboard if you aren't logged in
   useEffect(() => {
