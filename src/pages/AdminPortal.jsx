@@ -12,15 +12,15 @@ const AdminPortal = () => {
   return (
     <div
       id="main-div"
-      className="bg-greenGray flex w-full flex-col items-center lg:h-[90vh] lg:justify-start"
+      className="bg-greenGray flex w-full flex-col items-center lg:mb-56 lg:justify-start"
     >
       <div
         id="content-div"
-        className="flex w-[90%] flex-col justify-between lg:h-full lg:items-center lg:justify-start lg:pt-4"
+        className="flex w-[90%] flex-col justify-between md:w-[80%] md:pt-6 lg:h-full lg:w-[70%] lg:items-center lg:justify-start"
       >
         <div
           id="admin-title-div"
-          className="my-5 ml-1 flex w-[99%] items-center justify-between lg:w-[95%]"
+          className="my-5 ml-1 flex w-[99%] items-center justify-between lg:w-full lg:justify-start lg:gap-12"
         >
           <h1 className="text-xl">Admin Portal</h1>
 
@@ -31,9 +31,17 @@ const AdminPortal = () => {
             + School-Wide PD
           </button>
         </div>
-        <div id="user-card-div" className="">
+        {/* <div
+          id="big-screen-card-container"
+          className="border border-black lg:flex lg:w-[70%] lg:flex-row"
+        > */}
+        <div
+          id="user-card-div"
+          className="lg:mt-10 lg:flex lg:w-full lg:flex-wrap lg:gap-10"
+        >
           {userCards}
         </div>
+        {/* </div> */}
       </div>
     </div>
   );

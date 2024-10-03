@@ -69,6 +69,13 @@ const MyCoursesPage = () => {
             </button>
           </Link>
         </div>
+        <div id="second-btns" className="absolute bottom-5">
+          <Link to="/userDashboard">
+            <button className="text-darkGreen text-sm underline underline-offset-2 md:text-base lg:text-base">
+              Return to Dashboard
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

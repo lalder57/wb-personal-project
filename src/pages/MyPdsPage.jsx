@@ -34,7 +34,7 @@ const MyPdsPage = () => {
   });
 
   const data = eachPd;
-  
+
   return (
     <div className="bg-greenGray flex h-[90vh] w-full justify-center">
       <div
@@ -63,6 +63,13 @@ const MyPdsPage = () => {
           <Link to="/addPd">
             <button className="bg-darkGreen border-darkGreen flex h-[34px] w-[25%] min-w-[110px] max-w-[175px] items-center justify-center rounded-lg text-sm font-semibold text-white md:text-base lg:text-base">
               + PD
+            </button>
+          </Link>
+        </div>
+        <div id="second-btns" className="absolute bottom-5">
+          <Link to="/userDashboard">
+            <button className="text-darkGreen text-sm underline underline-offset-2 md:text-base lg:text-base">
+              Return to Dashboard
             </button>
           </Link>
         </div>

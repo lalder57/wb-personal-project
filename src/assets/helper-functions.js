@@ -53,9 +53,7 @@ const donutChartOptions = (userPds) => {
       enabled: false,
     },
     legend: {
-      position: "bottom",
-      fontSize: "10px",
-      offsetY: 10,
+      show: false,
     },
   };
   return { chartOptions, totalPdHours };

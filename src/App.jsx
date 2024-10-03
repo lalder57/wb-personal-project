@@ -50,8 +50,8 @@ function App() {
         )} */}
         {userId && <Header />}
       </div>
-      <div className="">
-        <main>
+      <div className="bg-greenGray">
+        <main className="bg-greenGray">
           <Outlet />
         </main>
       </div>

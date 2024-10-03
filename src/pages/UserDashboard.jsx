@@ -230,11 +230,13 @@ const UserDashboard = () => {
               id="pd-container"
               className="bg-greenGray mb-10 flex h-[45vh] w-full flex-col items-center justify-center rounded-lg shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] lg:h-[75%] lg:w-[90%]"
             >
-              <div id="chart-title-div">
-                <h3 className="text-darkGreen text-sm font-bold md:text-base lg:text-lg">
-                  Total PD Hours:
-                </h3>
-              </div>
+              {totalPdHours > 0 && (
+                <div id="chart-title-div">
+                  <h3 className="text-darkGreen text-sm font-bold md:text-base lg:text-lg">
+                    Total PD Hours:
+                  </h3>
+                </div>
+              )}
               <div
                 id="pd-chart-container"
                 className="my-2 flex h-[65%] items-center justify-center lg:-mt-6 lg:scale-110"
@@ -250,10 +252,15 @@ const UserDashboard = () => {
                 )}
                 {/* if user hasn't added any pd hours, show message */}
                 {totalPdHours <= 0 && (
-                  <h2>
-                    You haven't recorded any professional development hours yet.{" "}
-                    <br /> Click the button below to get started!
-                  </h2>
+                  <div id="no-pd-hours-div" className="-mt-10 w-[70%] lg:-mt-0">
+                    <h2 className="mb-5 text-center text-lg">
+                      You haven't recorded any professional development hours
+                      yet.
+                    </h2>
+                    <h2 className="text-center text-lg">
+                      Add a PD to get started!
+                    </h2>
+                  </div>
                 )}
               </div>
               <div
@@ -265,7 +272,7 @@ const UserDashboard = () => {
                   className="flex h-[70%] min-h-[34px] w-[40%] max-w-[175px] items-center justify-center"
                 >
                   <button className="border-darkGreen bg-darkGreen flex h-full w-full items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
-                    Add New PD
+                    + New PD
                   </button>
                 </Link>
                 <Link
@@ -438,19 +445,19 @@ const UserDashboard = () => {
           > */}
               <div
                 id="course-btn-container"
-                className="flex h-[13.5%] min-h-12 w-full items-center justify-around md:justify-center md:gap-16 lg:h-[15%] lg:justify-center lg:gap-16"
+                className="flex h-[13.5%] min-h-12 w-full items-center justify-around md:justify-center md:gap-16 lg:justify-center lg:gap-4"
               >
                 <Link
                   to="/addCourse"
-                  className="flex h-[70%] min-h-[34px] w-[40%] max-w-[175px] items-center justify-center"
+                  className="flex h-[70%] min-h-[34px] w-[30%] max-w-[175px] items-center justify-center"
                 >
                   <button className="border-darkGreen bg-darkGreen flex h-full w-full items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
-                    Add New Course
+                    + New Course
                   </button>
                 </Link>
                 <Link
                   to="/myCourses"
-                  className="flex h-[70%] min-h-[34px] w-[40%] max-w-[175px] items-center justify-center"
+                  className="flex h-[70%] min-h-[34px] w-[30%] max-w-[175px] items-center justify-center"
                 >
                   <button className="border-darkGreen bg-darkGreen flex h-full w-full items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
                     See All Courses
@@ -460,9 +467,9 @@ const UserDashboard = () => {
                 {showUpdateDegree && (
                   <Link
                     to="/updateDegree"
-                    className="flex h-[70%] min-h-[34px] w-[40%] max-w-[175px] items-center justify-center"
+                    className="flex h-[70%] min-h-[34px] w-[30%] max-w-[175px] items-center justify-center"
                   >
-                    <button className="border-darkGreen bg-darkGreen flex h-[70%] min-h-8 w-[90%] max-w-[144px] items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
+                    <button className="border-darkGreen bg-darkGreen flex h-full w-full items-center justify-center rounded-lg border text-sm text-white md:text-base lg:text-lg">
                       Update Degree
                     </button>
                   </Link>

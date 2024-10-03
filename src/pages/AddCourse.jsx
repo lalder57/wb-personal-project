@@ -209,7 +209,7 @@ const AddCourse = () => {
             <div id="second-btn" className="absolute bottom-5">
               <Link to="/myCourses">
                 <button className="text-darkGreen text-sm underline underline-offset-2 md:text-base lg:text-base">
-                  Return Course List
+                  Return to Course List
                 </button>
               </Link>
             </div>

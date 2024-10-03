@@ -31,7 +31,7 @@ const Header = () => {
                 onClick={() => setShowMenu(!showMenu)}
                 className="text-xl text-white"
               >
-                Home
+                Dashboard
                 <hr className="border-white" />
               </NavLink>
               <NavLink
@@ -82,32 +82,52 @@ const Header = () => {
         <div className="flex w-screen flex-row items-center justify-around">
           <NavLink
             to="/userDashboard"
-            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
+            className={({ isActive }) =>
+              `hover:bg-darkGreen flex h-10 w-32 items-center justify-center rounded-md text-center text-xl text-white ${
+                isActive && "bg-darkGreen"
+              }`
+            }
           >
-            Home
+            Dashboard
           </NavLink>
           <NavLink
             to="/myPds"
-            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
+            className={({ isActive }) =>
+              `hover:bg-darkGreen flex h-10 w-32 items-center justify-center rounded-md text-center text-xl text-white ${
+                isActive && "bg-darkGreen"
+              }`
+            }
           >
             My PDs
           </NavLink>
           <NavLink
             to="/myCourses"
-            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
+            className={({ isActive }) =>
+              `hover:bg-darkGreen flex h-10 w-32 items-center justify-center rounded-md text-center text-xl text-white ${
+                isActive && "bg-darkGreen"
+              }`
+            }
           >
             My Courses
           </NavLink>
           <NavLink
             to="/myProfile"
-            className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
+            className={({ isActive }) =>
+              `hover:bg-darkGreen flex h-10 w-32 items-center justify-center rounded-md text-center text-xl text-white ${
+                isActive && "bg-darkGreen"
+              }`
+            }
           >
             My Profile
           </NavLink>
           {admin && (
             <NavLink
               to="/adminPortal"
-              className="w-32 rounded-md border-darkGray text-center text-xl text-white focus-within:bg-darkGray hover:bg-darkGray"
+              className={({ isActive }) =>
+                `hover:bg-darkGreen flex h-10 w-32 items-center justify-center rounded-md text-center text-xl text-white ${
+                  isActive && "bg-darkGreen"
+                }`
+              }
             >
               Admin Portal
             </NavLink>

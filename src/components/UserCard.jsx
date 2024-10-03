@@ -13,22 +13,22 @@ const UserCard = ({ user }) => {
   const { totalPdHours } = donutChartOptions(user.pd_trackers);
 
   return (
-    <div className="mb-10 flex h-[55vh] flex-col items-center rounded-lg shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)]">
+    <div className="mb-10 flex h-[55vh] flex-col items-center rounded-lg shadow-[0_0px_20px_4px_rgba(0,0,0,0.1)] md:h-[50vh] lg:mb-0 lg:h-[50vh]">
       <div id="content-div" className="flex h-full w-[90%] flex-col">
-        <h1 className="my-2 text-xl">
+        <h1 className="my-2 text-xl font-semibold md:my-4 lg:mt-4">
           {user.fname} {user.lname}
         </h1>
         <div id="pd-div" className="mb-2 flex w-full lg:w-[90%]">
           <h2 className="text-lg">Professional Development:</h2>
         </div>
         <div id="chart-title-div" className="flex justify-center">
-          <h3 className="text-darkGreen text-sm font-bold md:text-base lg:text-lg">
+          <h3 className="text-darkGreen text-sm font-bold md:text-base">
             Total PD Hours:
           </h3>
         </div>
         <div
           id="pd-chart-container"
-          className="mb-2 flex h-[42%] scale-[.8] items-center justify-center lg:-mt-6 lg:scale-110"
+          className="mb-2 flex h-[42%] scale-[.8] items-center justify-center lg:-mt-4 lg:mb-0"
         >
           {/* if total pd hours > 0, then show chart */}
           {totalPdHours > 0 && (
@@ -51,7 +51,7 @@ const UserCard = ({ user }) => {
         </div>
         <div
           id="gauge-container"
-          className="flex items-center justify-center lg:scale-[1.4]"
+          className="flex items-center justify-center md:scale-[1.2]"
         >
           <Chart
             options={gaugeOptions}
