@@ -98,7 +98,7 @@ const LoginForm = ({ setShowRegister, setShowLogin }) => {
             className="mb-16 h-10 rounded-lg px-2"
           />
           <button
-            className="bg-lightGreen border-lightGreen h-10 rounded-lg border font-semibold text-white"
+            className="bg-darkGreen border-darkGreen h-10 rounded-lg border font-semibold text-white"
             type="submit"
           >
             Sign in

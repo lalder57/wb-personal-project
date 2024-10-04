@@ -213,7 +213,7 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
             </div>
           </div>
           <button
-            className="bg-lightGreen border-lightGreen h-10 rounded-lg font-semibold text-white"
+            className="bg-darkGreen border-darkGreen h-10 rounded-lg font-semibold text-white"
             type="submit"
           >
             Register
