@@ -652,7 +652,22 @@ Will return { message: 'PD saved!'}
       courseRecommend,
     } = req.body;
 
-    // ucourseate courseTracker info with the user's new input
+    // update user curentProgress to adjust to the edited courseTracker
+
+    // find the difference
+    const difference = courseTracker.courseCredits - courseCredits;
+
+    const { userId } = req.session;
+    const user = await User.findOne({
+      where: {
+        userId: userId,
+      },
+    });
+
+    user.currentProgress -= difference;
+    await user.save();
+
+    // update courseTracker info with the user's new input
 
     courseTracker.courseProvider = formatNames(courseProvider);
     courseTracker.courseCredits = courseCredits;

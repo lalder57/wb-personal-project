@@ -37,6 +37,7 @@ const router = createBrowserRouter(
         element={<UserDashboard />}
         loader={async () => {
           const res = await axios.get("/api/userInfo");
+          console.log(`USER CURRENT PROGRESS: ${res.data.userCurrentProgress}`);
           return {
             fname: res.data.fname,
             lname: res.data.lname,
