@@ -3,7 +3,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const LogoutButton = () => {
   const dispatch = useDispatch();

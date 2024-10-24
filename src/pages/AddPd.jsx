@@ -63,7 +63,7 @@ const AddPd = () => {
         {!showAddPdForm && (
           <>
             <div id="add-pd-title" className="flex items-center lg:mt-6">
-              <h1 className="text-xl">Choose from existing courses</h1>
+              <h1 className="text-xl">Choose from existing PDs</h1>
             </div>
 
             <form className="mb-10 mt-4 flex flex-col gap-4">

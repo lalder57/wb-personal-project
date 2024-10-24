@@ -74,10 +74,12 @@ const RegisterForm = ({ setShowLogin, setShowRegister }) => {
         id="large-screen-div"
         className="bg-lightGreen flex h-screen w-[60%] flex-col items-center justify-center max-lg:hidden"
       >
-        <h1 className="mb-10 text-5xl font-normal text-mint">
+        <h1 className="text-darkGreen mb-10 text-5xl font-normal">
           EDUCATOR EXCELLENCE
         </h1>
-        <h2 className="text-4xl font-light text-mint">Start Tracking Today</h2>
+        <h2 className="text-darkGreen text-4xl font-light">
+          Start Tracking Today
+        </h2>
       </div>
       <div
         id="content-container"
